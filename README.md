@@ -7,5 +7,8 @@
 ## 📚 About api.edurankcr
 [api.edurankcr.com](https://api.edurankcr.com) is the backend service for [EduRankCR](https://edurankcr.com), a web-based platform that enables users to evaluate and exchange opinions about professors and educational institutions in Costa Rica. It provides structured access to reviews, ratings, and institutional data, helping students and educators make informed academic decisions.
 
+## 🗂 Database Diagram
+🔗 **Access the DB Diagram:** [Click here](https://dbdiagram.io/d/edurankcr-com-db-67ad3e37263d6cf9a0f87279)
+
 ## 📜 License
 This project is licensed under the **MIT License** – see the [LICENSE](LICENSE) file for details.
