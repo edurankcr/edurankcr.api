@@ -4,9 +4,9 @@ namespace API.EduRankCR.Shared.Models
 {
     public enum UserRole
     {
-        User,
-        Moderator,
-        Administrator
+        User, // 0
+        Moderator, // 1
+        Administrator // 2
     }
 
     public class User
