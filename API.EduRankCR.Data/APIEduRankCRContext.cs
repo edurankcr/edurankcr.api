@@ -8,7 +8,7 @@ namespace API.EduRankCR.Data
     {
         public APIEduRankCRContext(DbContextOptions options) : base(options) { }
 
-        public DbSet<User> Users { get; set; }
+        public DbSet<User> User { get; set; }
 
         // Responses
         public DbSet<NewUserResponseDTO> NewUserResult { get; set; }

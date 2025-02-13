@@ -61,7 +61,7 @@ namespace API.EduRankCR.API.Repositories
 
         public async Task<ApiResponse<NewUserResponseDTO?>> GetUserByIdAsync(Guid id)
         {
-            var user = await _context.Users
+            var user = await _context.User
                 .Where(u => u.Id == id)
                 .Select(u => new NewUserResponseDTO { Id = u.Id, })
                 .FirstOrDefaultAsync();

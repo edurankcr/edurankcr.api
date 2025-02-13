@@ -8,9 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
 using Serilog;
 
-
 var builder = WebApplication.CreateBuilder(args);
-
 
 // Configure Serilog for logging
 Log.Logger = new LoggerConfiguration().WriteTo
@@ -18,7 +16,6 @@ Log.Logger = new LoggerConfiguration().WriteTo
     .WriteTo.File("Logs/Log-.txt", rollingInterval: RollingInterval.Day)
     .CreateLogger();
 builder.Host.UseSerilog();
-
 
 // Add services to the DI container
 builder.Services
@@ -35,18 +32,16 @@ builder.Services
 // Configure OpenAPI
 builder.Services.AddOpenApi();
 
-
 // Configure database
-builder.Services.AddDbContext<APIEduRankCRContext>(
-    options =>
-        options.UseSqlServer(builder.Configuration.GetConnectionString("APIEduRankCRContext"))
-);
+var connectionString = Environment.GetEnvironmentVariable("Env__DatabaseConnection") ?? builder.Configuration.GetConnectionString("DatabaseConnection");
 
+builder.Services.AddDbContext<APIEduRankCRContext>(
+    options => options.UseSqlServer(connectionString)
+);
 
 // Services
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
-
 
 // Enable CORS
 builder.Services.AddCors(
@@ -68,11 +63,9 @@ builder.Services.Configure<ApiBehaviorOptions>(options =>
     options.SuppressModelStateInvalidFilter = true;
 });
 
-
 // Add health checks
 builder.Services.AddHealthChecks();
 var app = builder.Build();
-
 
 // Global Exception Handling
 app.UseExceptionHandler(
@@ -97,7 +90,6 @@ app.UseExceptionHandler(
     }
 );
 
-
 // Enable Swagger in Development
 if (app.Environment.IsDevelopment())
 {
@@ -105,14 +97,12 @@ if (app.Environment.IsDevelopment())
     app.MapScalarApiReference();
 }
 
-
 // Apply middleware
 app.UseHttpsRedirection();
 app.UseCors("AllowAll");
 app.UseAuthorization();
 app.MapControllers();
 app.MapHealthChecks("/health");
-
 
 // Run the application
 app.Run();
