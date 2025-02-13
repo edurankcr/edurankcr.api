@@ -1,4 +1,4 @@
-# edurankcr.api (pre-alpha)
+# api.edurankcr.com (pre-alpha)
 ![GitHub License](https://img.shields.io/github/license/edurankcr/edurankcr.api)
 ![Commits Per Month](https://img.shields.io/github/commit-activity/m/edurankcr/edurankcr.api)
 ![Contributor Code of Conduct](https://img.shields.io/badge/Contributor%20Covenant-1.4-purple)
