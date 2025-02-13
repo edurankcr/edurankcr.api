@@ -4,7 +4,7 @@
 ![Contributor Code of Conduct](https://img.shields.io/badge/Contributor%20Covenant-1.4-purple)
 [![CodeFactor](https://www.codefactor.io/repository/github/edurankcr/edurankcr.api/badge/master)](https://www.codefactor.io/repository/github/edurankcr/edurankcr.api/overview/master)
 
-## 📚 About edurankcr.api
+## 📚 About api.edurankcr
 [api.edurankcr.com](https://api.edurankcr.com) is the backend service for [EduRankCR](https://edurankcr.com), a web-based platform that enables users to evaluate and exchange opinions about professors and educational institutions in Costa Rica. It provides structured access to reviews, ratings, and institutional data, helping students and educators make informed academic decisions.
 
 ## 📜 License
