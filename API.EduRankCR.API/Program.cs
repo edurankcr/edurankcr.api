@@ -33,7 +33,7 @@ builder.Services
 builder.Services.AddOpenApi();
 
 // Configure database
-var connectionString = Environment.GetEnvironmentVariable("Env__DatabaseConnection") ?? builder.Configuration.GetConnectionString("DatabaseConnection");
+var connectionString = Environment.GetEnvironmentVariable("env-databaseconnection") ?? builder.Configuration.GetConnectionString("DatabaseConnection");
 
 builder.Services.AddDbContext<APIEduRankCRContext>(
     options => options.UseSqlServer(connectionString)
