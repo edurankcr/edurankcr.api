@@ -2,7 +2,6 @@
 using API.EduRankCR.Shared.DTOs;
 using API.EduRankCR.Shared.Responses;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 
 namespace API.EduRankCR.API.Repositories
 {
