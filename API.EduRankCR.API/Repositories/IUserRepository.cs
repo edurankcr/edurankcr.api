@@ -6,6 +6,6 @@ namespace API.EduRankCR.API.Repositories
     public interface IUserRepository
     {
         Task<ApiResponse<NewUserResponseDTO>> CreateUserAsync(NewUserRequestDTO userDTO);
-        Task<ApiResponse<NewUserResponseDTO?>> GetUserByIdAsync(Guid id);
+        Task<ApiResponse<NewUserResponseDTO>> GetUserByIdAsync(Guid id);
     }
 }
