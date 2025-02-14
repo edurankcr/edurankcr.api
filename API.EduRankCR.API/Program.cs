@@ -90,7 +90,7 @@ app.UseExceptionHandler(
     }
 );
 
-// Enable Swagger in Development
+// Enable Scalar in Development
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
