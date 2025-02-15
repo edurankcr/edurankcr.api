@@ -7,11 +7,11 @@ namespace EduRankCR.Application.Responses
     {
         public bool IsSuccess { get; }
         public string Message { get; }
-        public T Data { get; }
+        public T? Data { get; }
         public object Errors { get; }
 
         [JsonConstructor]
-        internal ApiResponse(bool success, string message, T data, object errors)
+        internal ApiResponse(bool success, string message, T? data, object errors)
         {
             IsSuccess = success;
             Message = message;
@@ -23,15 +23,15 @@ namespace EduRankCR.Application.Responses
             new ApiResponse<T>(true, message, data, new List<string>());
 
         public static ApiResponse<T> Error(string message, params string[] errors) =>
-            new ApiResponse<T>(false, message, default, errors.Length > 0 ? errors.ToList() : new List<string>());
+            new ApiResponse<T>(false, message, default(T), errors.Length > 0 ? errors.ToList() : new List<string>());
 
         public static ApiResponse<T> Validation(string message, Dictionary<string, List<string>> errors) =>
-            new ApiResponse<T>(false, message, default, errors ?? new Dictionary<string, List<string>>());
+            new ApiResponse<T>(false, message, default(T), errors ?? new Dictionary<string, List<string>>());
     }
 
     public static partial class ApiResponse
     {
         public static ApiResponse<EmptyResult> Empty(string message = "SUCCESS") =>
-            new ApiResponse<EmptyResult>(true, message, default, new List<string>());
+            new ApiResponse<EmptyResult>(true, message, default(EmptyResult), new List<string>());
     }
 }
