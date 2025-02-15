@@ -11,7 +11,7 @@ namespace EduRankCR.Domain.Entities
         public required string Username { get; set; } = string.Empty;
         public required string Email { get; set; } = string.Empty;
         public required bool EmailConfirmed { get; set; } = false;
-        public required DateTime Birthdate { get; set; } = DateTime.MinValue;
+        public required DateTime Birthdate { get; set; }
         public required string Password { get; set; } = string.Empty;
         public required UserRole Role { get; set; } = UserRole.User;
         public required UserStatus Status { get; set; } = UserStatus.Active;
