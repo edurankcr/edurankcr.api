@@ -21,5 +21,8 @@
 **/obj
 **/secrets.dev.yaml
 **/values.dev.yaml
+EduRankCR.API/appsettings.Development.json
 LICENSE
 README.md
+SECURITY.md
+CODE_OF_CONDUCT.md
