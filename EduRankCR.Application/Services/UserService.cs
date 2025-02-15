@@ -2,7 +2,6 @@
 using EduRankCR.Application.DTOs;
 using EduRankCR.Application.Interfaces;
 using EduRankCR.Domain.Entities;
-using EduRankCR.Domain.Exceptions;
 
 namespace EduRankCR.Application.Services
 {
@@ -19,9 +18,8 @@ namespace EduRankCR.Application.Services
         
         public async Task<UserDto> CreateUserAsync(UserCreateDto userCreateDto)
         {
-            User newUser = _mapper.Map<User>(userCreateDto);
-            newUser.Password = BCrypt.Net.BCrypt.HashPassword(userCreateDto.Password);
-            User createdUser = await _userRepository.CreateUserAsync(newUser);
+            userCreateDto.Password = BCrypt.Net.BCrypt.HashPassword(userCreateDto.Password);
+            User createdUser = await _userRepository.CreateUserAsync(userCreateDto);
             return _mapper.Map<UserDto>(createdUser);
         }
         
@@ -37,11 +35,9 @@ namespace EduRankCR.Application.Services
             return _mapper.Map<UserDto>(user);
         }
         
-        public async Task<UserDto> UpdateUserAsync(Guid id, UserDto userDto)
+        public async Task<UserDto> UpdateUserAsync(Guid id, UserUpdateDto userUpdateDto)
         {
-            User updatedUser = _mapper.Map<User>(userDto);
-            updatedUser.Password = BCrypt.Net.BCrypt.HashPassword(userDto.Password);
-            User user = await _userRepository.UpdateUserAsync(id, updatedUser);
+            User user = await _userRepository.UpdateUserAsync(id, userUpdateDto);
             return _mapper.Map<UserDto>(user);
         }
         
