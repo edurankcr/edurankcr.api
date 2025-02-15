@@ -36,7 +36,7 @@ public class RequestUserCreateDtoValidator : AbstractValidator<RequestUserCreate
             .IsInEnum().WithMessage("ROLE_PATTERN_INVALID");
 
         RuleFor(x => x.AvatarUrl)
-            .Must(BeAValidUrl).When(x => !string.IsNullOrEmpty(x.AvatarUrl))
+            .Must(BeAValidUrl).When(x => !string.IsNullOrEmpty(x.AvatarUrl)).WithMessage("AVATAR_URL_PATTERN_INVALID")
             .MaximumLength(255).WithMessage("AVATAR_URL_LENGTH_INVALID");
 
         RuleFor(x => x.Biography)
