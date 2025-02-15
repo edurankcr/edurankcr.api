@@ -19,6 +19,8 @@ BEGIN
             END;
 
         COMMIT TRANSACTION;
+        
+        SELECT @UserId AS Id;
     END TRY
     BEGIN CATCH
         ROLLBACK TRANSACTION;

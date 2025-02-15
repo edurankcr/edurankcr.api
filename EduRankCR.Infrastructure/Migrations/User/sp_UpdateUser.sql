@@ -47,7 +47,7 @@ BEGIN
 
         IF @@ROWCOUNT = 0
             BEGIN
-                RAISERROR('No changes were applied.', 16, 1);
+                RAISERROR('EMPTY_UPDATE', 16, 1);
                 ROLLBACK TRANSACTION;
                 RETURN;
             END;
