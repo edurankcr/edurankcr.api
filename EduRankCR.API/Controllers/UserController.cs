@@ -1,8 +1,6 @@
 ﻿using EduRankCR.Application.DTOs;
 using EduRankCR.Application.Interfaces;
-using EduRankCR.Domain.Entities;
 using EduRankCR.Domain.Exceptions;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EduRankCR.API.Controllers
@@ -61,11 +59,11 @@ namespace EduRankCR.API.Controllers
         }
         
         [HttpPut("{id:guid}")]
-        public async Task<IActionResult> UpdateUser(Guid id, [FromBody] UserDto userDto)
+        public async Task<IActionResult> UpdateUser(Guid id, [FromBody] UserUpdateDto userUpdateDto)
         {
             try
             {
-                UserDto user = await _userService.UpdateUserAsync(id, userDto);
+                UserDto user = await _userService.UpdateUserAsync(id, userUpdateDto);
                 return Ok(user);
             }
             catch (NotFoundException e)
