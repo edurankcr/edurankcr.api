@@ -1,39 +1,32 @@
-﻿Create Table Users
+﻿CREATE TABLE Users
 (
-    Id             UNIQUEIDENTIFIER Not Null Default Newid(),
-    Name           NVARCHAR(32) Not Null,
-    Lastname       NVARCHAR(64) Not Null,
-    Username       NVARCHAR(18) Not Null Unique,
-    Email          NVARCHAR(255) Not Null Unique,
-    EmailConfirmed BIT Not Null Default 0,
-    Birthdate      DATE Not Null,
-    Password       NVARCHAR(255) Not Null,
-    Role           TINYINT Not Null Default 0,
-    Status         TINYINT Not Null Default 0,
-    NewEmail       NVARCHAR(255) Null,
-    AvatarUrl      NVARCHAR(255) Null,
-    Biography      NVARCHAR(512) Null,
-    CreatedAt      DATETIME2(3) Not Null Default Sysutcdatetime(),
-    UpdatedAt      DATETIME2(3) Not Null Default Sysutcdatetime(),
-    
-    -- Constraints 
-    Constraint pk_users Primary Key Clustered (Id),
+    Id             UNIQUEIDENTIFIER NOT NULL DEFAULT NEWID(),
+    Name           NVARCHAR(32)     NOT NULL,
+    Lastname       NVARCHAR(64)     NOT NULL,
+    Username       NVARCHAR(18)     NOT NULL UNIQUE,
+    Email          NVARCHAR(255)    NOT NULL UNIQUE,
+    EmailConfirmed BIT              NOT NULL DEFAULT 0,
+    Birthdate      DATE             NOT NULL,
+    Password       NVARCHAR(255)    NOT NULL,
+    Role           TINYINT          NOT NULL DEFAULT 0,
+    Status         TINYINT          NOT NULL DEFAULT 0,
+    NewEmail       NVARCHAR(255)    NULL,
+    AvatarUrl      NVARCHAR(255)    NULL,
+    Biography      NVARCHAR(512)    NULL,
+    CreatedAt      DATETIME2(3)     NOT NULL DEFAULT SYSUTCDATETIME(),
+    UpdatedAt      DATETIME2(3)     NOT NULL DEFAULT SYSUTCDATETIME(),
+
+    -- Constraints
+    CONSTRAINT pk_users PRIMARY KEY CLUSTERED (Id),
     Constraint fk_users_username Unique (Username),
     Constraint fk_users_email Unique (Email),
-    Constraint chk_users_birthdate Check (Birthdate Between Dateadd(year, -100,Cast(Getdate() As DATE)) And Getdate()),
-    Constraint chk_users_status Check (Status Between 0 And 2),
-    Constraint chk_users_role Check (Role Between 0 And 3)
+    CONSTRAINT chk_users_birthdate CHECK (Birthdate BETWEEN DATEADD(YEAR, -100, CAST(GETDATE() AS DATE)) AND GETDATE()),
+    CONSTRAINT chk_users_status CHECK (Status BETWEEN 0 AND 2),
+    CONSTRAINT chk_users_role CHECK (Role BETWEEN 0 AND 3)
 );
 
 -- Indexing
-Create Index ix_users_username
-    On users(Username);
-
-Create Index ix_users_email
-    On users(Email);
-
-Create Index ix_users_status
-    On users(Status);
-
-Create Index ix_users_createdat
-    On users(Createdat); 
+CREATE INDEX ix_users_username ON Users (Username);
+CREATE INDEX ix_users_email ON Users (Email);
+CREATE INDEX ix_users_status ON Users (Status);
+CREATE INDEX ix_users_createdat ON Users (CreatedAt);
