@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE sp_DeleteUser
+CREATE PROCEDURE sp_DeleteUser
     @UserId UNIQUEIDENTIFIER
 AS
 BEGIN
@@ -19,6 +19,8 @@ BEGIN
             END;
 
         COMMIT TRANSACTION;
+        
+        SELECT @UserId AS Id;
     END TRY
     BEGIN CATCH
         ROLLBACK TRANSACTION;

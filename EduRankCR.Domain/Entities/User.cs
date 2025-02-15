@@ -2,10 +2,9 @@
 
 namespace EduRankCR.Domain.Entities
 {
-    public class User
+    public class User : MainUserId
     {
         // Required properties
-        public required Guid Id { get; set; }
         public required string Name { get; set; } = string.Empty;
         public required string LastName { get; set; } = string.Empty;
         public required string Username { get; set; } = string.Empty;

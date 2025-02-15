@@ -1,4 +1,5 @@
 using System.Text;
+using EduRankCR.API.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
@@ -7,7 +8,8 @@ using EduRankCR.Application.Services;
 using EduRankCR.Infrastructure.Data;
 using EduRankCR.Infrastructure.Mappings;
 using EduRankCR.Infrastructure.Repositories;
-using FluentValidation.AspNetCore;
+using FluentValidation;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -40,11 +42,13 @@ void ConfigureServices(WebApplicationBuilder applicationBuilder)
 
     applicationBuilder.Services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
     applicationBuilder.Services.AddControllers();
-    applicationBuilder.Services.AddFluentValidationAutoValidation().AddFluentValidationClientsideAdapters();
+    applicationBuilder.Services.Configure<ApiBehaviorOptions>(options =>
+    {
+        options.SuppressModelStateInvalidFilter = true;
+    });
     applicationBuilder.Services.AddEndpointsApiExplorer();
     applicationBuilder.Services.AddSwaggerGen(options =>
     {
-        // Add Bearer token authentication
         options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
         {
             Name = "Authorization",
@@ -80,7 +84,8 @@ void ConfigureServices(WebApplicationBuilder applicationBuilder)
                 .AllowAnyHeader();
         });
     });
-    
+
+    applicationBuilder.Services.AddApplicationValidation();
     applicationBuilder.Services.AddAutoMapper(typeof(MappingProfile));
     applicationBuilder.Services.AddScoped<IUserService, UserService>();
     applicationBuilder.Services.AddScoped<IUserRepository, UserRepository>();
@@ -118,6 +123,7 @@ void ConfigureMiddleware(WebApplication webApplication)
         webApplication.UseSwaggerUI();
     }
 
+    webApplication.UseMiddleware<ExceptionHandlingMiddleware>();
     webApplication.UseCors("AllowAll");
     webApplication.UseHttpsRedirection();
     webApplication.UseAuthentication();

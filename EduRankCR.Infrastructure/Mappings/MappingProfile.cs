@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using EduRankCR.Application.DTOs;
 using EduRankCR.Domain.Entities;
 
@@ -9,8 +9,8 @@ namespace EduRankCR.Infrastructure.Mappings
         public MappingProfile()
         {
             CreateMap<User, UserDto>().ReverseMap();
-            CreateMap<User, UserCreateDto>().ReverseMap();
-            CreateMap<User, UserUpdateDto>().ReverseMap();
+            CreateMap<User, ResponseUserDto>().ReverseMap();
+            CreateMap<User, ResponseUserIdDto>().ReverseMap();
         }
     }
 }

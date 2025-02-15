@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE sp_CreateUser
+CREATE PROCEDURE sp_CreateUser
     @Name           NVARCHAR(32),
     @Lastname       NVARCHAR(64),
     @Username       NVARCHAR(18),
@@ -30,7 +30,10 @@ BEGIN
 
         COMMIT TRANSACTION;
 
-        SELECT @UserId AS UserId;
+        SELECT @UserId AS Id, @Name AS Name, @Lastname AS Lastname, @Username AS Username, @Email AS Email,
+               @EmailConfirmed AS EmailConfirmed, @Birthdate AS Birthdate, @Role AS Role, 0 AS Status,
+               null AS NewEmail, @AvatarUrl AS AvatarUrl, @Biography AS Biography, @CurrentUtc AS CreatedAt,
+               @CurrentUtc AS UpdatedAt;
     END TRY
     BEGIN CATCH
         ROLLBACK TRANSACTION;

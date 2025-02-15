@@ -1,13 +1,13 @@
-﻿using EduRankCR.Application.DTOs;
+using EduRankCR.Application.DTOs;
 
 namespace EduRankCR.Application.Interfaces
 {
     public interface IUserService
     {
-        Task<UserDto> CreateUserAsync(UserCreateDto userCreateDto);
-        Task<List<UserDto>> GetAllUsersAsync();
-        Task<UserDto> GetUserByIdAsync(Guid id);
-        Task<UserDto> UpdateUserAsync(Guid id, UserUpdateDto userUpdateDto);
-        Task<UserDto> DeleteUserAsync(Guid id);
+        Task<ResponseUserDto> CreateUserAsync(RequestUserCreateDto requestUserCreateDto);
+        Task<List<ResponseUserDto>> GetAllUsersAsync();
+        Task<ResponseUserDto> GetUserByIdAsync(Guid id);
+        Task<ResponseUserDto> UpdateUserAsync(Guid id, RequestUserUpdateDto requestUserUpdateDto);
+        Task<ResponseUserIdDto> DeleteUserAsync(Guid id);
     }
 }
