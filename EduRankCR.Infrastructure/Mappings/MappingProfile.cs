@@ -10,6 +10,7 @@ namespace EduRankCR.Infrastructure.Mappings
         {
             CreateMap<User, UserDto>().ReverseMap();
             CreateMap<User, UserCreateDto>().ReverseMap();
+            CreateMap<User, UserUpdateDto>().ReverseMap();
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Data;
 using Dapper;
+using EduRankCR.Application.DTOs;
 using EduRankCR.Application.Interfaces;
 using EduRankCR.Domain.Entities;
 using EduRankCR.Infrastructure.Data;
@@ -15,21 +16,21 @@ namespace EduRankCR.Infrastructure.Repositories
             _connectionFactory = connectionFactory;
         }
         
-        public async Task<User> CreateUserAsync(User user)
+        public async Task<User> CreateUserAsync(UserCreateDto userCreateDto)
         {
             using IDbConnection connection = _connectionFactory.CreateConnection();
             var parameters = new
             {
-                user.Name,
-                user.LastName,
-                user.Username,
-                user.Email,
-                user.EmailConfirmed,
-                user.Role,
-                user.Birthdate,
-                user.Password,
-                user.AvatarUrl,
-                user.Biography
+                userCreateDto.Name,
+                userCreateDto.LastName,
+                userCreateDto.Username,
+                userCreateDto.Email,
+                userCreateDto.EmailConfirmed,
+                userCreateDto.Role,
+                userCreateDto.Birthdate,
+                userCreateDto.Password,
+                userCreateDto.AvatarUrl,
+                userCreateDto.Biography
             };
             return (await connection.QueryFirstOrDefaultAsync<User>(
                 "sp_CreateUser", parameters, commandType: CommandType.StoredProcedure)) ?? throw new Exception();
@@ -44,32 +45,38 @@ namespace EduRankCR.Infrastructure.Repositories
         public async Task<User> GetUserByIdAsync(Guid id)
         {
             using IDbConnection connection = _connectionFactory.CreateConnection();
-            var parameters = new { Id = id };
-            return await connection.QueryFirstOrDefaultAsync<User>(
-                "sp_GetUserById", parameters, commandType: CommandType.StoredProcedure);
+            var parameters = new { UserId = id };
+            return (await connection.QueryFirstOrDefaultAsync<User>(
+                "sp_GetUserById", parameters, commandType: CommandType.StoredProcedure)) ?? throw new Exception();
         }
         
-        public async Task<User> UpdateUserAsync(Guid id, User user)
+        public async Task<User> UpdateUserAsync(Guid id, UserUpdateDto userUpdateDto)
         {
             using IDbConnection connection = _connectionFactory.CreateConnection();
             var parameters = new
             {
-                Id = id,
-                user.Username,
-                user.Password,
-                user.Email,
-                user.Role
+                UserId = id,
+                userUpdateDto.Name,
+                userUpdateDto.LastName,
+                userUpdateDto.Username,
+                userUpdateDto.Email,
+                userUpdateDto.EmailConfirmed,
+                userUpdateDto.Birthdate,
+                userUpdateDto.Role,
+                userUpdateDto.Status,
+                userUpdateDto.AvatarUrl,
+                userUpdateDto.Biography
             };
-            return await connection.QueryFirstOrDefaultAsync<User>(
-                "sp_UpdateUser", parameters, commandType: CommandType.StoredProcedure);
+            return (await connection.QueryFirstOrDefaultAsync<User>(
+                "sp_UpdateUser", parameters, commandType: CommandType.StoredProcedure)) ?? throw new Exception();
         }
         
         public async Task<User> DeleteUserAsync(Guid id)
         {
             using IDbConnection connection = _connectionFactory.CreateConnection();
-            var parameters = new { Id = id };
-            return await connection.QueryFirstOrDefaultAsync<User>(
-                "sp_DeleteUser", parameters, commandType: CommandType.StoredProcedure);
+            var parameters = new { UserId = id };
+            return (await connection.QueryFirstOrDefaultAsync<User>(
+                "sp_DeleteUser", parameters, commandType: CommandType.StoredProcedure)) ?? throw new Exception();
         }
     }
 }
