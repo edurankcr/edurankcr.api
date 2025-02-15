@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using EduRankCR.Application.DTOs;
 using EduRankCR.Domain.Entities;
 

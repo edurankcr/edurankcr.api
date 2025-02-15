@@ -1,4 +1,4 @@
-﻿using EduRankCR.Application.DTOs;
+using EduRankCR.Application.DTOs;
 using EduRankCR.Domain.Entities;
 
 namespace EduRankCR.Application.Interfaces

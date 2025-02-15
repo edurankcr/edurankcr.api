@@ -1,4 +1,4 @@
-﻿using EduRankCR.Application.DTOs;
+using EduRankCR.Application.DTOs;
 using EduRankCR.Application.Interfaces;
 using EduRankCR.Application.Responses;
 using FluentValidation;

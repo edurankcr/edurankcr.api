@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE sp_CreateUser
+CREATE PROCEDURE sp_CreateUser
     @Name           NVARCHAR(32),
     @Lastname       NVARCHAR(64),
     @Username       NVARCHAR(18),

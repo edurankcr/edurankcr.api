@@ -1,4 +1,4 @@
-﻿-- noinspection SqlUnreachableForFile
+-- noinspection SqlUnreachableForFile
 
 CREATE PROCEDURE sp_UpdateUser
     @UserId         UNIQUEIDENTIFIER,
