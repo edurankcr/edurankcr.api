@@ -5,10 +5,10 @@ namespace EduRankCR.Application.Interfaces
 {
     public interface IUserRepository
     {
-        Task<User> CreateUserAsync(UserCreateDto userCreateDto);
+        Task<User> CreateUserAsync(RequestUserCreateDto requestUserCreateDto);
         Task<List<User>> GetAllUsersAsync();
         Task<User> GetUserByIdAsync(Guid id);
-        Task<User> UpdateUserAsync(Guid id, UserUpdateDto userUpdateDto);
+        Task<User> UpdateUserAsync(Guid id, RequestUserUpdateDto requestUserUpdateDto);
         Task<User> DeleteUserAsync(Guid id);
     }
 }
