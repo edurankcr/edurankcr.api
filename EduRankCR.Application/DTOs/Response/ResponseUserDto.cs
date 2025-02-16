@@ -1,6 +1,6 @@
 ﻿using EduRankCR.Domain.Enums;
 
-namespace EduRankCR.Application.DTOs
+namespace EduRankCR.Application.DTOs.Response
 {
     public class ResponseUserDto
     {

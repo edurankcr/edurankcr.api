@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using EduRankCR.Application.DTOs;
+using EduRankCR.Application.DTOs.Request;
 
 public class RequestMainUserIdDtoValidator : AbstractValidator<RequestMainUserIdDto>
 {

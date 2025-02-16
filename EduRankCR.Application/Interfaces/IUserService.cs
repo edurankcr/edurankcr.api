@@ -1,4 +1,5 @@
-using EduRankCR.Application.DTOs;
+using EduRankCR.Application.DTOs.Response;
+using EduRankCR.Application.DTOs.Request;
 
 namespace EduRankCR.Application.Interfaces
 {
