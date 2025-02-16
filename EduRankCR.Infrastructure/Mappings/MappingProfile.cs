@@ -1,5 +1,6 @@
 using AutoMapper;
 using EduRankCR.Application.DTOs;
+using EduRankCR.Application.DTOs.Response;
 using EduRankCR.Domain.Entities;
 
 namespace EduRankCR.Infrastructure.Mappings

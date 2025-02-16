@@ -1,6 +1,6 @@
 using System.Data;
 using Dapper;
-using EduRankCR.Application.DTOs;
+using EduRankCR.Application.DTOs.Request;
 using EduRankCR.Application.Interfaces;
 using EduRankCR.Domain.Entities;
 using EduRankCR.Domain.Exceptions;
