@@ -1,4 +1,4 @@
-﻿namespace EduRankCR.Application.DTOs
+﻿namespace EduRankCR.Application.DTOs.Response
 {
     public class ResponseUserIdDto
     {
