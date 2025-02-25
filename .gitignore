@@ -3,5 +3,5 @@ obj/
 /packages/
 riderModule.iml
 .idea/
-EduRankCR.API/appsettings.Development.json
+EduRankCR.Api/appsettings.Development.json
 EduRankCR.sln.DotSettings.user
