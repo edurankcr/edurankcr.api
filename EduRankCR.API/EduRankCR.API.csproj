@@ -1,29 +1,28 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
-    <PropertyGroup>
-        <TargetFramework>net9.0</TargetFramework>
-        <Nullable>enable</Nullable>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-    </PropertyGroup>
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>f63c15d2-1092-4233-81a1-a51c7b93a88e</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+  </PropertyGroup>
 
-    <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.2" />
-        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.2"/>
-        <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="8.4.0" />
-        <PackageReference Include="Swashbuckle.AspNetCore" Version="7.2.0" />
-    </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Mapster.DependencyInjection" Version="1.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.2" />
+  </ItemGroup>
 
-    <ItemGroup>
-      <ProjectReference Include="..\EduRankCR.Application\EduRankCR.Application.csproj" />
-      <ProjectReference Include="..\EduRankCR.Domain\EduRankCR.Domain.csproj" />
-      <ProjectReference Include="..\EduRankCR.Infrastructure\EduRankCR.Infrastructure.csproj" />
-    </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EduRankCR.Contracts\EduRankCR.Contracts.csproj" />
+    <ProjectReference Include="..\EduRankCR.Application\EduRankCR.Application.csproj" />
+    <ProjectReference Include="..\EduRankCR.Infrastructure\EduRankCR.Infrastructure.csproj" />
+  </ItemGroup>
 
-    <ItemGroup>
-      <Content Include="..\.dockerignore">
-        <Link>.dockerignore</Link>
-      </Content>
-    </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\.dockerignore">
+      <Link>.dockerignore</Link>
+    </Content>
+  </ItemGroup>
 
 </Project>

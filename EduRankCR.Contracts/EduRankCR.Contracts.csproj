@@ -7,12 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="ErrorOr" Version="2.0.1" />
-    <PackageReference Include="MediatR.Contracts" Version="2.0.1" />
+    <ProjectReference Include="..\EduRankCR.Domain\EduRankCR.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Common\ValueObjects\" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.3.0" />
   </ItemGroup>
 
 </Project>

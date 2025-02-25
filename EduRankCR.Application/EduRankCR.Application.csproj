@@ -1,20 +1,25 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-    <PropertyGroup>
-        <TargetFramework>net9.0</TargetFramework>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
-    </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EduRankCR.Domain\EduRankCR.Domain.csproj" />
+  </ItemGroup>
 
-    <ItemGroup>
-      <ProjectReference Include="..\EduRankCR.Domain\EduRankCR.Domain.csproj" />
-    </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="11.11.0" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
+    <PackageReference Include="MediatR" Version="12.4.1" />
+  </ItemGroup>
 
-    <ItemGroup>
-      <PackageReference Include="AutoMapper" Version="14.0.0" />
-      <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
-      <PackageReference Include="FluentValidation" Version="11.11.0" />
-      <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
-    </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Password\Common\" />
+    <Folder Include="Register\Commands\" />
+    <Folder Include="Verification\Commands\" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
 
 </Project>
