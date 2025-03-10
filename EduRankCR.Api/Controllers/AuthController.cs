@@ -1,4 +1,4 @@
-﻿using EduRankCR.Application.Auth.Queries.Login;
+﻿using EduRankCR.Application.Commands.Auth.Queries.Login;
 using EduRankCR.Contracts.Auth;
 using EduRankCR.Domain.Common.Errors;
 using MapsterMapper;
@@ -24,7 +24,7 @@ public class AuthController : ApiController
     [HttpPost("login")]
     public async Task<IActionResult> Login(LoginRequest request)
     {
-        var query = _mapper.Map<LoginQuery>(request);
+        var query = _mapper.Map<LoginAuthQuery>(request);
         var authResult = await _mediator.Send(query);
 
         if (authResult.IsError && authResult.FirstError == Errors.Auth.InvalidCredentials)

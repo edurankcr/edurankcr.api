@@ -1,4 +1,5 @@
-﻿using EduRankCR.Application.Verification.Commands.EmailVerification;
+﻿using EduRankCR.Application.Commands.Verification.Commands.Email.Request;
+using EduRankCR.Application.Commands.Verification.Commands.Email.Verify;
 using EduRankCR.Contracts.Verification;
 
 using MapsterMapper;

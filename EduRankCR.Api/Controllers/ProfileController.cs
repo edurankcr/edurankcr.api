@@ -1,7 +1,8 @@
-﻿using EduRankCR.Application.Profile.Commands.Avatar;
-using EduRankCR.Application.Profile.Commands.Email;
-using EduRankCR.Application.Profile.Commands.Update;
-using EduRankCR.Application.Profile.Queries.Profile;
+﻿using EduRankCR.Application.Commands.Profile.Commands.Avatar.Change;
+using EduRankCR.Application.Commands.Profile.Commands.Email.Change;
+using EduRankCR.Application.Commands.Profile.Commands.Email.Verify;
+using EduRankCR.Application.Commands.Profile.Commands.Update;
+using EduRankCR.Application.Commands.Profile.Queries.Profile;
 using EduRankCR.Contracts.Common;
 using EduRankCR.Contracts.Profile;
 using EduRankCR.Domain.Common.Errors;
@@ -77,7 +78,7 @@ public class ProfileController : ApiController
                 title: Errors.Auth.Unauthorized.Description);
         }
 
-        var command = _mapper.Map<ChangeEmailCommand>(request) with { UserId = userId };
+        var command = _mapper.Map<ChangeEmailProfileCommand>(request) with { UserId = userId };
         var changeEmailResult = await _mediator.Send(command);
 
         return changeEmailResult.Match(
@@ -89,7 +90,7 @@ public class ProfileController : ApiController
     [AllowAnonymous]
     public async Task<IActionResult> VerifyChangeEmail([FromQuery] VerifyChangeEmailRequest request)
     {
-        var command = _mapper.Map<VerifyChangeEmailCommand>(request);
+        var command = _mapper.Map<VerifyEmailProfileCommand>(request);
         var verifyChangeEmailResult = await _mediator.Send(command);
 
         return verifyChangeEmailResult.Match(
@@ -109,7 +110,7 @@ public class ProfileController : ApiController
                 title: Errors.Auth.Unauthorized.Description);
         }
 
-        var command = new ChangeAvatarCommand(request.Avatar, userId);
+        var command = new ChangeAvatarProfileCommand(request.Avatar, userId);
         var changeAvatarResult = await _mediator.Send(command);
 
         return changeAvatarResult.Match(
