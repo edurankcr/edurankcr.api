@@ -1,8 +1,6 @@
-﻿using EduRankCR.Application.Register.Commands.Register;
-using EduRankCR.Application.Register.Common;
-using EduRankCR.Application.Verification.Commands.EmailVerification;
+﻿using EduRankCR.Application.Commands.Register.Commands.Register;
+using EduRankCR.Application.Common;
 using EduRankCR.Contracts.Register;
-using EduRankCR.Contracts.Verification;
 
 using ErrorOr;
 using MapsterMapper;
@@ -29,9 +27,9 @@ public class RegisterController : ApiController
     public async Task<IActionResult> Register(RegisterRequest request)
     {
         var command = _mapper.Map<RegisterCommand>(request);
-        ErrorOr<RegisterResult> regResult = await _mediator.Send(command);
+        ErrorOr<BoolResult> response = await _mediator.Send(command);
 
-        return regResult.Match(
+        return response.Match(
             registrationResult => Ok(_mapper.Map<RegisterResponse>(registrationResult)),
             Problem);
     }

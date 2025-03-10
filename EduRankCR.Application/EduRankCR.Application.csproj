@@ -11,9 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Password\Common\" />
-    <Folder Include="Register\Commands\" />
-    <Folder Include="Verification\Commands\" />
+    <Folder Include="Commands\" />
   </ItemGroup>
 
   <PropertyGroup>

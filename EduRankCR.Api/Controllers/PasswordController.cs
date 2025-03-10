@@ -1,5 +1,7 @@
-﻿using EduRankCR.Application.Common;
-using EduRankCR.Application.Password.Commands;
+﻿using EduRankCR.Application.Commands.Password.Commands.Change;
+using EduRankCR.Application.Commands.Password.Commands.Forgot;
+using EduRankCR.Application.Commands.Password.Commands.Reset;
+using EduRankCR.Application.Common;
 using EduRankCR.Contracts.Common;
 using EduRankCR.Contracts.Password;
 using EduRankCR.Domain.Common.Errors;

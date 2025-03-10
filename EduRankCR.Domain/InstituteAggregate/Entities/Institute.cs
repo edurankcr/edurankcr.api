@@ -4,13 +4,14 @@ using EduRankCR.Domain.InstituteAggregate.Enums;
 using EduRankCR.Domain.InstituteAggregate.ValueObjects;
 using EduRankCR.Domain.UserAggregate.ValueObjects;
 
-namespace EduRankCR.Domain.InstiAggregate.Entities;
+namespace EduRankCR.Domain.InstituteAggregate.Entities;
 
 public sealed class Institute : Entity<InstituteId>
 {
     public UserId UserId { get; }
     public string Name { get; }
     public InstituteType Type { get; }
+    public Province Province { get; }
     public District District { get; }
     public string? Url { get; }
     public InstituteStatus Status { get; }
@@ -20,6 +21,7 @@ public sealed class Institute : Entity<InstituteId>
         UserId userId,
         string name,
         InstituteType type,
+        Province province,
         District district,
         string? url,
         InstituteStatus status)
@@ -28,6 +30,7 @@ public sealed class Institute : Entity<InstituteId>
         UserId = userId;
         Name = name;
         Type = type;
+        Province = province;
         District = district;
         Url = url;
         Status = status;
@@ -37,6 +40,7 @@ public sealed class Institute : Entity<InstituteId>
         UserId userId,
         string name,
         InstituteType type,
+        Province province,
         District district,
         string? url,
         InstituteStatus status)
@@ -46,6 +50,7 @@ public sealed class Institute : Entity<InstituteId>
             userId,
             name,
             type,
+            province,
             district,
             url,
             status);
@@ -58,6 +63,7 @@ public sealed class Institute : Entity<InstituteId>
         Guid userId,
         string name,
         byte type,
+        byte province,
         byte district,
         string? url,
         byte status)
@@ -67,6 +73,7 @@ public sealed class Institute : Entity<InstituteId>
             new UserId(userId),
             name,
             (InstituteType)type,
+            (Province)province,
             (District)district,
             url,
             (InstituteStatus)status);

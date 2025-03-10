@@ -1,3 +1,100 @@
 ﻿namespace EduRankCR.Domain.Common.Enums;
 
-public enum District {  }
+public enum District
+{
+    // San José
+    SanJose = 101,
+    Escazu = 102,
+    Desamparados = 103,
+    Puriscal = 104,
+    Tarrazu = 105,
+    Aserri = 106,
+    Mora = 107,
+    Goicoechea = 108,
+    SantaAna = 109,
+    Alajuelita = 110,
+    VazquezDeCoronado = 111,
+    Acosta = 112,
+    Tibas = 113,
+    Moravia = 114,
+    MontesDeOca = 115,
+    Turrubares = 116,
+    Dota = 117,
+    Curridabat = 118,
+    PerezZeledon = 119,
+    LeonCortes = 120,
+
+    // Alajuela
+    Alajuela = 201,
+    SanRamon = 202,
+    Grecia = 203,
+    SanMateo = 204,
+    Atenas = 205,
+    Naranjo = 206,
+    Palmares = 207,
+    Poas = 208,
+    Orotina = 209,
+    SanCarlos = 210,
+    Zarcero = 211,
+    Sarchi = 212,
+    Upala = 213,
+    LosChiles = 214,
+    Guatuso = 215,
+    RioCuarto = 216,
+
+    // Cartago
+    Cartago = 301,
+    Paraiso = 302,
+    LaUnion = 303,
+    Jimenez = 304,
+    Turrialba = 305,
+    Alvarado = 306,
+    Oreamuno = 307,
+    ElGuarco = 308,
+
+    // Heredia
+    Heredia = 401,
+    Barva = 402,
+    SantoDomingo = 403,
+    SantaBarbara = 404,
+    SanRafael = 405,
+    SanIsidro = 406,
+    Belen = 407,
+    Flores = 408,
+    SanPablo = 409,
+    Sarapiqui = 410,
+
+    // Guanacaste
+    Liberia = 501,
+    Nicoya = 502,
+    SantaCruz = 503,
+    Bagaces = 504,
+    Carrillo = 505,
+    Cañas = 506,
+    Abangares = 507,
+    Tilaran = 508,
+    Nandayure = 509,
+    LaCruz = 510,
+    Hojancha = 511,
+
+    // Puntarenas
+    Puntarenas = 601,
+    Esparza = 602,
+    BuenosAires = 603,
+    MontesDeOro = 604,
+    Osa = 605,
+    Quepos = 606,
+    Golfito = 607,
+    CotoBrus = 608,
+    Parrita = 609,
+    Corredores = 610,
+    Garabito = 611,
+
+    // Limón
+    Limon = 701,
+    Pococi = 702,
+    Siquirres = 703,
+    Talamanca = 704,
+    Matina = 705,
+    Guacimo = 706,
+}
