@@ -64,7 +64,7 @@ public sealed class Institute : Entity<InstituteId>
         string name,
         byte type,
         byte province,
-        byte district,
+        int district,
         string? url,
         byte status)
     {
