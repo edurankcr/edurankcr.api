@@ -5,4 +5,4 @@ public record CreateInstituteRequest(
     int Type,
     int Province,
     int District,
-    string Url);
+    string? Url);
