@@ -1,5 +1,5 @@
 CREATE PROCEDURE sp_Institute_Create
-    @InstitutedId UNIQUEIDENTIFIER,
+    @InstituteId UNIQUEIDENTIFIER,
     @UserId UNIQUEIDENTIFIER,
     @Name NVARCHAR(200),
     @Type TINYINT = 0,
@@ -12,5 +12,5 @@ BEGIN
     SET NOCOUNT ON;
 
     INSERT INTO Institutes (InstituteId, UserId, Name, Type, Province, District, Url, Status, CreatedAt, UpdatedAt)
-    VALUES (@InstitutedId, @UserId, @Name, @Type, @Province, @District, @Url, @Status, GETDATE(), GETDATE());
+    VALUES (@InstituteId, @UserId, @Name, @Type, @Province, @District, @Url, @Status, GETDATE(), GETDATE());
 END;
