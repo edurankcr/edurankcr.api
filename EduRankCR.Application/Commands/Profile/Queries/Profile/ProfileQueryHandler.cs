@@ -22,14 +22,13 @@ public class ProfileQueryHandler : IRequestHandler<ProfileQuery, ErrorOr<Profile
 
     public async Task<ErrorOr<ProfileResult>> Handle(ProfileQuery query, CancellationToken cancellationToken)
     {
-        User? user = await _userRepository.FindById(new UserId(new Guid(query.UserId)));
+        User? user = await _userRepository.FindById(UserId.ConvertFromString(query.UserId));
 
         if (user?.Id is null)
         {
             return Errors.User.NotFound;
         }
 
-        return new ProfileResult(
-            user);
+        return new ProfileResult(user);
     }
 }
