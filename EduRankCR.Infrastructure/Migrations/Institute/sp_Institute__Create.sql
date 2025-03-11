@@ -1,4 +1,4 @@
-CREATE PROCEDURE sp_Institute_Create
+CREATE PROCEDURE sp_Institute__Create
     @InstituteId UNIQUEIDENTIFIER,
     @UserId UNIQUEIDENTIFIER,
     @Name NVARCHAR(200),
