@@ -17,6 +17,7 @@ BEGIN
         AvatarUrl,
         Biography,
         EmailConfirmed,
+        NewEmail,
         CreatedAt,
         UpdatedAt
     FROM Users
