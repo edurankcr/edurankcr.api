@@ -19,10 +19,15 @@ public class InstituteRepository : IInstituteRepository
         using IDbConnection connection = _connectionFactory.CreateConnection();
 
         var parameters = new DynamicParameters();
-        parameters.Add("@InstituteId", institute.Id.Value, DbType.Guid);
-        parameters.Add("@UserId", institute.UserId.Value, DbType.Guid);
-        parameters.Add("@Status", institute.Status, DbType.String);
+        parameters.Add("@InstituteId", institute.Id.Value);
+        parameters.Add("@UserId", institute.UserId.Value);
+        parameters.Add("@Name", institute.Name);
+        parameters.Add("@Type", institute.Type);
+        parameters.Add("@Province", institute.Province);
+        parameters.Add("@District", institute.District);
+        parameters.Add("@Url", institute.Url);
+        parameters.Add("@Status", institute.Status);
 
-        await connection.QueryAsync("sp_Token__Create", parameters, commandType: CommandType.StoredProcedure);
+        await connection.QueryAsync("sp_Institute_Create", parameters, commandType: CommandType.StoredProcedure);
     }
 }
