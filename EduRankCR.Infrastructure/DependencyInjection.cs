@@ -37,10 +37,11 @@ public static class DependencyInjection
         this IServiceCollection services)
     {
         services.AddSingleton<IDomainEventDispatcher, DomainEventDispatcher>();
+        services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
         services.AddScoped<ITokenRepository, TokenRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IInstituteRepository, InstituteRepository>();
-        services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
+        services.AddScoped<ITeacherRepository, TeacherRepository>();
 
         return services;
     }
