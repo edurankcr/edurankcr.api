@@ -19,8 +19,8 @@ public class InstituteRepository : IInstituteRepository
         using IDbConnection connection = _connectionFactory.CreateConnection();
 
         var parameters = new DynamicParameters();
-        parameters.Add("@InstituteId", institute.Id.Value);
         parameters.Add("@UserId", institute.UserId.Value);
+        parameters.Add("@InstituteId", institute.Id.Value);
         parameters.Add("@Name", institute.Name);
         parameters.Add("@Type", institute.Type);
         parameters.Add("@Province", institute.Province);
