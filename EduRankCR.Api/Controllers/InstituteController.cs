@@ -22,7 +22,7 @@ public class InstituteController : ApiController
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create([FromForm] CreateInstituteRequest request)
+    public async Task<IActionResult> Create(CreateInstituteRequest request)
     {
         var userId = GetUserId();
 

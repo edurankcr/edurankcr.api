@@ -39,6 +39,7 @@ public static class DependencyInjection
         services.AddSingleton<IDomainEventDispatcher, DomainEventDispatcher>();
         services.AddScoped<ITokenRepository, TokenRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IInstituteRepository, InstituteRepository>();
         services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
 
         return services;

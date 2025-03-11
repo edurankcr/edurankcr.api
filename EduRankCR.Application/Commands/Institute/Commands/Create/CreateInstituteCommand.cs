@@ -11,5 +11,5 @@ public record CreateInstituteCommand(
     int Type,
     int Province,
     int District,
-    string Url,
+    string? Url,
     string UserId) : IRequest<ErrorOr<BoolResult>>;

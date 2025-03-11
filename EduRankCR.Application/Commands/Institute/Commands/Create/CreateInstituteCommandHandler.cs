@@ -1,8 +1,8 @@
-﻿using EduRankCR.Application.Commands.Password.Commands.Change;
-using EduRankCR.Application.Common;
-using EduRankCR.Application.Common.Interfaces.Auth;
+﻿using EduRankCR.Application.Common;
 using EduRankCR.Application.Common.Interfaces.Persistence;
+using EduRankCR.Domain.Common.Enums;
 using EduRankCR.Domain.Common.Errors;
+using EduRankCR.Domain.InstituteAggregate.Enums;
 using EduRankCR.Domain.UserAggregate.Entities;
 using EduRankCR.Domain.UserAggregate.ValueObjects;
 
@@ -12,34 +12,38 @@ using MediatR;
 
 namespace EduRankCR.Application.Commands.Institute.Commands.Create;
 
-public class CreateInstituteCommandHandler : IRequestHandler<ChangePasswordCommand, ErrorOr<BoolResult>>
+public class CreateInstituteCommandHandler : IRequestHandler<CreateInstituteCommand, ErrorOr<BoolResult>>
 {
+    private readonly IInstituteRepository _instituteRepository;
     private readonly IUserRepository _userRepository;
-    private readonly IPasswordHasher _passwordHasher;
 
-    public CreateInstituteCommandHandler(IUserRepository userRepository, IPasswordHasher passwordHasher)
+    public CreateInstituteCommandHandler(IInstituteRepository instituteRepository, IUserRepository userRepository)
     {
+        _instituteRepository = instituteRepository;
         _userRepository = userRepository;
-        _passwordHasher = passwordHasher;
     }
 
     public async Task<ErrorOr<BoolResult>> Handle(
-        ChangePasswordCommand query,
+        CreateInstituteCommand query,
         CancellationToken cancellationToken)
     {
-        User? user = await _userRepository.FindById(new UserId(new Guid(query.UserId)));
+        User? user = await _userRepository.FindById(UserId.ConvertFromString(query.UserId));
 
         if (user?.Id is null)
         {
             return Errors.User.NotFound;
         }
 
-        if (_passwordHasher.VerifyPassword(query.CurrentPassword, user.Password) is false)
-        {
-            return Errors.Auth.InvalidCredentials;
-        }
+        Domain.InstituteAggregate.Entities.Institute institute = Domain.InstituteAggregate.Entities.Institute.Create(
+            user.Id,
+            query.Name,
+            (InstituteType)query.Type,
+            (Province)query.Province,
+            (District)query.District,
+            query.Url,
+            InstituteStatus.Pending);
 
-        await _userRepository.UpdatePassword(user.Id, _passwordHasher.HashPassword(query.NewPassword));
+        await _instituteRepository.Create(institute);
 
         return new BoolResult(true);
     }
