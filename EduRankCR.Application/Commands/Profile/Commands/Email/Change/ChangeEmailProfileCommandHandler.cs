@@ -32,7 +32,7 @@ public class ChangeEmailProfileCommandHandler : IRequestHandler<ChangeEmailProfi
         ChangeEmailProfileCommand query,
         CancellationToken cancellationToken)
     {
-        UserId userId = new(new Guid(query.UserId));
+        UserId userId = UserId.ConvertFromString(query.UserId);
         User? user = await _userRepository.FindById(userId);
 
         if (user is null)
@@ -47,7 +47,7 @@ public class ChangeEmailProfileCommandHandler : IRequestHandler<ChangeEmailProfi
 
         if (query.NewEmail != user.Email)
         {
-            User? userConfirmed = await _userRepository.Find(query.UserId);
+            User? userConfirmed = await _userRepository.Find(query.NewEmail);
 
             if (userConfirmed is not null && userConfirmed.EmailConfirmed)
             {
