@@ -13,9 +13,10 @@
     AvatarUrl NVARCHAR(500) NULL,
     Biography NVARCHAR(1000) NULL,
     BirthDate DATE NOT NULL,
+    PasswordChangedAt DATETIME NULL,
     CreatedAt DATETIME2 NOT NULL DEFAULT GETDATE(),
     UpdatedAt DATETIME2 NOT NULL DEFAULT GETDATE(),
-    
+
     CONSTRAINT CHK_BirthDate
         CHECK (BirthDate <= DATEADD(YEAR, -18, GETDATE()) AND BirthDate >= DATEADD(YEAR, -100, GETDATE()))
 );
