@@ -1,7 +1,7 @@
 ﻿using EduRankCR.Domain.UserAggregate.Entities;
 using EduRankCR.Domain.UserAggregate.ValueObjects;
 
-namespace EduRankCR.Application.Common.Interfaces.Persistence;
+namespace EduRankCR.Domain.Common.Interfaces.Persistence;
 
 public interface IUserRepository
 {

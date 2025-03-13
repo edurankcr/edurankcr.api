@@ -1,6 +1,6 @@
 ﻿using System.Data;
 using Dapper;
-using EduRankCR.Application.Common.Interfaces.Persistence;
+using EduRankCR.Domain.Common.Interfaces.Persistence;
 using EduRankCR.Domain.InstituteAggregate.Entities;
 using EduRankCR.Domain.InstituteAggregate.ValueObjects;
 

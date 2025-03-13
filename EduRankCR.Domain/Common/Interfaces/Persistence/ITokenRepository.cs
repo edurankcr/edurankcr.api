@@ -1,7 +1,7 @@
 ﻿using EduRankCR.Domain.TokenAggregate.Entities;
 using EduRankCR.Domain.TokenAggregate.ValueObjects;
 
-namespace EduRankCR.Application.Common.Interfaces.Persistence;
+namespace EduRankCR.Domain.Common.Interfaces.Persistence;
 
 public interface ITokenRepository
 {

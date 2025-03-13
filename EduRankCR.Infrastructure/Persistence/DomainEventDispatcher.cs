@@ -1,4 +1,4 @@
-﻿using EduRankCR.Application.Common.Interfaces.Persistence;
+﻿using EduRankCR.Domain.Common.Interfaces.Persistence;
 using EduRankCR.Domain.Common.Models;
 
 using MediatR;

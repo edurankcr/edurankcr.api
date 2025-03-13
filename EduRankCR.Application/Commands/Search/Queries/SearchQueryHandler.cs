@@ -1,5 +1,5 @@
 ﻿using EduRankCR.Application.Commands.Search.Common;
-using EduRankCR.Application.Common.Interfaces.Persistence;
+using EduRankCR.Domain.Common.Interfaces.Persistence;
 
 using ErrorOr;
 

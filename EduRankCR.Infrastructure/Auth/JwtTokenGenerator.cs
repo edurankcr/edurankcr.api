@@ -2,8 +2,8 @@
 using System.Security.Claims;
 using System.Text;
 
-using EduRankCR.Application.Common.Interfaces.Auth;
-using EduRankCR.Application.Common.Interfaces.Services;
+using EduRankCR.Domain.Common.Interfaces.Auth;
+using EduRankCR.Domain.Common.Interfaces.Services;
 using EduRankCR.Domain.UserAggregate.Entities;
 using EduRankCR.Infrastructure.Configuration;
 

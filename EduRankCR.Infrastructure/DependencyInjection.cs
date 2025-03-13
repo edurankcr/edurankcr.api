@@ -1,8 +1,8 @@
 ﻿using System.Text;
 
-using EduRankCR.Application.Common.Interfaces.Auth;
-using EduRankCR.Application.Common.Interfaces.Persistence;
-using EduRankCR.Application.Common.Interfaces.Services;
+using EduRankCR.Domain.Common.Interfaces.Auth;
+using EduRankCR.Domain.Common.Interfaces.Persistence;
+using EduRankCR.Domain.Common.Interfaces.Services;
 using EduRankCR.Infrastructure.Auth;
 using EduRankCR.Infrastructure.Configuration;
 using EduRankCR.Infrastructure.Persistence;

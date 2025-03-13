@@ -1,7 +1,7 @@
 ﻿using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
 
-using EduRankCR.Application.Common.Interfaces.Services;
+using EduRankCR.Domain.Common.Interfaces.Services;
 using EduRankCR.Infrastructure.Configuration;
 
 using Microsoft.AspNetCore.Http;

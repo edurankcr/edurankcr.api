@@ -1,5 +1,5 @@
 ﻿using System.Data;
-using EduRankCR.Application.Common.Interfaces.Persistence;
+using EduRankCR.Domain.Common.Interfaces.Persistence;
 using EduRankCR.Infrastructure.Configuration;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Options;

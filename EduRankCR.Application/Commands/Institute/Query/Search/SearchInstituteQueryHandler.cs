@@ -1,6 +1,6 @@
 ﻿using EduRankCR.Application.Commands.Institute.Common;
-using EduRankCR.Application.Common.Interfaces.Persistence;
 using EduRankCR.Domain.Common.Errors;
+using EduRankCR.Domain.Common.Interfaces.Persistence;
 using EduRankCR.Domain.InstituteAggregate.ValueObjects;
 
 using ErrorOr;

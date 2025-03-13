@@ -1,7 +1,7 @@
 ﻿using EduRankCR.Application.Common;
-using EduRankCR.Application.Common.Interfaces.Persistence;
-using EduRankCR.Application.Common.Interfaces.Services;
 using EduRankCR.Domain.Common.Errors;
+using EduRankCR.Domain.Common.Interfaces.Persistence;
+using EduRankCR.Domain.Common.Interfaces.Services;
 using EduRankCR.Domain.UserAggregate.Entities;
 using EduRankCR.Domain.UserAggregate.ValueObjects;
 

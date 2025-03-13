@@ -1,6 +1,4 @@
-﻿using EduRankCR.Domain.UserAggregate.Enums;
-
-namespace EduRankCR.Contracts.Profile;
+﻿namespace EduRankCR.Contracts.Profile;
 
 public record ProfileResponse(
     string Name,
@@ -10,8 +8,8 @@ public record ProfileResponse(
     bool EmailConfirmed,
     string? NewEmail,
     DateTime BirthDate,
-    UserRole Role,
-    UserStatus Status,
+    string Role,
+    string Status,
     string? AvatarUrl,
     string? Biography,
     DateTime CreatedAt,

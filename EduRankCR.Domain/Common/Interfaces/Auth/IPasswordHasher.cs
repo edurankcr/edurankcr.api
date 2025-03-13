@@ -1,4 +1,4 @@
-﻿namespace EduRankCR.Application.Common.Interfaces.Auth;
+﻿namespace EduRankCR.Domain.Common.Interfaces.Auth;
 
 public interface IPasswordHasher
 {

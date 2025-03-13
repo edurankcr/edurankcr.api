@@ -1,7 +1,7 @@
 ﻿using EduRankCR.Application.Common;
-using EduRankCR.Application.Common.Interfaces.Auth;
-using EduRankCR.Application.Common.Interfaces.Persistence;
 using EduRankCR.Domain.Common.Errors;
+using EduRankCR.Domain.Common.Interfaces.Auth;
+using EduRankCR.Domain.Common.Interfaces.Persistence;
 using EduRankCR.Domain.UserAggregate.Entities;
 
 using ErrorOr;
