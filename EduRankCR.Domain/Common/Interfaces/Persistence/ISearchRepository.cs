@@ -1,11 +1,11 @@
-﻿using EduRankCR.Domain.InstituteAggregate.Entities;
-using EduRankCR.Domain.TeacherAggregate.Entities;
+﻿using EduRankCR.Domain.Common.Projections;
+using EduRankCR.Domain.InstituteAggregate.Entities;
 
 namespace EduRankCR.Domain.Common.Interfaces.Persistence;
 
 public interface ISearchRepository
 {
-    Task<(List<Teacher> Teachers, List<Institute> Institutes)> SearchAll(
+    Task<(List<TeacherProjection> Teachers, List<InstituteProjection> Institutes)> SearchAll(
         string name,
         string? type,
         string? instituteId,
