@@ -9,7 +9,8 @@ BEGIN
 
     SELECT @UserId = UserId
     FROM Tokens WITH (UPDLOCK, ROWLOCK)
-    WHERE TokenId = @TokenId AND Status = 0;
+    WHERE TokenId = @TokenId AND Status = 0
+    OPTION (RECOMPILE);
 
     IF @UserId IS NOT NULL
         BEGIN
