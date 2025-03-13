@@ -1,8 +1,7 @@
 ﻿using System.Data;
 using Dapper;
 using EduRankCR.Domain.Common.Interfaces.Persistence;
-using EduRankCR.Domain.InstituteAggregate.Entities;
-using EduRankCR.Domain.TeacherAggregate.Entities;
+using EduRankCR.Domain.Common.Projections;
 
 namespace EduRankCR.Infrastructure.Persistence.Repositories;
 
@@ -15,7 +14,7 @@ public class SearchRepository : ISearchRepository
         _connectionFactory = connectionFactory;
     }
 
-    public async Task<(List<Teacher> Teachers, List<Institute> Institutes)> SearchAll(
+    public async Task<(List<TeacherProjection> Teachers, List<InstituteProjection> Institutes)> SearchAll(
         string name,
         string? type,
         string? instituteId,
@@ -35,8 +34,8 @@ public class SearchRepository : ISearchRepository
 
         await using var multi = await connection.QueryMultipleAsync("sp_Search__All", parameters, commandType: CommandType.StoredProcedure);
 
-        var teachers = multi.Read<Teacher>().ToList();
-        var institutes = multi.Read<Institute>().ToList();
+        var teachers = multi.Read<TeacherProjection>().ToList();
+        var institutes = multi.Read<InstituteProjection>().ToList();
 
         return (teachers, institutes);
     }
