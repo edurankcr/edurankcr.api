@@ -1,4 +1,4 @@
-﻿using EduRankCR.Domain.Common.Models;
+using EduRankCR.Domain.Common.Models;
 using EduRankCR.Domain.InstituteAggregate.ValueObjects;
 using EduRankCR.Domain.TeacherAggregate.Enums;
 using EduRankCR.Domain.TeacherAggregate.ValueObjects;
@@ -81,27 +81,6 @@ public sealed class Teacher : Entity<TeacherId>
             createdAt,
             updatedAt,
             null);
-
-        return teacher;
-    }
-
-    public static Teacher CreateFromSearch(
-        Guid teacherId,
-        string name,
-        string lastName,
-        Guid instituteId,
-        string instituteName)
-    {
-        var teacher = new Teacher(
-            new TeacherId(teacherId),
-            new UserId(Guid.Empty),
-            new InstituteId(instituteId),
-            name,
-            lastName,
-            TeacherStatus.Approved,
-            DateTime.UtcNow,
-            DateTime.UtcNow,
-            instituteName);
 
         return teacher;
     }
