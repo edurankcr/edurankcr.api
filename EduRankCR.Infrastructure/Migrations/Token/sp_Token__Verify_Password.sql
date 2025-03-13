@@ -1,5 +1,6 @@
 ﻿CREATE PROCEDURE sp_Token__Verify_Password
     @TokenId UNIQUEIDENTIFIER,
+    @Password NVARCHAR(255),
     @MaxAttempts INT = 5
 AS
 BEGIN
@@ -26,7 +27,8 @@ BEGIN
     IF @UserId IS NOT NULL
         BEGIN
             UPDATE Users
-            SET PasswordChangedAt = GETDATE()
+            SET Password = @Password,
+                PasswordChangedAt = GETDATE()
             WHERE UserID = @UserId;
 
             UPDATE Tokens
