@@ -1,15 +1,14 @@
 ﻿CREATE PROCEDURE sp_Search__All
     @Name NVARCHAR(100),
-    @Type NVARCHAR(20) = NULL,  -- "teacher", "institute", or "all"
-    @InstituteId UNIQUEIDENTIFIER = NULL,  -- Only for teachers
-    @TypeFilter INT = NULL,  -- Institution type
-    @Province INT = NULL,
-    @District INT = NULL
+    @Type NVARCHAR(20) = NULL,
+    @InstituteId UNIQUEIDENTIFIER = NULL,
+    @TypeFilter TINYINT = NULL,
+    @Province TINYINT = NULL,
+    @District SMALLINT = NULL
 AS
 BEGIN
     SET NOCOUNT ON;
 
-    -- Retrieve Teachers only if Type is "teacher" or "all"
     IF @Type = 'teacher' OR @Type = 'all' OR @Type IS NULL
         BEGIN
             SELECT
@@ -26,15 +25,15 @@ BEGIN
         END
     ELSE
         BEGIN
-            SELECT CAST(NULL AS UNIQUEIDENTIFIER) AS TeacherId,
-                   CAST(NULL AS NVARCHAR(100)) AS Name,
-                   CAST(NULL AS NVARCHAR(100)) AS LastName,
-                   CAST(NULL AS UNIQUEIDENTIFIER) AS InstituteId,
-                   CAST(NULL AS NVARCHAR(100)) AS InstituteName
+            SELECT
+                CAST(NULL AS UNIQUEIDENTIFIER) AS TeacherId,
+                CAST(NULL AS NVARCHAR(100)) AS Name,
+                CAST(NULL AS NVARCHAR(100)) AS LastName,
+                CAST(NULL AS UNIQUEIDENTIFIER) AS InstituteId,
+                CAST(NULL AS NVARCHAR(100)) AS InstituteName
             WHERE 1 = 0;
         END
 
-    -- Retrieve Institutes only if Type is "institute" or "all"
     IF @Type = 'institute' OR @Type = 'all' OR @Type IS NULL
         BEGIN
             SELECT
@@ -53,12 +52,13 @@ BEGIN
         END
     ELSE
         BEGIN
-            SELECT CAST(NULL AS UNIQUEIDENTIFIER) AS InstituteId,
-                   CAST(NULL AS NVARCHAR(100)) AS Name,
-                   CAST(NULL AS INT) AS Type,
-                   CAST(NULL AS INT) AS Province,
-                   CAST(NULL AS INT) AS District,
-                   CAST(NULL AS NVARCHAR(255)) AS Url
+            SELECT
+                CAST(NULL AS UNIQUEIDENTIFIER) AS InstituteId,
+                CAST(NULL AS NVARCHAR(100)) AS Name,
+                CAST(NULL AS TINYINT) AS Type,
+                CAST(NULL AS TINYINT) AS Province,
+                CAST(NULL AS SMALLINT) AS District,
+                CAST(NULL AS NVARCHAR(255)) AS Url
             WHERE 1 = 0;
         END
 END;
