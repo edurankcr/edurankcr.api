@@ -1,15 +1,15 @@
 ﻿CREATE PROCEDURE sp_Token__Verify_Email
-    @TokenId UNIQUEIDENTIFIER
+@TokenId UNIQUEIDENTIFIER
 AS
 BEGIN
     SET NOCOUNT ON;
+    BEGIN TRANSACTION;
 
     DECLARE @UserId UNIQUEIDENTIFIER;
 
     SELECT @UserId = UserId
-    FROM Tokens
-    WHERE TokenId = @TokenId
-      AND Status = 0;
+    FROM Tokens WITH (UPDLOCK, ROWLOCK)
+    WHERE TokenId = @TokenId AND Status = 0;
 
     IF @UserId IS NOT NULL
         BEGIN
@@ -20,7 +20,7 @@ BEGIN
             UPDATE Tokens
             SET Status = 1
             WHERE TokenId = @TokenId;
-        END
+        END;
 
-    SELECT @@ROWCOUNT AS RowsAffected;
+    COMMIT TRANSACTION;
 END;
