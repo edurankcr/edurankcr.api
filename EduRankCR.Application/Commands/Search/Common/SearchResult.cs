@@ -1,5 +1,7 @@
-﻿namespace EduRankCR.Application.Commands.Search.Common;
+﻿using EduRankCR.Domain.Common.Projections;
+
+namespace EduRankCR.Application.Commands.Search.Common;
 
 public record SearchResult(
-    List<Domain.TeacherAggregate.Entities.Teacher> Teachers,
-    List<Domain.InstituteAggregate.Entities.Institute> Institutes);
+    List<TeacherProjection> Teachers,
+    List<InstituteProjection> Institutes);
