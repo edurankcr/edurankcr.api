@@ -1,4 +1,4 @@
-﻿using EduRankCR.Application.Common.Interfaces.Auth;
+﻿using EduRankCR.Domain.Common.Interfaces.Auth;
 
 namespace EduRankCR.Infrastructure.Auth;
 

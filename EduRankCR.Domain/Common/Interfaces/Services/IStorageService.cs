@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 
-namespace EduRankCR.Application.Common.Interfaces.Services;
+namespace EduRankCR.Domain.Common.Interfaces.Services;
 
 public interface IStorageService
 {

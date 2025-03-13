@@ -1,4 +1,4 @@
-﻿namespace EduRankCR.Application.Common.Interfaces.Services;
+﻿namespace EduRankCR.Domain.Common.Interfaces.Services;
 
 public interface IDateTimeProvider
 {

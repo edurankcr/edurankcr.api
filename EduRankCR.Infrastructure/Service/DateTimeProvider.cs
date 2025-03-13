@@ -1,4 +1,4 @@
-﻿using EduRankCR.Application.Common.Interfaces.Services;
+﻿using EduRankCR.Domain.Common.Interfaces.Services;
 
 namespace EduRankCR.Infrastructure.Service;
 

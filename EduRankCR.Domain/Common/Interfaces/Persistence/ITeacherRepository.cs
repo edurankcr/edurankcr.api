@@ -1,6 +1,6 @@
 ﻿using EduRankCR.Domain.TeacherAggregate.Entities;
 
-namespace EduRankCR.Application.Common.Interfaces.Persistence;
+namespace EduRankCR.Domain.Common.Interfaces.Persistence;
 
 public interface ITeacherRepository
 {

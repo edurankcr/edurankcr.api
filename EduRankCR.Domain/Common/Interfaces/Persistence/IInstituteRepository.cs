@@ -1,7 +1,7 @@
 ﻿using EduRankCR.Domain.InstituteAggregate.Entities;
 using EduRankCR.Domain.InstituteAggregate.ValueObjects;
 
-namespace EduRankCR.Application.Common.Interfaces.Persistence;
+namespace EduRankCR.Domain.Common.Interfaces.Persistence;
 
 public interface IInstituteRepository
 {

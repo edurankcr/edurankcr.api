@@ -1,7 +1,5 @@
-﻿using EduRankCR.Application.DTOs;
-
-namespace EduRankCR.Application.Commands.Search.Common;
+﻿namespace EduRankCR.Application.Commands.Search.Common;
 
 public record SearchResult(
-    List<TeacherSummaryDto> Teachers,
-    List<InstituteSummaryDto> Institutes);
+    List<Domain.TeacherAggregate.Entities.Teacher> Teachers,
+    List<Domain.InstituteAggregate.Entities.Institute> Institutes);

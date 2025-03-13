@@ -1,7 +1,7 @@
 ﻿using EduRankCR.Application.Common;
-using EduRankCR.Application.Common.Interfaces.Persistence;
 using EduRankCR.Domain.Common.Enums;
 using EduRankCR.Domain.Common.Errors;
+using EduRankCR.Domain.Common.Interfaces.Persistence;
 using EduRankCR.Domain.TokenAggregate.Entities;
 using EduRankCR.Domain.TokenAggregate.ValueObjects;
 
