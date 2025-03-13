@@ -21,7 +21,9 @@ public class AuthenticationMappingConfig : IRegister
         config.NewConfig<LoginResult, LoginResponse>()
             .Map(dest => dest, src => src.User)
             .Map(dest => dest.Token, src => src.Token);
-        config.NewConfig<ProfileResult, ProfileResponse>();
+        config.NewConfig<ProfileResult, ProfileResponse>()
+            .Map(dest => dest, src => src.User);
+
         config.NewConfig<SearchInstituteResult, SearchInstituteResponse>()
             .Map(dest => dest, src => src);
         config.NewConfig<ChangeAvatarRequest, ChangeAvatarProfileCommand>()
