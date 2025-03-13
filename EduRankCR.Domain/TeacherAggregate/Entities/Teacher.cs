@@ -16,6 +16,8 @@ public sealed class Teacher : Entity<TeacherId>
     public DateTime CreatedAt { get; }
     public DateTime UpdatedAt { get; }
 
+    public string? InstituteName { get; }
+
     private Teacher(
         TeacherId teacherId,
         UserId userId,
@@ -24,7 +26,8 @@ public sealed class Teacher : Entity<TeacherId>
         string lastName,
         TeacherStatus status,
         DateTime createdAt,
-        DateTime updatedAt)
+        DateTime updatedAt,
+        string? instituteName)
         : base(teacherId)
     {
         UserId = userId;
@@ -34,6 +37,7 @@ public sealed class Teacher : Entity<TeacherId>
         Status = status;
         CreatedAt = createdAt;
         UpdatedAt = updatedAt;
+        InstituteName = instituteName;
     }
 
     public static Teacher Create(
@@ -51,7 +55,8 @@ public sealed class Teacher : Entity<TeacherId>
             lastName,
             status,
             DateTime.UtcNow,
-            DateTime.UtcNow);
+            DateTime.UtcNow,
+            null);
 
         return teacher;
     }
@@ -74,7 +79,29 @@ public sealed class Teacher : Entity<TeacherId>
             lastName,
             (TeacherStatus)status,
             createdAt,
-            updatedAt);
+            updatedAt,
+            null);
+
+        return teacher;
+    }
+
+    public static Teacher CreateFromSearch(
+        Guid teacherId,
+        string name,
+        string lastName,
+        Guid instituteId,
+        string instituteName)
+    {
+        var teacher = new Teacher(
+            new TeacherId(teacherId),
+            new UserId(Guid.Empty),
+            new InstituteId(instituteId),
+            name,
+            lastName,
+            TeacherStatus.Approved,
+            DateTime.UtcNow,
+            DateTime.UtcNow,
+            instituteName);
 
         return teacher;
     }
