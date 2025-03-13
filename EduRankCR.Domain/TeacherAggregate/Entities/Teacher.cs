@@ -1,4 +1,4 @@
-﻿using EduRankCR.Domain.Common.Models;
+using EduRankCR.Domain.Common.Models;
 using EduRankCR.Domain.InstituteAggregate.ValueObjects;
 using EduRankCR.Domain.TeacherAggregate.Enums;
 using EduRankCR.Domain.TeacherAggregate.ValueObjects;
@@ -16,6 +16,8 @@ public sealed class Teacher : Entity<TeacherId>
     public DateTime CreatedAt { get; }
     public DateTime UpdatedAt { get; }
 
+    public string? InstituteName { get; }
+
     private Teacher(
         TeacherId teacherId,
         UserId userId,
@@ -24,7 +26,8 @@ public sealed class Teacher : Entity<TeacherId>
         string lastName,
         TeacherStatus status,
         DateTime createdAt,
-        DateTime updatedAt)
+        DateTime updatedAt,
+        string? instituteName)
         : base(teacherId)
     {
         UserId = userId;
@@ -34,6 +37,7 @@ public sealed class Teacher : Entity<TeacherId>
         Status = status;
         CreatedAt = createdAt;
         UpdatedAt = updatedAt;
+        InstituteName = instituteName;
     }
 
     public static Teacher Create(
@@ -51,7 +55,8 @@ public sealed class Teacher : Entity<TeacherId>
             lastName,
             status,
             DateTime.UtcNow,
-            DateTime.UtcNow);
+            DateTime.UtcNow,
+            null);
 
         return teacher;
     }
@@ -74,7 +79,8 @@ public sealed class Teacher : Entity<TeacherId>
             lastName,
             (TeacherStatus)status,
             createdAt,
-            updatedAt);
+            updatedAt,
+            null);
 
         return teacher;
     }

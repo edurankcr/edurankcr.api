@@ -1,10 +1,13 @@
 ﻿using EduRankCR.Application.Commands.Institute.Commands.Create;
+using EduRankCR.Application.Commands.Institute.Common;
+using EduRankCR.Application.Commands.Institute.Query.Search;
 using EduRankCR.Contracts.Common;
 using EduRankCR.Contracts.Institute;
 using EduRankCR.Domain.Common.Errors;
 using MapsterMapper;
 using MediatR;
 
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EduRankCR.Api.Controllers;
@@ -38,6 +41,18 @@ public class InstituteController : ApiController
 
         return response.Match(
             result => Ok(_mapper.Map<BoolResponse>(result)),
+            Problem);
+    }
+
+    [HttpGet("search")]
+    [AllowAnonymous]
+    public async Task<IActionResult> Search([FromQuery] SearchInstituteRequest request)
+    {
+        var command = _mapper.Map<SearchInstituteQuery>(request);
+        var response = await _mediator.Send(command);
+
+        return response.Match(
+            result => Ok(_mapper.Map<SearchInstituteResponse>(result)),
             Problem);
     }
 }
