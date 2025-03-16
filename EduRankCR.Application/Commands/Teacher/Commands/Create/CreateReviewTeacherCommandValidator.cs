@@ -14,6 +14,10 @@ public class CreateReviewTeacherCommandValidator : AbstractValidator<CreateRevie
             .NotEmpty().WithMessage("TeacherId is required.")
             .Must(id => Guid.TryParse(id, out _)).WithMessage("Invalid TeacherId format.");
 
+        RuleFor(x => x.UserId)
+            .NotEmpty().WithMessage("UserId is required.")
+            .Must(id => Guid.TryParse(id, out _)).WithMessage("Invalid UserId format.");
+
         RuleFor(x => x.FreeCourse)
             .NotNull().WithMessage("FreeCourse must be provided.");
 
