@@ -18,7 +18,7 @@ public class CreateReviewTeacherCommandValidator : AbstractValidator<CreateRevie
             .NotNull().WithMessage("FreeCourse must be provided.");
 
         RuleFor(x => x.CourseCode)
-            .MaximumLength(20).When(x => !string.IsNullOrWhiteSpace(x.CourseCode))
+            .MaximumLength(32).When(x => !string.IsNullOrWhiteSpace(x.CourseCode))
             .Matches(@"^[A-Za-z0-9-_]+$").When(x => !string.IsNullOrWhiteSpace(x.CourseCode))
             .WithMessage("CourseCode can only contain letters, numbers, hyphens (-), and underscores (_). Example: CS101, MATH_200, HIST-300.");
 
