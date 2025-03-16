@@ -4,7 +4,7 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    SELECT TeacherId, UserId, InstituteId, Name, LastName, Status, CreatedAt, UpdatedAt
+    SELECT TeacherId, UserId, Name, LastName, Status, CreatedAt, UpdatedAt
     FROM Teachers
     WHERE TeacherId = @TeacherId;
 END;
