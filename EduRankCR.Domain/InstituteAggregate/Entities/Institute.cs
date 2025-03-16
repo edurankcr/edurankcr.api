@@ -14,7 +14,7 @@ public sealed class Institute : Entity<InstituteId>
     public Province Province { get; }
     public District District { get; }
     public string? Url { get; }
-    public InstituteStatus Status { get; }
+    public Status Status { get; }
 
     private Institute(
         InstituteId instituteId,
@@ -24,7 +24,7 @@ public sealed class Institute : Entity<InstituteId>
         Province province,
         District district,
         string? url,
-        InstituteStatus status)
+        Status status)
         : base(instituteId)
     {
         UserId = userId;
@@ -43,7 +43,7 @@ public sealed class Institute : Entity<InstituteId>
         Province province,
         District district,
         string? url,
-        InstituteStatus status)
+        Status status)
     {
         var institute = new Institute(
             InstituteId.CreateUnique(),
@@ -76,7 +76,7 @@ public sealed class Institute : Entity<InstituteId>
             (Province)province,
             (District)district,
             url,
-            (InstituteStatus)status);
+            (Status)status);
 
         return institute;
     }
