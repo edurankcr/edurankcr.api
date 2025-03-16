@@ -2,6 +2,7 @@
 using EduRankCR.Domain.Common.Enums;
 using EduRankCR.Domain.Common.Errors;
 using EduRankCR.Domain.Common.Interfaces.Persistence;
+using EduRankCR.Domain.InstituteAggregate.ValueObjects;
 using EduRankCR.Domain.TeacherAggregate.Entities;
 using EduRankCR.Domain.TeacherAggregate.Enums;
 using EduRankCR.Domain.TeacherAggregate.ValueObjects;
@@ -16,10 +17,14 @@ namespace EduRankCR.Application.Commands.Teacher.Commands.Create;
 public class CreateReviewTeacherCommandHandler : IRequestHandler<CreateReviewTeacherCommand, ErrorOr<BoolResult>>
 {
     private readonly ITeacherRepository _teacherRepository;
+    private readonly IInstituteRepository _instituteRepository;
 
-    public CreateReviewTeacherCommandHandler(ITeacherRepository teacherRepository)
+    public CreateReviewTeacherCommandHandler(
+        ITeacherRepository teacherRepository,
+        IInstituteRepository instituteRepository)
     {
         _teacherRepository = teacherRepository;
+        _instituteRepository = instituteRepository;
     }
 
     public async Task<ErrorOr<BoolResult>> Handle(
@@ -28,6 +33,7 @@ public class CreateReviewTeacherCommandHandler : IRequestHandler<CreateReviewTea
     {
         UserId userId = UserId.ConvertFromString(query.UserId);
         TeacherId teacherId = TeacherId.ConvertFromString(query.TeacherId);
+        InstituteId instituteId = InstituteId.ConvertFromString(query.InstituteId);
 
         TeacherReview? isReviewed = await _teacherRepository.FindReviewByTeacher(userId, teacherId);
 
@@ -43,14 +49,27 @@ public class CreateReviewTeacherCommandHandler : IRequestHandler<CreateReviewTea
             return Errors.Teacher.NotFound;
         }
 
-        if (teacher.Status != TeacherStatus.Approved)
+        if (teacher.Status != Status.Active)
         {
             return Errors.Teacher.NotApproved;
         }
 
-        TeacherReview review = TeacherReview.Create(
+        Domain.InstituteAggregate.Entities.Institute? institute = await _instituteRepository.Find(instituteId);
+
+        if (institute?.Id is null)
+        {
+            return Errors.Institute.NotFound;
+        }
+
+        if (institute.Status != Status.Active)
+        {
+            return Errors.Institute.NotApproved;
+        }
+
+        TeacherReview teacherReview = TeacherReview.Create(
             UserId.ConvertFromString(query.UserId),
             TeacherId.ConvertFromString(query.TeacherId),
+            InstituteId.ConvertFromString(query.InstituteId),
             query.FreeCourse,
             query.CourseCode,
             (CourseMode)query.CourseMode,
@@ -62,7 +81,7 @@ public class CreateReviewTeacherCommandHandler : IRequestHandler<CreateReviewTea
             query.ExperienceText,
             Status.Pending);
 
-        await _teacherRepository.CreateReview(review, teacher, userId);
+        await _teacherRepository.CreateReview(userId, teacherId, instituteId, teacherReview);
 
         return new BoolResult(true);
     }
