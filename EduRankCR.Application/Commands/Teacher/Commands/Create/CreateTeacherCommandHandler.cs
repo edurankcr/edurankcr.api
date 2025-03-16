@@ -1,4 +1,5 @@
 ﻿using EduRankCR.Application.Common;
+using EduRankCR.Domain.Common.Enums;
 using EduRankCR.Domain.Common.Errors;
 using EduRankCR.Domain.Common.Interfaces.Persistence;
 using EduRankCR.Domain.InstituteAggregate.ValueObjects;
@@ -39,19 +40,11 @@ public class CreateTeacherCommandHandler : IRequestHandler<CreateTeacherCommand,
             return Errors.User.NotFound;
         }
 
-        Domain.InstituteAggregate.Entities.Institute? institute = await _instituteRepository.Find(InstituteId.ConvertFromString(query.InstituteId));
-
-        if (institute?.Id is null)
-        {
-            return Errors.Institute.NotFound;
-        }
-
         Domain.TeacherAggregate.Entities.Teacher teacher = Domain.TeacherAggregate.Entities.Teacher.Create(
             user.Id,
-            institute.Id,
             query.Name,
             query.LastName,
-            TeacherStatus.Pending);
+            Status.Pending);
 
         await _teacherRepository.Create(teacher);
 
