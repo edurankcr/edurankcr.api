@@ -1,5 +1,6 @@
-﻿CREATE PROCEDURE sp_TeacherReview__Update
+﻿CREATE PROCEDURE sp_Teacher_Review__Update
     @ReviewId   UNIQUEIDENTIFIER,
+    @InstituteId UNIQUEIDENTIFIER,
     @FreeCourse BIT,
     @CourseCode NVARCHAR(64) = NULL,
     @CourseMode TINYINT,
@@ -17,8 +18,9 @@ BEGIN
     BEGIN TRY
         BEGIN TRANSACTION;
 
-        UPDATE TeachersReviews
+        UPDATE Teacher_Reviews
         SET
+            InstituteId         = COALESCE(@InstituteId, InstituteId),
             FreeCourse          = COALESCE(@FreeCourse, FreeCourse),
             CourseCode          = COALESCE(@CourseCode, CourseCode),
             CourseMode          = COALESCE(@CourseMode, CourseMode),
