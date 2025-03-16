@@ -22,13 +22,13 @@ public class UserRepository : IUserRepository
         using IDbConnection connection = _connectionFactory.CreateConnection();
 
         var parameters = new DynamicParameters();
-        parameters.Add("@UserId", user.Id.Value, DbType.Guid);
-        parameters.Add("@Name", user.Name, DbType.String);
-        parameters.Add("@LastName", user.LastName, DbType.String);
-        parameters.Add("@UserName", user.UserName, DbType.String);
-        parameters.Add("@Email", user.Email, DbType.String);
-        parameters.Add("@Password", user.Password, DbType.String);
-        parameters.Add("@BirthDate", user.BirthDate, DbType.DateTime);
+        parameters.Add("@UserId", user.Id.Value);
+        parameters.Add("@Name", user.Name);
+        parameters.Add("@LastName", user.LastName);
+        parameters.Add("@UserName", user.UserName);
+        parameters.Add("@Email", user.Email);
+        parameters.Add("@Password", user.Password);
+        parameters.Add("@BirthDate", user.BirthDate);
 
         await connection.QueryAsync("sp_User__Create", parameters, commandType: CommandType.StoredProcedure);
 
@@ -111,8 +111,8 @@ public class UserRepository : IUserRepository
         using IDbConnection connection = _connectionFactory.CreateConnection();
 
         var parameters = new DynamicParameters();
-        parameters.Add("@UserId", userId.Value, DbType.Guid);
-        parameters.Add("@Password", password, DbType.String);
+        parameters.Add("@UserId", userId.Value);
+        parameters.Add("@Password", password);
 
         await connection.QueryAsync("sp_User__Update_Password", parameters, commandType: CommandType.StoredProcedure);
     }
@@ -123,19 +123,17 @@ public class UserRepository : IUserRepository
         string? lastName,
         string? userName,
         DateTime? birthDate,
-        string? avatarUrl,
         string? biography)
     {
         using IDbConnection connection = _connectionFactory.CreateConnection();
 
         var parameters = new DynamicParameters();
-        parameters.Add("@UserId", userId.Value, DbType.Guid);
-        parameters.Add("@Name", name, DbType.String);
-        parameters.Add("@LastName", lastName, DbType.String);
-        parameters.Add("@UserName", userName, DbType.String);
-        parameters.Add("@BirthDate", birthDate, DbType.DateTime);
-        parameters.Add("@AvatarUrl", avatarUrl, DbType.String);
-        parameters.Add("@Biography", biography, DbType.String);
+        parameters.Add("@UserId", userId.Value);
+        parameters.Add("@Name", name);
+        parameters.Add("@LastName", lastName);
+        parameters.Add("@UserName", userName);
+        parameters.Add("@BirthDate", birthDate);
+        parameters.Add("@Biography", biography);
 
         await connection.QueryAsync("sp_User__Update_Profile", parameters, commandType: CommandType.StoredProcedure);
     }
@@ -145,9 +143,9 @@ public class UserRepository : IUserRepository
         using IDbConnection connection = _connectionFactory.CreateConnection();
 
         var parameters = new DynamicParameters();
-        parameters.Add("@UserId", userId.Value, DbType.Guid);
-        parameters.Add("@Email", newEmail, DbType.String);
-        parameters.Add("@IsNewEmail", isNewEmail, DbType.Boolean);
+        parameters.Add("@UserId", userId.Value);
+        parameters.Add("@Email", newEmail);
+        parameters.Add("@IsNewEmail", isNewEmail);
 
         await connection.QueryAsync("sp_User__Update_Email", parameters, commandType: CommandType.StoredProcedure);
     }
@@ -157,8 +155,8 @@ public class UserRepository : IUserRepository
         using IDbConnection connection = _connectionFactory.CreateConnection();
 
         var parameters = new DynamicParameters();
-        parameters.Add("@UserId", userId.Value, DbType.Guid);
-        parameters.Add("@AvatarUrl", avatarUrl, DbType.String);
+        parameters.Add("@UserId", userId.Value);
+        parameters.Add("@AvatarUrl", avatarUrl);
 
         await connection.QueryAsync("sp_User__Update_Profile", parameters, commandType: CommandType.StoredProcedure);
     }
