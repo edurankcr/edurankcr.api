@@ -2,5 +2,4 @@
 
 public record CreateTeacherRequest(
     string Name,
-    string LastName,
-    string InstituteId);
+    string LastName);
