@@ -1,5 +1,7 @@
 ﻿using System.Data;
 using Dapper;
+
+using EduRankCR.Domain.Common.Enums;
 using EduRankCR.Domain.Common.Interfaces.Persistence;
 using EduRankCR.Domain.TeacherAggregate.Entities;
 using EduRankCR.Domain.TeacherAggregate.ValueObjects;
@@ -82,7 +84,36 @@ public class TeacherRepository : ITeacherRepository
         await connection.QueryAsync("sp_TeacherReview__Create", parameters, commandType: CommandType.StoredProcedure);
     }
 
-    public async Task<TeacherReview?> IsReviewed(UserId userId, TeacherId teacherId)
+    public async Task UpdateReview(
+        ReviewId reviewId,
+        bool? freeCourse,
+        string? courseCode,
+        int? courseMode,
+        decimal? professorRating,
+        decimal? difficultyRating,
+        bool? wouldTakeAgain,
+        bool? mandatoryAttendance,
+        string? gradeReceived,
+        string? experienceText)
+    {
+        using IDbConnection connection = _connectionFactory.CreateConnection();
+
+        var parameters = new DynamicParameters();
+        parameters.Add("@ReviewId", reviewId.Value);
+        parameters.Add("@FreeCourse", freeCourse);
+        parameters.Add("@CourseCode", courseCode);
+        parameters.Add("@CourseMode", courseMode);
+        parameters.Add("@ProfessorRating", professorRating);
+        parameters.Add("@DifficultyRating", difficultyRating);
+        parameters.Add("@WouldTakeAgain", wouldTakeAgain);
+        parameters.Add("@MandatoryAttendance", mandatoryAttendance);
+        parameters.Add("@GradeReceived", gradeReceived);
+        parameters.Add("@ExperienceText", experienceText);
+
+        await connection.QueryAsync("sp_ReviewTeacher__Update", parameters, commandType: CommandType.StoredProcedure);
+    }
+
+    public async Task<TeacherReview?> FindReviewByTeacher(UserId userId, TeacherId teacherId)
     {
         using IDbConnection connection = _connectionFactory.CreateConnection();
 
