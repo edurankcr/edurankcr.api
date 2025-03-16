@@ -1,6 +1,7 @@
 ﻿namespace EduRankCR.Contracts.Teacher;
 
 public record CreateReviewTeacherRequest(
+    string InstituteId,
     bool FreeCourse,
     string? CourseCode,
     int CourseMode,
