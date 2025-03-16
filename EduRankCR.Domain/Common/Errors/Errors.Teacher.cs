@@ -12,5 +12,7 @@ public static partial class Errors
             Error.Conflict(code: "Teacher.NotApproved", description: "Teacher is not approved.");
         public static Error ReviewAlreadyExists =>
             Error.Conflict(code: "Teacher.ReviewAlreadyExists", description: "Teacher review already exists.");
+        public static Error ReviewNotFound =>
+            Error.NotFound(code: "Teacher.ReviewNotFound", description: "Teacher review not found in the system.");
     }
 }
