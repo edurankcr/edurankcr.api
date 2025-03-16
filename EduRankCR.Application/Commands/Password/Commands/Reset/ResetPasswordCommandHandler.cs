@@ -29,7 +29,7 @@ public class ResetPasswordCommandHandler : IRequestHandler<ResetPasswordCommand,
         ResetPasswordCommand query,
         CancellationToken cancellationToken)
     {
-        TokenId tokenId = TokenId.ConvertFromString(query.Token);
+        TokenId tokenId = TokenId.ConvertFromString(query.TokenId);
         Token? token = await _tokenRepository.Find(tokenId);
 
         if (token?.Id is null)
