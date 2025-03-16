@@ -15,7 +15,6 @@ public interface IUserRepository
         string? lastName,
         string? userName,
         DateTime? birthDate,
-        string? avatarUrl,
         string? biography);
     Task UpdateEmail(UserId userId, string newEmail, bool isNewEmail);
     Task UpdateAvatar(UserId userId, string avatarUrl);
