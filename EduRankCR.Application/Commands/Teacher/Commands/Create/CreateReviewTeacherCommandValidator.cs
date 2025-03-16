@@ -1,10 +1,10 @@
 ﻿using FluentValidation;
 
-namespace EduRankCR.Application.Commands.Teacher.Commands.Review;
+namespace EduRankCR.Application.Commands.Teacher.Commands.Create;
 
-public class ReviewTeacherCommandValidator : AbstractValidator<ReviewTeacherCommand>
+public class CreateReviewTeacherCommandValidator : AbstractValidator<CreateReviewTeacherCommand>
 {
-    public ReviewTeacherCommandValidator()
+    public CreateReviewTeacherCommandValidator()
     {
         RuleFor(x => x.UserId)
             .NotEmpty().WithMessage("UserId is required.")
