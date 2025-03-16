@@ -7,12 +7,12 @@ public class UpdateReviewTeacherCommandValidator : AbstractValidator<UpdateRevie
     public UpdateReviewTeacherCommandValidator()
     {
         RuleFor(x => x.UserId)
-            .Must(id => string.IsNullOrEmpty(id) || Guid.TryParse(id, out _))
-            .WithMessage("Invalid UserId format.");
+            .NotEmpty().WithMessage("UserId is required.")
+            .Must(id => Guid.TryParse(id, out _)).WithMessage("Invalid UserId format.");
 
         RuleFor(x => x.TeacherId)
-            .Must(id => string.IsNullOrEmpty(id) || Guid.TryParse(id, out _))
-            .WithMessage("Invalid TeacherId format.");
+            .NotEmpty().WithMessage("TeacherId is required.")
+            .Must(id => Guid.TryParse(id, out _)).WithMessage("Invalid TeacherId format.");
 
         RuleFor(x => x.FreeCourse)
             .Must(x => x == null || x is bool)
