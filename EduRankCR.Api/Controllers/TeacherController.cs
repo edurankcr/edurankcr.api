@@ -1,5 +1,5 @@
 ﻿using EduRankCR.Application.Commands.Teacher.Commands.Create;
-using EduRankCR.Application.Commands.Teacher.Commands.Review;
+using EduRankCR.Application.Commands.Teacher.Commands.Update;
 using EduRankCR.Contracts.Common;
 using EduRankCR.Contracts.Teacher;
 using EduRankCR.Domain.Common.Errors;
@@ -7,6 +7,8 @@ using MapsterMapper;
 using MediatR;
 
 using Microsoft.AspNetCore.Mvc;
+
+using CreateTeacherCommand = EduRankCR.Application.Commands.Teacher.Commands.Create.CreateTeacherCommand;
 
 namespace EduRankCR.Api.Controllers;
 
@@ -43,7 +45,7 @@ public class TeacherController : ApiController
     }
 
     [HttpPost("{teacherId:required}/review")]
-    public async Task<IActionResult> Create(string teacherId, ReviewTeacherRequest request)
+    public async Task<IActionResult> Create(string teacherId, CreateReviewTeacherRequest request)
     {
         var userId = GetUserId();
 
@@ -54,7 +56,27 @@ public class TeacherController : ApiController
                 title: Errors.Auth.Unauthorized.Description);
         }
 
-        var command = _mapper.Map<ReviewTeacherCommand>(request) with { UserId = userId, TeacherId = teacherId };
+        var command = _mapper.Map<CreateReviewTeacherCommand>(request) with { UserId = userId, TeacherId = teacherId };
+        var response = await _mediator.Send(command);
+
+        return response.Match(
+            result => Ok(_mapper.Map<BoolResponse>(result)),
+            Problem);
+    }
+
+    [HttpPut("{teacherId:required}/review")]
+    public async Task<IActionResult> Update(string teacherId, UpdateReviewTeacherRequest request)
+    {
+        var userId = GetUserId();
+
+        if (userId is null)
+        {
+            return Problem(
+                statusCode: StatusCodes.Status401Unauthorized,
+                title: Errors.Auth.Unauthorized.Description);
+        }
+
+        var command = _mapper.Map<UpdateReviewTeacherCommand>(request) with { UserId = userId, TeacherId = teacherId };
         var response = await _mediator.Send(command);
 
         return response.Match(
