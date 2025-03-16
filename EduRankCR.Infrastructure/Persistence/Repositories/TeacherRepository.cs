@@ -3,6 +3,7 @@ using Dapper;
 
 using EduRankCR.Domain.Common.Enums;
 using EduRankCR.Domain.Common.Interfaces.Persistence;
+using EduRankCR.Domain.InstituteAggregate.ValueObjects;
 using EduRankCR.Domain.TeacherAggregate.Entities;
 using EduRankCR.Domain.TeacherAggregate.ValueObjects;
 using EduRankCR.Domain.UserAggregate.ValueObjects;
@@ -24,7 +25,6 @@ public class TeacherRepository : ITeacherRepository
 
         var parameters = new DynamicParameters();
         parameters.Add("@UserId", teacher.UserId.Value);
-        parameters.Add("@InstituteId", teacher.InstituteId.Value);
         parameters.Add("@Name", teacher.Name);
         parameters.Add("@LastName", teacher.LastName);
         parameters.Add("@Status", teacher.Status);
@@ -32,13 +32,13 @@ public class TeacherRepository : ITeacherRepository
         await connection.QueryAsync("sp_Teacher__Create", parameters, commandType: CommandType.StoredProcedure);
     }
 
-    public async Task<Teacher?> FindById(TeacherId tokenId)
+    public async Task<Teacher?> FindById(TeacherId teacherId)
     {
         using IDbConnection connection = _connectionFactory.CreateConnection();
 
         var parameters = new DynamicParameters();
 
-        parameters.Add("@TeacherId", tokenId.Value, DbType.Guid);
+        parameters.Add("@TeacherId", teacherId.Value);
 
         var dto = await connection.QueryFirstOrDefaultAsync(
             "sp_Teacher__Find_Id",
@@ -53,7 +53,6 @@ public class TeacherRepository : ITeacherRepository
         return Teacher.CreateFromPersistence(
             dto.TeacherId,
             dto.UserId,
-            dto.InstituteId,
             dto.Name,
             dto.LastName,
             dto.Status,
@@ -61,13 +60,14 @@ public class TeacherRepository : ITeacherRepository
             dto.UpdatedAt);
     }
 
-    public async Task CreateReview(TeacherReview teacherReview, Teacher teacher, UserId userId)
+    public async Task CreateReview(UserId userId, TeacherId teacherId, InstituteId instituteId, TeacherReview teacherReview)
     {
         using IDbConnection connection = _connectionFactory.CreateConnection();
 
         var parameters = new DynamicParameters();
         parameters.Add("@UserId", userId.Value);
-        parameters.Add("@TeacherId", teacher.Id.Value);
+        parameters.Add("@TeacherId", teacherId.Value);
+        parameters.Add("@InstituteId", instituteId.Value);
         parameters.Add("@FreeCourse", teacherReview.FreeCourse);
         parameters.Add("@CourseCode", teacherReview.CourseCode);
         parameters.Add("@CourseMode", teacherReview.CourseMode);
@@ -81,11 +81,12 @@ public class TeacherRepository : ITeacherRepository
         parameters.Add("@CreatedAt", teacherReview.CreatedAt);
         parameters.Add("@UpdatedAt", teacherReview.UpdatedAt);
 
-        await connection.QueryAsync("sp_TeacherReview__Create", parameters, commandType: CommandType.StoredProcedure);
+        await connection.QueryAsync("sp_Teacher_Review__Create", parameters, commandType: CommandType.StoredProcedure);
     }
 
     public async Task UpdateReview(
         ReviewId reviewId,
+        InstituteId? instituteId,
         bool? freeCourse,
         string? courseCode,
         int? courseMode,
@@ -100,6 +101,7 @@ public class TeacherRepository : ITeacherRepository
 
         var parameters = new DynamicParameters();
         parameters.Add("@ReviewId", reviewId.Value);
+        parameters.Add("@InstituteId", instituteId?.Value);
         parameters.Add("@FreeCourse", freeCourse);
         parameters.Add("@CourseCode", courseCode);
         parameters.Add("@CourseMode", courseMode);
@@ -110,7 +112,7 @@ public class TeacherRepository : ITeacherRepository
         parameters.Add("@GradeReceived", gradeReceived);
         parameters.Add("@ExperienceText", experienceText);
 
-        await connection.QueryAsync("sp_TeacherReview__Update", parameters, commandType: CommandType.StoredProcedure);
+        await connection.QueryAsync("sp_Teacher_Review__Update", parameters, commandType: CommandType.StoredProcedure);
     }
 
     public async Task<TeacherReview?> FindReviewByTeacher(UserId userId, TeacherId teacherId)
@@ -122,7 +124,7 @@ public class TeacherRepository : ITeacherRepository
         parameters.Add("@TeacherId", teacherId.Value);
 
         var dto = await connection.QueryFirstOrDefaultAsync(
-            "sp_TeacherReview__Find_TeacherId",
+            "sp_Teacher_Review__Find_TeacherId",
             parameters,
             commandType: CommandType.StoredProcedure);
 
@@ -135,6 +137,7 @@ public class TeacherRepository : ITeacherRepository
             dto.ReviewId,
             dto.UserId,
             dto.TeacherId,
+            dto.InstituteId,
             dto.FreeCourse,
             dto.CourseCode,
             dto.CourseMode,

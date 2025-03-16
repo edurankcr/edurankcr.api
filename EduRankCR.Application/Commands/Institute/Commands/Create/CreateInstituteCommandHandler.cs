@@ -41,7 +41,7 @@ public class CreateInstituteCommandHandler : IRequestHandler<CreateInstituteComm
             (Province)query.Province,
             (District)query.District,
             query.Url,
-            InstituteStatus.Pending);
+            Status.Pending);
 
         await _instituteRepository.Create(institute);
 

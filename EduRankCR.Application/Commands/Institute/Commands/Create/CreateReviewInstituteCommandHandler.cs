@@ -47,7 +47,7 @@ public class CreateReviewInstituteCommandHandler : IRequestHandler<CreateReviewI
             return Errors.Institute.NotFound;
         }
 
-        if (institute.Status != InstituteStatus.Approved)
+        if (institute.Status != Status.Active)
         {
             return Errors.Institute.NotApproved;
         }

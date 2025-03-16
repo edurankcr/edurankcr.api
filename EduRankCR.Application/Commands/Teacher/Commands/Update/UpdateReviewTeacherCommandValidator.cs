@@ -14,8 +14,12 @@ public class UpdateReviewTeacherCommandValidator : AbstractValidator<UpdateRevie
             .NotEmpty().WithMessage("TeacherId is required.")
             .Must(id => Guid.TryParse(id, out _)).WithMessage("Invalid TeacherId format.");
 
+        RuleFor(x => x.InstituteId)
+            .Must(id => string.IsNullOrEmpty(id) || Guid.TryParse(id, out _))
+            .WithMessage("Invalid InstituteId format.");
+
         RuleFor(x => x.CourseCode)
-            .MaximumLength(20).When(x => !string.IsNullOrWhiteSpace(x.CourseCode))
+            .MaximumLength(32).When(x => !string.IsNullOrWhiteSpace(x.CourseCode))
             .Matches(@"^[A-Za-z0-9-_]+$").When(x => !string.IsNullOrWhiteSpace(x.CourseCode))
             .WithMessage("CourseCode can only contain letters, numbers, hyphens (-), and underscores (_). Example: CS101, MATH_200, HIST-300.");
 

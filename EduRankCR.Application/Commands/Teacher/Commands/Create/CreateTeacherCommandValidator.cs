@@ -10,10 +10,6 @@ public class CreateTeacherCommandValidator : AbstractValidator<CreateTeacherComm
             .NotEmpty().WithMessage("UserId is required.")
             .Must(id => Guid.TryParse(id, out _)).WithMessage("Invalid UserId format.");
 
-        RuleFor(x => x.InstituteId)
-            .NotEmpty().WithMessage("InstituteId is required.")
-            .Must(id => Guid.TryParse(id, out _)).WithMessage("Invalid InstituteId format.");
-
         RuleFor(x => x.Name)
             .NotEmpty().WithMessage("Name is required.")
             .MaximumLength(100).WithMessage("Name cannot exceed 100 characters.")

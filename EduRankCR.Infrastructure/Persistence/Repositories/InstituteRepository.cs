@@ -18,13 +18,13 @@ public class InstituteRepository : IInstituteRepository
         _connectionFactory = connectionFactory;
     }
 
-    public async Task<Institute?> Find(InstituteId tokenId)
+    public async Task<Institute?> Find(InstituteId instituteId)
     {
         using IDbConnection connection = _connectionFactory.CreateConnection();
 
         var parameters = new DynamicParameters();
 
-        parameters.Add("@InstituteId", tokenId.Value, DbType.Guid);
+        parameters.Add("@InstituteId", instituteId.Value);
 
         var instituteDto = await connection.QueryFirstOrDefaultAsync(
             "sp_Institute__Find_Id",

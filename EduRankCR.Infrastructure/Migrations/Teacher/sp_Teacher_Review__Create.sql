@@ -1,7 +1,8 @@
-﻿CREATE PROCEDURE sp_TeacherReview__Create
+﻿CREATE PROCEDURE sp_Teacher_Review__Create
 (
     @UserId UNIQUEIDENTIFIER,
     @TeacherId UNIQUEIDENTIFIER,
+    @InstituteId UNIQUEIDENTIFIER,
     @FreeCourse BIT,
     @CourseCode NVARCHAR(64) = NULL,
     @CourseMode TINYINT,
@@ -22,13 +23,13 @@ BEGIN
     IF @CreatedAt IS NULL SET @CreatedAt = GETDATE();
     IF @UpdatedAt IS NULL SET @UpdatedAt = GETDATE();
 
-    INSERT INTO TeachersReviews (
-        ReviewId, UserId, TeacherId, FreeCourse, CourseCode, CourseMode,
+    INSERT INTO Teacher_Reviews (
+        ReviewId, UserId, TeacherId, InstituteId, FreeCourse, CourseCode, CourseMode,
         ProfessorRating, DifficultyRating, WouldTakeAgain, MandatoryAttendance,
         GradeReceived, ExperienceText, Status, CreatedAt, UpdatedAt
     )
     VALUES (
-               NEWID(), @UserId, @TeacherId, @FreeCourse, @CourseCode, @CourseMode,
+               NEWID(), @UserId, @TeacherId, @InstituteId, @FreeCourse, @CourseCode, @CourseMode,
                @ProfessorRating, @DifficultyRating, @WouldTakeAgain, @MandatoryAttendance,
                @GradeReceived, @ExperienceText, @Status, @CreatedAt, @UpdatedAt
            );

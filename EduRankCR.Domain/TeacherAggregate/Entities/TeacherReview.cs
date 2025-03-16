@@ -1,5 +1,6 @@
 ﻿using EduRankCR.Domain.Common.Enums;
 using EduRankCR.Domain.Common.Models;
+using EduRankCR.Domain.InstituteAggregate.ValueObjects;
 using EduRankCR.Domain.TeacherAggregate.Enums;
 using EduRankCR.Domain.TeacherAggregate.ValueObjects;
 using EduRankCR.Domain.UserAggregate.ValueObjects;
@@ -10,6 +11,7 @@ public sealed class TeacherReview : Entity<ReviewId>
 {
     public UserId UserId { get; }
     public TeacherId TeacherId { get; }
+    public InstituteId InstituteId { get; }
     public bool FreeCourse { get; }
     public string? CourseCode { get; }
     public CourseMode CourseMode { get; }
@@ -27,6 +29,7 @@ public sealed class TeacherReview : Entity<ReviewId>
         ReviewId reviewId,
         UserId userId,
         TeacherId teacherId,
+        InstituteId instituteId,
         bool freeCourse,
         string? courseCode,
         CourseMode courseMode,
@@ -43,6 +46,7 @@ public sealed class TeacherReview : Entity<ReviewId>
     {
         UserId = userId;
         TeacherId = teacherId;
+        InstituteId = instituteId;
         FreeCourse = freeCourse;
         CourseCode = courseCode;
         CourseMode = courseMode;
@@ -60,6 +64,7 @@ public sealed class TeacherReview : Entity<ReviewId>
     public static TeacherReview Create(
         UserId userId,
         TeacherId teacherId,
+        InstituteId instituteId,
         bool freeCourse,
         string? courseCode,
         CourseMode courseMode,
@@ -75,6 +80,7 @@ public sealed class TeacherReview : Entity<ReviewId>
             ReviewId.CreateUnique(),
             userId,
             teacherId,
+            instituteId,
             freeCourse,
             courseCode,
             courseMode,
@@ -93,6 +99,7 @@ public sealed class TeacherReview : Entity<ReviewId>
         Guid reviewId,
         Guid userId,
         Guid teacherId,
+        Guid instituteId,
         bool freeCourse,
         string? courseCode,
         byte courseMode,
@@ -110,6 +117,7 @@ public sealed class TeacherReview : Entity<ReviewId>
             new ReviewId(reviewId),
             new UserId(userId),
             new TeacherId(teacherId),
+            new InstituteId(instituteId),
             freeCourse,
             courseCode,
             (CourseMode)courseMode,

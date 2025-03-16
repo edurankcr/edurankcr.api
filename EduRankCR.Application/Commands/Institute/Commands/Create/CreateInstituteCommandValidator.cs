@@ -18,18 +18,18 @@ public class CreateInstituteCommandValidator : AbstractValidator<CreateInstitute
 
         RuleFor(x => x.Type)
             .NotNull()
-            .IsInEnum()
-            .WithMessage("Invalid institute type.");
+            .InclusiveBetween(0, 3)
+            .WithMessage("Institute type must be between 0 and 3 (0 = School, 1 = College, 2 = University, 3 = Institute).");
 
         RuleFor(x => x.Province)
             .NotNull()
-            .IsInEnum()
-            .WithMessage("Invalid province.");
+            .InclusiveBetween(1, 7)
+            .WithMessage("Province type must be between 1 and 7 (1 = San José, 2 = Alajuela, 3 = Cartago, 4 = Heredia, 5 = Guanacaste, 6 = Puntarenas, 7 = Limón).");
 
         RuleFor(x => x.District)
             .NotNull()
-            .IsInEnum()
-            .WithMessage("Invalid district.");
+            .InclusiveBetween(101, 706)
+            .WithMessage("District type must be between 101 and 706.");
 
         RuleFor(x => x.Url)
             .NotEmpty()

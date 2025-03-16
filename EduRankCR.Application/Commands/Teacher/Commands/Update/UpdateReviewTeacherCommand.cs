@@ -17,4 +17,5 @@ public record UpdateReviewTeacherCommand(
     string? GradeReceived,
     string? ExperienceText,
     string UserId,
-    string TeacherId) : IRequest<ErrorOr<BoolResult>>;
+    string TeacherId,
+    string? InstituteId) : IRequest<ErrorOr<BoolResult>>;

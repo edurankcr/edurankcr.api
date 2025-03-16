@@ -1,4 +1,6 @@
-﻿using FluentValidation;
+﻿using System.Linq.Expressions;
+
+using FluentValidation;
 
 namespace EduRankCR.Application.Commands.Institute.Commands.Update;
 
@@ -6,55 +8,36 @@ public class UpdateReviewInstituteCommandValidator : AbstractValidator<UpdateRev
 {
     public UpdateReviewInstituteCommandValidator()
     {
-        RuleFor(x => x.UserId)
-            .NotEmpty().WithMessage("UserId is required.")
-            .Must(id => Guid.TryParse(id, out _)).WithMessage("Invalid UserId format.");
+        ValidateGuid(x => x.UserId, "UserId");
+        ValidateGuid(x => x.InstituteId, "InstituteId");
 
-        RuleFor(x => x.InstituteId)
-            .NotEmpty().WithMessage("InstituteId is required.")
-            .Must(id => Guid.TryParse(id, out _)).WithMessage("Invalid InstituteId format.");
-
-        RuleFor(x => x.Reputation)
-            .Must(x => x == null || (x >= 1.0m && x <= 5.0m))
-            .WithMessage("Reputation must be between 1.0 and 5.0.");
-
-        RuleFor(x => x.Opportunities)
-            .Must(x => x == null || (x >= 1.0m && x <= 5.0m))
-            .WithMessage("Opportunities must be between 1.0 and 5.0.");
-
-        RuleFor(x => x.Happiness)
-            .Must(x => x == null || (x >= 1.0m && x <= 5.0m))
-            .WithMessage("Happiness must be between 1.0 and 5.0.");
-
-        RuleFor(x => x.Location)
-            .Must(x => x == null || (x >= 1.0m && x <= 5.0m))
-            .WithMessage("Location must be between 1.0 and 5.0.");
-
-        RuleFor(x => x.Facilities)
-            .Must(x => x == null || (x >= 1.0m && x <= 5.0m))
-            .WithMessage("Facilities must be between 1.0 and 5.0.");
-
-        RuleFor(x => x.Social)
-            .Must(x => x == null || (x >= 1.0m && x <= 5.0m))
-            .WithMessage("Social must be between 1.0 and 5.0.");
-
-        RuleFor(x => x.Clubs)
-            .Must(x => x == null || (x >= 1.0m && x <= 5.0m))
-            .WithMessage("Clubs must be between 1.0 and 5.0.");
-
-        RuleFor(x => x.Internet)
-            .Must(x => x == null || (x >= 1.0m && x <= 5.0m))
-            .WithMessage("Internet must be between 1.0 and 5.0.");
-
-        RuleFor(x => x.Security)
-            .Must(x => x == null || (x >= 1.0m && x <= 5.0m))
-            .WithMessage("Security must be between 1.0 and 5.0.");
-
-        RuleFor(x => x.Food)
-            .Must(x => x == null || (x >= 1.0m && x <= 5.0m))
-            .WithMessage("Food must be between 1.0 and 5.0.");
+        ValidateRating(x => x.Reputation, "Reputation");
+        ValidateRating(x => x.Opportunities, "Opportunities");
+        ValidateRating(x => x.Happiness, "Happiness");
+        ValidateRating(x => x.Location, "Location");
+        ValidateRating(x => x.Facilities, "Facilities");
+        ValidateRating(x => x.Social, "Social");
+        ValidateRating(x => x.Clubs, "Clubs");
+        ValidateRating(x => x.Internet, "Internet");
+        ValidateRating(x => x.Security, "Security");
+        ValidateRating(x => x.Food, "Food");
 
         RuleFor(x => x.ExperienceText)
-            .MaximumLength(500).WithMessage("ExperienceText cannot exceed 500 characters.");
+            .MaximumLength(500).When(x => !string.IsNullOrWhiteSpace(x.ExperienceText))
+            .WithMessage("ExperienceText cannot exceed 500 characters.");
+    }
+
+    private void ValidateGuid(Expression<Func<UpdateReviewInstituteCommand, string>> field, string fieldName)
+    {
+        RuleFor(field)
+            .NotEmpty().WithMessage($"{fieldName} is required.")
+            .Must(id => Guid.TryParse(id, out _)).WithMessage($"Invalid {fieldName} format.");
+    }
+
+    private void ValidateRating(Expression<Func<UpdateReviewInstituteCommand, decimal?>> field, string fieldName)
+    {
+        RuleFor(field)
+            .InclusiveBetween(1.0m, 5.0m).When(x => field.Compile().Invoke(x).HasValue)
+            .WithMessage($"{fieldName} must be between 1.0 and 5.0.");
     }
 }
