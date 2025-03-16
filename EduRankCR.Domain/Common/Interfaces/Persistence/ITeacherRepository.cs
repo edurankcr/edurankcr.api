@@ -1,4 +1,4 @@
-﻿using EduRankCR.Domain.TeacherAggregate.Entities;
+using EduRankCR.Domain.TeacherAggregate.Entities;
 using EduRankCR.Domain.TeacherAggregate.ValueObjects;
 using EduRankCR.Domain.UserAggregate.ValueObjects;
 
