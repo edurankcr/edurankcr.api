@@ -1,4 +1,5 @@
 ﻿using EduRankCR.Application.Commands.Teacher.Commands.Create;
+using EduRankCR.Application.Commands.Teacher.Commands.Review;
 using EduRankCR.Contracts.Common;
 using EduRankCR.Contracts.Teacher;
 using EduRankCR.Domain.Common.Errors;
@@ -34,6 +35,26 @@ public class TeacherController : ApiController
         }
 
         var command = _mapper.Map<CreateTeacherCommand>(request) with { UserId = userId };
+        var response = await _mediator.Send(command);
+
+        return response.Match(
+            result => Ok(_mapper.Map<BoolResponse>(result)),
+            Problem);
+    }
+
+    [HttpPost("{teacherId:required}/review")]
+    public async Task<IActionResult> Create(string teacherId, ReviewTeacherRequest request)
+    {
+        var userId = GetUserId();
+
+        if (userId is null)
+        {
+            return Problem(
+                statusCode: StatusCodes.Status401Unauthorized,
+                title: Errors.Auth.Unauthorized.Description);
+        }
+
+        var command = _mapper.Map<ReviewTeacherCommand>(request) with { UserId = userId, TeacherId = teacherId };
         var response = await _mediator.Send(command);
 
         return response.Match(
