@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE sp_TeacherReview__Find_Id_TeacherId
+﻿CREATE PROCEDURE sp_TeacherReview__Find_TeacherId
     @UserId UNIQUEIDENTIFIER,
     @TeacherId UNIQUEIDENTIFIER
 AS
