@@ -14,37 +14,35 @@ public class UpdateReviewTeacherCommandValidator : AbstractValidator<UpdateRevie
             .NotEmpty().WithMessage("TeacherId is required.")
             .Must(id => Guid.TryParse(id, out _)).WithMessage("Invalid TeacherId format.");
 
-        RuleFor(x => x.FreeCourse)
-            .Must(x => x == null || x is bool)
-            .WithMessage("FreeCourse must be a boolean value.");
-
         RuleFor(x => x.CourseCode)
-            .MaximumLength(20).WithMessage("CourseCode cannot exceed 20 characters.");
+            .MaximumLength(20).When(x => !string.IsNullOrWhiteSpace(x.CourseCode))
+            .Matches(@"^[A-Za-z0-9-_]+$").When(x => !string.IsNullOrWhiteSpace(x.CourseCode))
+            .WithMessage("CourseCode can only contain letters, numbers, hyphens (-), and underscores (_). Example: CS101, MATH_200, HIST-300.");
 
         RuleFor(x => x.CourseMode)
-            .Must(x => x == null || (x >= 0 && x <= 3))
-            .WithMessage("CourseMode must be between 0 and 3 (0 = Presencial, 1 = Online, 2 = Híbrido, 3 = Otro).");
+            .InclusiveBetween(0, 3)
+            .When(x => x.CourseMode.HasValue)
+            .WithMessage("CourseMode must be between 0 and 3 (0 = Online Only, 1 = In-Person Only, 2 = Hybrid).");
 
         RuleFor(x => x.ProfessorRating)
-            .Must(x => x == null || (x >= 1.0m && x <= 5.0m))
+            .InclusiveBetween(1.0m, 5.0m)
+            .When(x => x.ProfessorRating.HasValue)
             .WithMessage("ProfessorRating must be between 1.0 and 5.0.");
 
         RuleFor(x => x.DifficultyRating)
-            .Must(x => x == null || (x >= 1.0m && x <= 5.0m))
+            .InclusiveBetween(1.0m, 5.0m)
+            .When(x => x.DifficultyRating.HasValue)
             .WithMessage("DifficultyRating must be between 1.0 and 5.0.");
 
-        RuleFor(x => x.WouldTakeAgain)
-            .Must(x => x == null || x is bool)
-            .WithMessage("WouldTakeAgain must be a boolean value.");
-
-        RuleFor(x => x.MandatoryAttendance)
-            .Must(x => x == null || x is bool)
-            .WithMessage("MandatoryAttendance must be a boolean value.");
-
         RuleFor(x => x.GradeReceived)
-            .MaximumLength(10).WithMessage("GradeReceived cannot exceed 10 characters.");
+            .MaximumLength(15).When(x => !string.IsNullOrWhiteSpace(x.GradeReceived))
+            .Matches(@"^[A-F][+-]?$|^(100|[0-9]{1,2}(\.\d{1,2})?)$|^(Approved|Failed)$")
+            .When(x => !string.IsNullOrWhiteSpace(x.GradeReceived))
+            .WithMessage("GradeReceived must be a valid letter grade (A-F, A+, B-, etc.), numeric score (0-100), or 'Approved/Failed'.");
 
         RuleFor(x => x.ExperienceText)
-            .MaximumLength(500).WithMessage("ExperienceText cannot exceed 500 characters.");
+            .MaximumLength(500).When(x => !string.IsNullOrWhiteSpace(x.ExperienceText))
+            .Matches(@"^[\p{L}0-9\s.,!?¡¿()'""-_]+$").When(x => !string.IsNullOrWhiteSpace(x.ExperienceText))
+            .WithMessage("ExperienceText contains invalid characters.");
     }
 }
