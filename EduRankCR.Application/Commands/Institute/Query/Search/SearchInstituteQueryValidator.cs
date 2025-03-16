@@ -7,8 +7,7 @@ public class SearchInstituteQueryValidator : AbstractValidator<SearchInstituteQu
     public SearchInstituteQueryValidator()
     {
         RuleFor(x => x.InstituteId)
-            .Must(id => Guid.TryParse(id, out _))
-            .When(x => !string.IsNullOrEmpty(x.InstituteId))
-            .WithMessage("Invalid InstituteId format");
+            .NotEmpty().WithMessage("InstituteId is required.")
+            .Must(id => Guid.TryParse(id, out _)).WithMessage("Invalid InstituteId format.");
     }
 }
