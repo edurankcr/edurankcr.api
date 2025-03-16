@@ -11,6 +11,5 @@ public record UpdateProfileCommand(
     string? LastName,
     string? UserName,
     DateTime? BirthDate,
-    string? AvatarUrl,
     string? Biography,
     string UserId) : IRequest<ErrorOr<BoolResult>>;
