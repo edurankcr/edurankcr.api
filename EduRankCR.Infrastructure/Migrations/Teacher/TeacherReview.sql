@@ -1,7 +1,7 @@
 ﻿CREATE TABLE TeachersReviews (
     ReviewId            UNIQUEIDENTIFIER PRIMARY KEY DEFAULT NEWID(),
     UserId              UNIQUEIDENTIFIER NOT NULL,
-    TeacherId           UNIQUEIDENTIFIER NULL,  -- Allowed to be left without institute in case of closure
+    TeacherId           UNIQUEIDENTIFIER NULL,  -- Allowed to be left without teacher in case of closure
     FreeCourse          BIT NOT NULL,
     CourseCode          NVARCHAR(64) NULL,
     CourseMode          TINYINT NOT NULL DEFAULT 0,
