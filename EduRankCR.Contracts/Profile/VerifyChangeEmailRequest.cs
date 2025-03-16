@@ -1,3 +1,3 @@
 ﻿namespace EduRankCR.Contracts.Profile;
 
-public record VerifyChangeEmailRequest(Guid Token);
+public record VerifyChangeEmailRequest(string Token);

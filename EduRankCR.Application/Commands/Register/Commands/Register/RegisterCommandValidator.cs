@@ -1,4 +1,6 @@
-﻿using FluentValidation;
+﻿using EduRankCR.Application.Common.Utils;
+
+using FluentValidation;
 
 namespace EduRankCR.Application.Commands.Register.Commands.Register;
 
@@ -6,11 +8,50 @@ public class RegisterCommandValidator : AbstractValidator<RegisterCommand>
 {
     public RegisterCommandValidator()
     {
-        RuleFor(x => x.Name).NotEmpty().MaximumLength(64);
-        RuleFor(x => x.LastName).NotEmpty().MaximumLength(96);
-        RuleFor(x => x.UserName).NotEmpty().MaximumLength(20);
-        RuleFor(x => x.Email).NotEmpty().EmailAddress().MaximumLength(256);
-        RuleFor(x => x.Password).NotEmpty().MinimumLength(6).MaximumLength(32);
-        RuleFor(x => x.BirthDate).NotEmpty().LessThanOrEqualTo(DateTime.Now.AddYears(-18)).GreaterThanOrEqualTo(DateTime.Now.AddYears(-100));
+        RuleFor(x => x.Name)
+            .NotEmpty()
+            .MaximumLength(64);
+
+        RuleFor(x => x.LastName)
+            .NotEmpty()
+            .MaximumLength(96);
+
+        RuleFor(x => x.UserName)
+            .NotEmpty()
+            .MinimumLength(3)
+            .MaximumLength(20)
+            .Must(BeValidUsername)
+            .WithMessage("Username must be 3-20 characters and can only contain letters, numbers, underscores, and periods (no consecutive periods or underscores).");
+
+        RuleFor(x => x.Email)
+            .NotEmpty()
+            .MaximumLength(256)
+            .Must(BeValidEmail)
+            .WithMessage("Email must be from a common provider (e.g., Gmail, Yahoo, Hotmail, iCloud).");
+
+        RuleFor(x => x.Password)
+            .NotEmpty()
+            .MinimumLength(6)
+            .MaximumLength(32);
+
+        RuleFor(x => x.BirthDate)
+            .NotEmpty()
+            .Must(BeValidBirthDate)
+            .WithMessage("You must be at least 18 years old and under 100 years old.");
+    }
+
+    private bool BeValidUsername(string username)
+    {
+        return ValidationHelper.IsValidUsername(username);
+    }
+
+    private bool BeValidEmail(string email)
+    {
+        return ValidationHelper.IsValidEmail(email);
+    }
+
+    private bool BeValidBirthDate(DateTime birthDate)
+    {
+        return ValidationHelper.IsValidAge(birthDate);
     }
 }

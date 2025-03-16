@@ -24,7 +24,7 @@ public class UpdateProfileCommandHandler : IRequestHandler<UpdateProfileCommand,
         UpdateProfileCommand query,
         CancellationToken cancellationToken)
     {
-        if (new object?[] { query.Name, query.LastName, query.UserName, query.BirthDate, query.AvatarUrl, query.Biography }.All(value => value is null))
+        if (new object?[] { query.Name, query.LastName, query.UserName, query.BirthDate, query.Biography }.All(value => value is null))
         {
             return Errors.General.NothingToUpdate;
         }
@@ -53,7 +53,6 @@ public class UpdateProfileCommandHandler : IRequestHandler<UpdateProfileCommand,
             query.LastName,
             query.UserName,
             query.BirthDate,
-            query.AvatarUrl,
             query.Biography);
 
         return new BoolResult(true);

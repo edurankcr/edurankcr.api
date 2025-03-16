@@ -6,6 +6,8 @@ public class VerifyEmailProfileCommandValidator : AbstractValidator<VerifyEmailP
 {
     public VerifyEmailProfileCommandValidator()
     {
-        RuleFor(x => x.Token).NotEmpty();
+        RuleFor(x => x.Token)
+            .NotEmpty().WithMessage("Token is required.")
+            .Must(id => Guid.TryParse(id, out _)).WithMessage("Invalid Token format.");
     }
 }

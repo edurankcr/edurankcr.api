@@ -7,22 +7,34 @@ public class SearchQueryValidator : AbstractValidator<SearchQuery>
     public SearchQueryValidator()
     {
         RuleFor(x => x.Name)
+            .NotEmpty()
             .MaximumLength(100)
-            .Matches(@"^[a-zA-Z0-9\s]+$").WithMessage("Invalid characters in Name");
+            .Matches(@"^[\p{L}0-9\s]+$").When(x => !string.IsNullOrWhiteSpace(x.Name))
+            .WithMessage("Invalid characters in Name. Only letters, numbers, and spaces are allowed.");
 
         RuleFor(x => x.Type)
-            .NotEmpty()
-            .MaximumLength(20)
             .Must(type => new[] { "teacher", "institute", "all" }.Contains(type))
-            .WithMessage("Type must be 'teacher', 'institute', or 'all'");
+            .When(x => !string.IsNullOrWhiteSpace(x.Type))
+            .WithMessage("Type must be 'teacher', 'institute', or 'all'.");
 
         RuleFor(x => x.InstituteId)
             .Must(id => Guid.TryParse(id, out _))
-            .When(x => !string.IsNullOrEmpty(x.InstituteId))
-            .WithMessage("Invalid InstituteId format");
+            .When(x => !string.IsNullOrWhiteSpace(x.InstituteId))
+            .WithMessage("Invalid InstituteId format.");
 
-        RuleFor(x => x.TypeFilter).InclusiveBetween(1, 3).When(x => x.TypeFilter.HasValue);
-        RuleFor(x => x.Province).InclusiveBetween(1, 7).When(x => x.Province.HasValue);
-        RuleFor(x => x.District).InclusiveBetween(1, 500).When(x => x.District.HasValue);
+        RuleFor(x => x.TypeFilter)
+            .InclusiveBetween(1, 3)
+            .When(x => x.TypeFilter.HasValue)
+            .WithMessage("TypeFilter must be between 1 and 3.");
+
+        RuleFor(x => x.Province)
+            .InclusiveBetween(1, 7)
+            .When(x => x.Province.HasValue)
+            .WithMessage("Province must be between 1 and 7.");
+
+        RuleFor(x => x.District)
+            .InclusiveBetween(1, 500)
+            .When(x => x.District.HasValue)
+            .WithMessage("District must be between 1 and 500.");
     }
 }

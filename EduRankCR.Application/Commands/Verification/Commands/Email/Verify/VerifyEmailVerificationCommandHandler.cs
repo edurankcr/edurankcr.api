@@ -25,7 +25,8 @@ public class VerifyEmailVerificationCommandHandler : IRequestHandler<VerifyEmail
         VerifyEmailVerificationCommand query,
         CancellationToken cancellationToken)
     {
-        Token? token = await _tokenRepository.Find(new TokenId(query.Token));
+        TokenId tokenId = TokenId.ConvertFromString(query.TokenId);
+        Token? token = await _tokenRepository.Find(tokenId);
 
         if (token?.Id is null)
         {

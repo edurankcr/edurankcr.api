@@ -110,7 +110,7 @@ public class TeacherRepository : ITeacherRepository
         parameters.Add("@GradeReceived", gradeReceived);
         parameters.Add("@ExperienceText", experienceText);
 
-        await connection.QueryAsync("sp_ReviewTeacher__Update", parameters, commandType: CommandType.StoredProcedure);
+        await connection.QueryAsync("sp_TeacherReview__Update", parameters, commandType: CommandType.StoredProcedure);
     }
 
     public async Task<TeacherReview?> FindReviewByTeacher(UserId userId, TeacherId teacherId)
@@ -122,7 +122,7 @@ public class TeacherRepository : ITeacherRepository
         parameters.Add("@TeacherId", teacherId.Value);
 
         var dto = await connection.QueryFirstOrDefaultAsync(
-            "sp_TeacherReview__Find_Id_TeacherId",
+            "sp_TeacherReview__Find_TeacherId",
             parameters,
             commandType: CommandType.StoredProcedure);
 

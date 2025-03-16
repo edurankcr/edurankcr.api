@@ -16,6 +16,11 @@ public sealed class TokenId : ValueObject
         return new(Guid.NewGuid());
     }
 
+    public static TokenId ConvertFromString(string value)
+    {
+        return new(Guid.Parse(value));
+    }
+
     public override IEnumerable<object> GetEqualityComponents()
     {
         yield return Value;
