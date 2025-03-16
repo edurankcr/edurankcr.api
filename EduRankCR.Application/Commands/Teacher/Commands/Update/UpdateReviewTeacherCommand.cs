@@ -4,17 +4,17 @@ using ErrorOr;
 
 using MediatR;
 
-namespace EduRankCR.Application.Commands.Teacher.Commands.Review;
+namespace EduRankCR.Application.Commands.Teacher.Commands.Update;
 
-public record ReviewTeacherCommand(
-    bool FreeCourse,
+public record UpdateReviewTeacherCommand(
+    bool? FreeCourse,
     string? CourseCode,
-    int CourseMode,
-    decimal ProfessorRating,
-    decimal DifficultyRating,
+    int? CourseMode,
+    decimal? ProfessorRating,
+    decimal? DifficultyRating,
     bool? WouldTakeAgain,
     bool? MandatoryAttendance,
     string? GradeReceived,
-    string ExperienceText,
+    string? ExperienceText,
     string UserId,
     string TeacherId) : IRequest<ErrorOr<BoolResult>>;
