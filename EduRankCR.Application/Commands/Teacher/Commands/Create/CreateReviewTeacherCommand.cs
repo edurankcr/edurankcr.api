@@ -4,9 +4,9 @@ using ErrorOr;
 
 using MediatR;
 
-namespace EduRankCR.Application.Commands.Teacher.Commands.Review;
+namespace EduRankCR.Application.Commands.Teacher.Commands.Create;
 
-public record ReviewTeacherCommand(
+public record CreateReviewTeacherCommand(
     bool FreeCourse,
     string? CourseCode,
     int CourseMode,
