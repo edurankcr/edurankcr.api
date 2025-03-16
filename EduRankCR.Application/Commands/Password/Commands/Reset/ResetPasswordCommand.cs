@@ -6,4 +6,4 @@ using MediatR;
 
 namespace EduRankCR.Application.Commands.Password.Commands.Reset;
 
-public record ResetPasswordCommand(string Token, string NewPassword) : IRequest<ErrorOr<BoolResult>>;
+public record ResetPasswordCommand(string TokenId, string NewPassword) : IRequest<ErrorOr<BoolResult>>;
