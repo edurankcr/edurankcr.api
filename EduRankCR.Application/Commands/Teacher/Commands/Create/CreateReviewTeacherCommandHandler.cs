@@ -11,25 +11,25 @@ using ErrorOr;
 
 using MediatR;
 
-namespace EduRankCR.Application.Commands.Teacher.Commands.Review;
+namespace EduRankCR.Application.Commands.Teacher.Commands.Create;
 
-public class ReviewTeacherCommandHandler : IRequestHandler<ReviewTeacherCommand, ErrorOr<BoolResult>>
+public class CreateReviewTeacherCommandHandler : IRequestHandler<CreateReviewTeacherCommand, ErrorOr<BoolResult>>
 {
     private readonly ITeacherRepository _teacherRepository;
 
-    public ReviewTeacherCommandHandler(ITeacherRepository teacherRepository)
+    public CreateReviewTeacherCommandHandler(ITeacherRepository teacherRepository)
     {
         _teacherRepository = teacherRepository;
     }
 
     public async Task<ErrorOr<BoolResult>> Handle(
-        ReviewTeacherCommand query,
+        CreateReviewTeacherCommand query,
         CancellationToken cancellationToken)
     {
         UserId userId = UserId.ConvertFromString(query.UserId);
         TeacherId teacherId = TeacherId.ConvertFromString(query.TeacherId);
 
-        TeacherReview? isReviewed = await _teacherRepository.IsReviewed(userId, teacherId);
+        TeacherReview? isReviewed = await _teacherRepository.FindReviewByTeacher(userId, teacherId);
 
         if (isReviewed?.Id is not null)
         {
