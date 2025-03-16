@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE sp_ReviewTeacher__Update
+﻿CREATE PROCEDURE sp_TeacherReview__Update
     @ReviewId   UNIQUEIDENTIFIER,
     @FreeCourse BIT,
     @CourseCode NVARCHAR(64) = NULL,
