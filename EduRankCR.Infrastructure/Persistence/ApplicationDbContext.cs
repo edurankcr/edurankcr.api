@@ -13,7 +13,7 @@ public class ApplicationDbContext : IDbContext
     public ApplicationDbContext(IOptions<DbSettings> dbSettings)
     {
         DbSettings dbSettingsValue = dbSettings.Value;
-        _connectionString = Environment.GetEnvironmentVariable("env-databaseconnection") ?? dbSettingsValue.ConnectionString;
+        _connectionString = Environment.GetEnvironmentVariable("env-db") ?? dbSettingsValue.ConnectionString;
     }
 
     public IDbConnection CreateConnection()
