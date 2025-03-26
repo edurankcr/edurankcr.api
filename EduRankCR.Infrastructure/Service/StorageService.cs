@@ -14,23 +14,31 @@ public class StorageService : IStorageService
     private readonly StorageSettings _storageSettings;
     private readonly BlobServiceClient _blobServiceClient;
 
-    public StorageService(IOptions<StorageSettings> storageSettings)
+    public StorageService(IOptions<StorageSettings> storageOptions)
     {
-        _storageSettings = storageSettings.Value;
+        var settings = storageOptions.Value;
+
+        _storageSettings = new StorageSettings
+        {
+            ConnectionString = Environment.GetEnvironmentVariable("storage-connection-string") ?? settings.ConnectionString,
+            AvatarContainer = Environment.GetEnvironmentVariable("storage-avatar-container") ?? settings.AvatarContainer,
+        };
+
         _blobServiceClient = new BlobServiceClient(_storageSettings.ConnectionString);
     }
 
     public async Task<string?> AvatarUpload(IFormFile file, string fileName)
     {
         var containerClient = _blobServiceClient.GetBlobContainerClient(_storageSettings.AvatarContainer);
-
         var blobClient = containerClient.GetBlobClient(fileName);
 
-        await using (var stream = file.OpenReadStream())
+        await using var stream = file.OpenReadStream();
+        var blobHttpHeader = new BlobHttpHeaders { ContentType = file.ContentType };
+
+        await blobClient.UploadAsync(stream, new BlobUploadOptions
         {
-            var blobHttpHeader = new BlobHttpHeaders { ContentType = file.ContentType };
-            await blobClient.UploadAsync(stream, new BlobUploadOptions { HttpHeaders = blobHttpHeader });
-        }
+            HttpHeaders = blobHttpHeader,
+        });
 
         return blobClient.Uri.ToString();
     }

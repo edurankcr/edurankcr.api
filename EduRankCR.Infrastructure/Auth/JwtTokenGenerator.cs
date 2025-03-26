@@ -17,10 +17,20 @@ public class JwtTokenGenerator : IJwtTokenGenerator
     private readonly JwtSettings _jwtSettings;
     private readonly IDateTimeProvider _dateTimeProvider;
 
-    public JwtTokenGenerator(IDateTimeProvider dateTimeProvider, IOptions<JwtSettings> jwtSettings)
+    public JwtTokenGenerator(IDateTimeProvider dateTimeProvider, IOptions<JwtSettings> jwtOptions)
     {
         _dateTimeProvider = dateTimeProvider;
-        _jwtSettings = jwtSettings.Value;
+
+        var settings = jwtOptions.Value;
+        _jwtSettings = new JwtSettings
+        {
+            Secret = Environment.GetEnvironmentVariable("jwt-secret") ?? settings.Secret,
+            Issuer = Environment.GetEnvironmentVariable("jwt-issuer") ?? settings.Issuer,
+            Audience = Environment.GetEnvironmentVariable("jwt-audience") ?? settings.Audience,
+            ExpiryMinutes = int.TryParse(Environment.GetEnvironmentVariable("jwt-expiry-minutes"), out var minutes)
+                ? minutes
+                : settings.ExpiryMinutes,
+        };
     }
 
     public string GenerateToken(User user)
@@ -37,13 +47,13 @@ public class JwtTokenGenerator : IJwtTokenGenerator
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
         };
 
-        var securityToken = new JwtSecurityToken(
+        var token = new JwtSecurityToken(
             issuer: _jwtSettings.Issuer,
             audience: _jwtSettings.Audience,
             expires: _dateTimeProvider.Now.AddMinutes(_jwtSettings.ExpiryMinutes),
             claims: claims,
             signingCredentials: signingCredentials);
 
-        return new JwtSecurityTokenHandler().WriteToken(securityToken);
+        return new JwtSecurityTokenHandler().WriteToken(token);
     }
 }
