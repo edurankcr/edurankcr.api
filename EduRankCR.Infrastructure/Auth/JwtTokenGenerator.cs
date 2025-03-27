@@ -35,6 +35,11 @@ public class JwtTokenGenerator : IJwtTokenGenerator
 
     public string GenerateToken(User user)
     {
+        // print secret to console FOR DEBUGGING PURPOSES
+        Console.WriteLine(_jwtSettings.Secret);
+        Console.WriteLine(_jwtSettings.Issuer);
+        Console.WriteLine(_jwtSettings.Audience);
+        Console.WriteLine(_jwtSettings.ExpiryMinutes);
         var signingCredentials = new SigningCredentials(
             new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.Secret)),
             SecurityAlgorithms.HmacSha256);
