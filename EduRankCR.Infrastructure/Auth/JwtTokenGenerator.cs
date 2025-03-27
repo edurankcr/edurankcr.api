@@ -22,9 +22,17 @@ public class JwtTokenGenerator : IJwtTokenGenerator
         _dateTimeProvider = dateTimeProvider;
 
         var settings = jwtOptions.Value;
+
+        var secret = Environment.GetEnvironmentVariable("jwt-secret") ?? settings.Secret;
+
+        if (string.IsNullOrWhiteSpace(secret) || secret.Length < 16)
+        {
+            throw new Exception("JWT Secret is missing or too short. It must be at least 16 characters long.");
+        }
+
         _jwtSettings = new JwtSettings
         {
-            Secret = Environment.GetEnvironmentVariable("jwt-secret") ?? settings.Secret,
+            Secret = secret,
             Issuer = Environment.GetEnvironmentVariable("jwt-issuer") ?? settings.Issuer,
             Audience = Environment.GetEnvironmentVariable("jwt-audience") ?? settings.Audience,
             ExpiryMinutes = int.TryParse(Environment.GetEnvironmentVariable("jwt-expiry-minutes"), out var minutes)
@@ -35,11 +43,6 @@ public class JwtTokenGenerator : IJwtTokenGenerator
 
     public string GenerateToken(User user)
     {
-        // print secret to console FOR DEBUGGING PURPOSES
-        Console.WriteLine(_jwtSettings.Secret);
-        Console.WriteLine(_jwtSettings.Issuer);
-        Console.WriteLine(_jwtSettings.Audience);
-        Console.WriteLine(_jwtSettings.ExpiryMinutes);
         var signingCredentials = new SigningCredentials(
             new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.Secret)),
             SecurityAlgorithms.HmacSha256);
