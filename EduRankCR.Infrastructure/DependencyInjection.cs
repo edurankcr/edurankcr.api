@@ -90,8 +90,28 @@ public static class DependencyInjection
         this IServiceCollection services,
         ConfigurationManager configuration)
     {
-        var jwtSettings = new JwtSettings();
-        configuration.Bind(JwtSettings.SectionName, jwtSettings);
+        var configSettings = new JwtSettings();
+        configuration.Bind(JwtSettings.SectionName, configSettings);
+
+        var secret = Environment.GetEnvironmentVariable("jwt-secret") ?? configSettings.Secret;
+        var issuer = Environment.GetEnvironmentVariable("jwt-issuer") ?? configSettings.Issuer;
+        var audience = Environment.GetEnvironmentVariable("jwt-audience") ?? configSettings.Audience;
+        var expiry = int.TryParse(Environment.GetEnvironmentVariable("jwt-expiry-minutes"), out var minutes)
+            ? minutes
+            : configSettings.ExpiryMinutes;
+
+        if (string.IsNullOrWhiteSpace(secret) || secret.Length < 16)
+        {
+            throw new Exception("JWT secret is missing or too short. Must be at least 16 characters.");
+        }
+
+        var jwtSettings = new JwtSettings
+        {
+            Secret = secret,
+            Issuer = issuer,
+            Audience = audience,
+            ExpiryMinutes = expiry,
+        };
 
         services.AddSingleton(Options.Create(jwtSettings));
         services.AddSingleton<IJwtTokenGenerator, JwtTokenGenerator>();
@@ -100,7 +120,7 @@ public static class DependencyInjection
         services.AddAuthentication(defaultScheme: JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>
             {
-                options.TokenValidationParameters = new TokenValidationParameters()
+                options.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuer = true,
                     ValidateAudience = true,
@@ -111,6 +131,7 @@ public static class DependencyInjection
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Secret)),
                 };
             });
+
         return services;
     }
 }
