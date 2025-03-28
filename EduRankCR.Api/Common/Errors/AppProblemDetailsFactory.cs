@@ -90,9 +90,16 @@ public class AppProblemDetailsFactory : ProblemDetailsFactory
 
         problemDetails.Extensions["traceId"] = traceId;
 
-        if (httpContext.Items[HttpContextItemsKeys.Errors] is List<Error> errors)
+        if (httpContext.Items[HttpContextItemsKeys.Errors] is List<Error> { Count: > 0 } errors)
         {
-            problemDetails.Extensions["errorCodes"] = errors.Select(e => e.Code).ToArray();
+            if (errors.Count == 1)
+            {
+                problemDetails.Extensions["code"] = errors[0].Code;
+            }
+            else
+            {
+                problemDetails.Extensions["errorCodes"] = errors.Select(e => e.Code).ToArray();
+            }
         }
 
         _configure?.Invoke(new ProblemDetailsContext { HttpContext = httpContext, ProblemDetails = problemDetails });
