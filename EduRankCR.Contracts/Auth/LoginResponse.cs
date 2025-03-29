@@ -8,8 +8,6 @@ public record LoginResponse(
     bool EmailConfirmed,
     string? NewEmail,
     DateTime BirthDate,
-    int Role,
-    int Status,
     string? AvatarUrl,
     string? Biography,
     DateTime CreatedAt,
