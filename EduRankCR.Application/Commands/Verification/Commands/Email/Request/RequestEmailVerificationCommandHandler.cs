@@ -43,7 +43,17 @@ public class RequestEmailVerificationCommandHandler : IRequestHandler<RequestEma
             return Errors.User.EmailAlreadyConfirmed;
         }
 
-        Token token = Token.Create(user.Id.Value, DateTime.Now.AddHours(48));
+        Token? existingToken = await _tokenRepository.FindByUserId(user.Id);
+
+        if (existingToken is not null)
+        {
+            if (existingToken.ExpiresAt < DateTime.Now)
+            {
+                return Errors.Token.AlreadyExists;
+            }
+        }
+
+        Token token = Token.Create(user.Id.Value, DateTime.Now.AddMinutes(30));
 
         await _tokenRepository.Create(token);
 
