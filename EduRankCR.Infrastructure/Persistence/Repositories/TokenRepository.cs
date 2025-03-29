@@ -3,6 +3,7 @@ using Dapper;
 using EduRankCR.Domain.Common.Interfaces.Persistence;
 using EduRankCR.Domain.TokenAggregate.Entities;
 using EduRankCR.Domain.TokenAggregate.ValueObjects;
+using EduRankCR.Domain.UserAggregate.ValueObjects;
 
 namespace EduRankCR.Infrastructure.Persistence.Repositories;
 
@@ -39,6 +40,31 @@ public class TokenRepository : ITokenRepository
 
         var tokenDto = await connection.QueryFirstOrDefaultAsync(
             "sp_Token__Find_Id",
+            parameters,
+            commandType: CommandType.StoredProcedure);
+
+        if (tokenDto is null)
+        {
+            return null;
+        }
+
+        return Token.CreateFromPersistence(
+            tokenDto.TokenId,
+            tokenDto.UserId,
+            tokenDto.Status,
+            tokenDto.CreatedAt,
+            tokenDto.ExpiresAt);
+    }
+
+    public async Task<Token?> FindByUserId(UserId userId)
+    {
+        using IDbConnection connection = _connectionFactory.CreateConnection();
+
+        var parameters = new DynamicParameters();
+        parameters.Add("@UserId", userId.Value, DbType.Guid);
+
+        var tokenDto = await connection.QueryFirstOrDefaultAsync(
+            "sp_Token__Find_UserId",
             parameters,
             commandType: CommandType.StoredProcedure);
 
