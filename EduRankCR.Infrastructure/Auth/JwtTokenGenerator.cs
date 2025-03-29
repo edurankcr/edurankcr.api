@@ -53,6 +53,8 @@ public class JwtTokenGenerator : IJwtTokenGenerator
             new Claim(JwtRegisteredClaimNames.GivenName, user.Name),
             new Claim(JwtRegisteredClaimNames.FamilyName, user.LastName),
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+            new Claim("role", ((int)user.Role).ToString()),
+            new Claim("status", ((int)user.Status).ToString()),
         };
 
         var token = new JwtSecurityToken(
