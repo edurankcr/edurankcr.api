@@ -43,6 +43,16 @@ public class ForgotPasswordCommandHandler : IRequestHandler<ForgotPasswordComman
             return Errors.User.EmailNotConfirmed;
         }
 
+        Token? existingToken = await _tokenRepository.FindByUserId(user.Id);
+
+        if (existingToken is not null)
+        {
+            if (existingToken.ExpiresAt > DateTime.Now)
+            {
+                return Errors.Token.AlreadyExists;
+            }
+        }
+
         Token token = Token.Create(user.Id.Value, DateTime.Now.AddMinutes(30));
 
         await _tokenRepository.Create(token);
