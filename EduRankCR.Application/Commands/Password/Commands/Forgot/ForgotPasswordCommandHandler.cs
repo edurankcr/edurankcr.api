@@ -53,7 +53,7 @@ public class ForgotPasswordCommandHandler : IRequestHandler<ForgotPasswordComman
             }
         }
 
-        Token token = Token.Create(user.Id.Value, DateTime.Now.AddMinutes(15));
+        Token token = Token.Create(user.Id.Value, DateTime.Now.AddMinutes(30));
 
         await _tokenRepository.Create(token);
 
