@@ -47,7 +47,7 @@ public class RequestEmailVerificationCommandHandler : IRequestHandler<RequestEma
 
         if (existingToken is not null)
         {
-            if (existingToken.ExpiresAt < DateTime.Now)
+            if (existingToken.ExpiresAt > DateTime.Now)
             {
                 return Errors.Token.AlreadyExists;
             }
