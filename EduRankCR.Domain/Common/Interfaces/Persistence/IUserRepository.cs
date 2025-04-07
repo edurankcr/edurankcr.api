@@ -18,4 +18,5 @@ public interface IUserRepository
         string? biography);
     Task UpdateEmail(UserId userId, string newEmail, bool isNewEmail);
     Task UpdateAvatar(UserId userId, string avatarUrl);
+    Task DeleteChangeEmail(UserId userId);
 }
