@@ -1,4 +1,4 @@
-﻿using EduRankCR.Application.Common;
+﻿using EduRankCR.Application.Commands.Profile.Common;
 
 using ErrorOr;
 
@@ -10,4 +10,4 @@ namespace EduRankCR.Application.Commands.Profile.Commands.Avatar.Change;
 
 public record ChangeAvatarProfileCommand(
     IFormFile Avatar,
-    string UserId) : IRequest<ErrorOr<BoolResult>>;
+    string UserId) : IRequest<ErrorOr<AvatarResult>>;

@@ -1,4 +1,4 @@
-﻿using EduRankCR.Application.Common;
+﻿using EduRankCR.Application.Commands.Profile.Common;
 using EduRankCR.Domain.Common.Errors;
 using EduRankCR.Domain.Common.Interfaces.Persistence;
 using EduRankCR.Domain.Common.Interfaces.Services;
@@ -11,7 +11,7 @@ using MediatR;
 
 namespace EduRankCR.Application.Commands.Profile.Commands.Avatar.Change;
 
-public class ChangeAvatarProfileCommandHandler : IRequestHandler<ChangeAvatarProfileCommand, ErrorOr<BoolResult>>
+public class ChangeAvatarProfileCommandHandler : IRequestHandler<ChangeAvatarProfileCommand, ErrorOr<AvatarResult>>
 {
     private readonly IUserRepository _userRepository;
     private readonly IStorageService _storageService;
@@ -24,7 +24,7 @@ public class ChangeAvatarProfileCommandHandler : IRequestHandler<ChangeAvatarPro
         _storageService = storageService;
     }
 
-    public async Task<ErrorOr<BoolResult>> Handle(
+    public async Task<ErrorOr<AvatarResult>> Handle(
         ChangeAvatarProfileCommand query,
         CancellationToken cancellationToken)
     {
@@ -46,6 +46,6 @@ public class ChangeAvatarProfileCommandHandler : IRequestHandler<ChangeAvatarPro
 
         await _userRepository.UpdateAvatar(userId, avatarUrl);
 
-        return new BoolResult(true);
+        return new AvatarResult(avatarUrl);
     }
 }
