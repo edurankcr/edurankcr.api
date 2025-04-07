@@ -135,7 +135,7 @@ public class ProfileController : ApiController
         var changeAvatarResult = await _mediator.Send(command);
 
         return changeAvatarResult.Match(
-            result => Ok(_mapper.Map<BoolResponse>(result)),
+            result => Ok(_mapper.Map<AvatarResponse>(result)),
             Problem);
     }
 }
