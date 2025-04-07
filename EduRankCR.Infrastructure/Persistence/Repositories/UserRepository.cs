@@ -160,4 +160,14 @@ public class UserRepository : IUserRepository
 
         await connection.QueryAsync("sp_User__Update_Profile", parameters, commandType: CommandType.StoredProcedure);
     }
+
+    public async Task DeleteChangeEmail(UserId userId)
+    {
+        using IDbConnection connection = _connectionFactory.CreateConnection();
+
+        var parameters = new DynamicParameters();
+        parameters.Add("@UserId", userId.Value);
+
+        await connection.QueryAsync("sp_User__Delete_Change_Email", parameters, commandType: CommandType.StoredProcedure);
+    }
 }

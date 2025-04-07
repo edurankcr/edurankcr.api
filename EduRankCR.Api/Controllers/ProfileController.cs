@@ -1,5 +1,6 @@
 ﻿using EduRankCR.Application.Commands.Profile.Commands.Avatar.Change;
 using EduRankCR.Application.Commands.Profile.Commands.Email.Change;
+using EduRankCR.Application.Commands.Profile.Commands.Email.Delete;
 using EduRankCR.Application.Commands.Profile.Commands.Email.Verify;
 using EduRankCR.Application.Commands.Profile.Commands.Update;
 using EduRankCR.Application.Commands.Profile.Queries.Profile;
@@ -62,6 +63,26 @@ public class ProfileController : ApiController
         var updateResult = await _mediator.Send(command);
 
         return updateResult.Match(
+            result => Ok(_mapper.Map<BoolResponse>(result)),
+            Problem);
+    }
+
+    [HttpDelete("change-email")]
+    public async Task<IActionResult> ChangeEmail()
+    {
+        var userId = GetUserId();
+
+        if (userId is null)
+        {
+            return Problem(
+                statusCode: StatusCodes.Status401Unauthorized,
+                title: Errors.Auth.Unauthorized.Description);
+        }
+
+        var command = new DeleteEmailChangeProfileCommand(userId);
+        var commandResult = await _mediator.Send(command);
+
+        return commandResult.Match(
             result => Ok(_mapper.Map<BoolResponse>(result)),
             Problem);
     }
