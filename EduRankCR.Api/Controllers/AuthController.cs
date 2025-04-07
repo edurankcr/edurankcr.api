@@ -1,6 +1,5 @@
 ﻿using EduRankCR.Application.Commands.Auth.Queries.Login;
 using EduRankCR.Contracts.Auth;
-using EduRankCR.Domain.Common.Errors;
 using MapsterMapper;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
