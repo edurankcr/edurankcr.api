@@ -39,7 +39,6 @@ public class CreateInstituteCommandHandler : IRequestHandler<CreateInstituteComm
             query.Name,
             (InstituteType)query.Type,
             (Province)query.Province,
-            (District)query.District,
             query.Url,
             Status.Pending);
 
