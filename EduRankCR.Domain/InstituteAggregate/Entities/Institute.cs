@@ -12,7 +12,6 @@ public sealed class Institute : Entity<InstituteId>
     public string Name { get; }
     public InstituteType Type { get; }
     public Province Province { get; }
-    public District District { get; }
     public string? Url { get; }
     public Status Status { get; }
 
@@ -22,7 +21,6 @@ public sealed class Institute : Entity<InstituteId>
         string name,
         InstituteType type,
         Province province,
-        District district,
         string? url,
         Status status)
         : base(instituteId)
@@ -31,7 +29,6 @@ public sealed class Institute : Entity<InstituteId>
         Name = name;
         Type = type;
         Province = province;
-        District = district;
         Url = url;
         Status = status;
     }
@@ -41,7 +38,6 @@ public sealed class Institute : Entity<InstituteId>
         string name,
         InstituteType type,
         Province province,
-        District district,
         string? url,
         Status status)
     {
@@ -51,7 +47,6 @@ public sealed class Institute : Entity<InstituteId>
             name,
             type,
             province,
-            district,
             url,
             status);
 
@@ -64,7 +59,6 @@ public sealed class Institute : Entity<InstituteId>
         string name,
         byte type,
         byte province,
-        int district,
         string? url,
         byte status)
     {
@@ -74,7 +68,6 @@ public sealed class Institute : Entity<InstituteId>
             name,
             (InstituteType)type,
             (Province)province,
-            (District)district,
             url,
             (Status)status);
 
