@@ -33,7 +33,6 @@ public class AuthenticationMappingConfig : IRegister
             .Map(dest => dest.Name, src => src.Institute.Name)
             .Map(dest => dest.Type, src => src.Institute.Type)
             .Map(dest => dest.Province, src => src.Institute.Province)
-            .Map(dest => dest.District, src => src.Institute.District)
             .Map(dest => dest.Url, src => src.Institute.Url);
     }
 }
