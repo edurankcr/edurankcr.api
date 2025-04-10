@@ -4,7 +4,6 @@ CREATE TABLE Institutes (
     Name NVARCHAR(200) NOT NULL,
     Type TINYINT NOT NULL DEFAULT 0,
     Province TINYINT NOT NULL DEFAULT 0,
-    District SMALLINT NOT NULL DEFAULT 0,
     Url NVARCHAR(350),
     Status TINYINT NOT NULL DEFAULT 0,
     CreatedAt DATETIME2 NOT NULL DEFAULT GETDATE(),
@@ -20,8 +19,8 @@ CREATE INDEX IX_Institutes_UserId ON Institutes(UserId);
 -- Index on Name for faster text searches
 CREATE INDEX IX_Institutes_Name ON Institutes(Name);
 
--- Composite Index on Type, Province, and District for filtering and grouping
-CREATE INDEX IX_Institutes_Type_Province_District ON Institutes(Type, Province, District);
+-- Composite Index on Type, Province for filtering and grouping
+CREATE INDEX IX_Institutes_Type_Province_District ON Institutes(Type, Province);
 
 -- Index on Status for filtering active/inactive institutes
 CREATE INDEX IX_Institutes_Status ON Institutes(Status);
@@ -32,7 +31,7 @@ CREATE INDEX IX_Institutes_CreatedAt ON Institutes(CreatedAt);
 -- Index on UpdatedAt for queries tracking changes over time
 CREATE INDEX IX_Institutes_UpdatedAt ON Institutes(UpdatedAt);
 
--- Covering Index for common queries that involve Name, Type, Province, and District
+-- Covering Index for common queries that involve Name, Type, Province
 CREATE INDEX IX_Institutes_Covering
-    ON Institutes(Name, Type, Province, District)
+    ON Institutes(Name, Type, Province)
     INCLUDE (Status, CreatedAt);
