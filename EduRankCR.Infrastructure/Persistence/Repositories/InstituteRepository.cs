@@ -42,7 +42,6 @@ public class InstituteRepository : IInstituteRepository
             instituteDto.Name,
             instituteDto.Type,
             instituteDto.Province,
-            instituteDto.District,
             instituteDto.Url,
             instituteDto.Status);
     }
@@ -57,7 +56,6 @@ public class InstituteRepository : IInstituteRepository
         parameters.Add("@Name", institute.Name);
         parameters.Add("@Type", institute.Type);
         parameters.Add("@Province", institute.Province);
-        parameters.Add("@District", institute.District);
         parameters.Add("@Url", institute.Url);
         parameters.Add("@Status", institute.Status);
 

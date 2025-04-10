@@ -26,15 +26,10 @@ public class CreateInstituteCommandValidator : AbstractValidator<CreateInstitute
             .InclusiveBetween(1, 7)
             .WithMessage("Province type must be between 1 and 7 (1 = San José, 2 = Alajuela, 3 = Cartago, 4 = Heredia, 5 = Guanacaste, 6 = Puntarenas, 7 = Limón).");
 
-        RuleFor(x => x.District)
-            .NotNull()
-            .InclusiveBetween(101, 706)
-            .WithMessage("District type must be between 101 and 706.");
-
         RuleFor(x => x.Url)
-            .NotEmpty()
             .MaximumLength(350)
             .Matches(@"^https:\/\/([\w\-]+\.)+[\w\-]+(\/[\w\-./?%&=]*)?$")
-            .WithMessage("URL must start with 'https://' and be a valid web address.");
+            .WithMessage("URL must start with 'https://' and be a valid web address.")
+            .When(x => !string.IsNullOrWhiteSpace(x.Url));
     }
 }
