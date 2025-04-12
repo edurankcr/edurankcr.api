@@ -26,7 +26,6 @@ public class SearchRepository : ISearchRepository
         var parameters = new DynamicParameters();
         parameters.Add("@Name", name);
         parameters.Add("@Type", type);
-        parameters.Add("@InstituteId", instituteId);
         parameters.Add("@TypeFilter", typeFilter);
         parameters.Add("@Province", province);
 
