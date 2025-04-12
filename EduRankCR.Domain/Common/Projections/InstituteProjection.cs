@@ -5,5 +5,4 @@ public record InstituteProjection(
     string Name,
     byte Type,
     byte Province,
-    short District,
     string? Url);
