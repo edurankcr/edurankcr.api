@@ -4,7 +4,7 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    SELECT InstituteId, UserId, Name, Type, Province, District, Url, Status
+    SELECT InstituteId, UserId, Name, Type, Province, Url, Status
     FROM Institutes
     WHERE InstituteId = @InstituteId;
 END;
