@@ -4,9 +4,11 @@ using EduRankCR.Application.Commands.Institute.Common;
 using EduRankCR.Application.Commands.Profile.Commands.Avatar.Change;
 using EduRankCR.Application.Commands.Profile.Common;
 using EduRankCR.Application.Commands.Register.Commands.Register;
+using EduRankCR.Application.Commands.Reviews.Common;
 using EduRankCR.Contracts.Auth;
 using EduRankCR.Contracts.Profile;
 using EduRankCR.Contracts.Register;
+using EduRankCR.Contracts.Reviews;
 
 using Mapster;
 
@@ -34,5 +36,8 @@ public class AuthenticationMappingConfig : IRegister
             .Map(dest => dest.Type, src => src.Institute.Type)
             .Map(dest => dest.Province, src => src.Institute.Province)
             .Map(dest => dest.Url, src => src.Institute.Url);
+
+        config.NewConfig<LastReviewsResult, LastReviewsResponse>()
+            .Map(dest => dest, src => src);
     }
 }
