@@ -34,6 +34,16 @@ public class CreateInstituteCommandHandler : IRequestHandler<CreateInstituteComm
             return Errors.User.NotFound;
         }
 
+        Domain.InstituteAggregate.Entities.Institute? hasInstitute = await _instituteRepository.FindLastByUserId(user.Id);
+
+        if (hasInstitute is not null)
+        {
+            if (hasInstitute.Status == Status.Pending)
+            {
+                return Errors.Institute.InstituteInReview;
+            }
+        }
+
         Domain.InstituteAggregate.Entities.Institute institute = Domain.InstituteAggregate.Entities.Institute.Create(
             user.Id,
             query.Name,
