@@ -46,6 +46,33 @@ public class InstituteRepository : IInstituteRepository
             instituteDto.Status);
     }
 
+    public async Task<Institute?> FindLastByUserId(UserId userId)
+    {
+        using IDbConnection connection = _connectionFactory.CreateConnection();
+
+        var parameters = new DynamicParameters();
+        parameters.Add("@UserId", userId.Value);
+
+        var instituteDto = await connection.QueryFirstOrDefaultAsync(
+            "sp_Institute__Find_Last_UserId",
+            parameters,
+            commandType: CommandType.StoredProcedure);
+
+        if (instituteDto is null)
+        {
+            return null;
+        }
+
+        return Institute.CreateFromPersistence(
+            instituteDto.InstituteId,
+            instituteDto.UserId,
+            instituteDto.Name,
+            instituteDto.Type,
+            instituteDto.Province,
+            instituteDto.Url,
+            instituteDto.Status);
+    }
+
     public async Task Create(Institute institute)
     {
         using IDbConnection connection = _connectionFactory.CreateConnection();
