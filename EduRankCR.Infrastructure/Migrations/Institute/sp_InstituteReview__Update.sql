@@ -19,7 +19,7 @@ BEGIN
     BEGIN TRY
         BEGIN TRANSACTION;
 
-        UPDATE InstitutesReviews
+        UPDATE Institutes_Reviews
         SET
             Reputation          = COALESCE(@Reputation, Reputation),
             Opportunities       = COALESCE(@Opportunities, Opportunities),

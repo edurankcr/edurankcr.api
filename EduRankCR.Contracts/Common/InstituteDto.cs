@@ -5,5 +5,6 @@ public record InstituteDto(
     string Name,
     byte Type,
     byte Province,
-    short District,
-    string? Url);
+    string? Url,
+    DateTime CreatedAt,
+    DateTime UpdatedAt);

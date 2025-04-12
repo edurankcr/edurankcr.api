@@ -7,6 +7,6 @@ BEGIN
 
     SELECT ReviewId, UserId, InstituteId, Reputation, Opportunities, Happiness, Location, Facilities, Social, Clubs, Internet,
            Security, Food, ExperienceText, Status, CreatedAt, UpdatedAt
-    FROM InstitutesReviews
+    FROM Institutes_Reviews
     WHERE UserId = @UserId AND InstituteId = @InstituteId;
 END;

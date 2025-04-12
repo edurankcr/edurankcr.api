@@ -31,10 +31,5 @@ public class SearchQueryValidator : AbstractValidator<SearchQuery>
             .InclusiveBetween(1, 7)
             .When(x => x.Province.HasValue)
             .WithMessage("Province must be between 1 and 7.");
-
-        RuleFor(x => x.District)
-            .InclusiveBetween(1, 500)
-            .When(x => x.District.HasValue)
-            .WithMessage("District must be between 1 and 500.");
     }
 }

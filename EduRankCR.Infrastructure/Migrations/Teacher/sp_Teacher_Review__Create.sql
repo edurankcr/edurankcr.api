@@ -23,7 +23,7 @@ BEGIN
     IF @CreatedAt IS NULL SET @CreatedAt = GETDATE();
     IF @UpdatedAt IS NULL SET @UpdatedAt = GETDATE();
 
-    INSERT INTO Teacher_Reviews (
+    INSERT INTO Teachers_Reviews (
         ReviewId, UserId, TeacherId, InstituteId, FreeCourse, CourseCode, CourseMode,
         ProfessorRating, DifficultyRating, WouldTakeAgain, MandatoryAttendance,
         GradeReceived, ExperienceText, Status, CreatedAt, UpdatedAt

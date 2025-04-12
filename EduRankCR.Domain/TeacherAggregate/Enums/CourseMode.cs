@@ -1,6 +1,6 @@
 ﻿namespace EduRankCR.Domain.TeacherAggregate.Enums;
 
-public enum CourseMode
+public enum CourseMode : byte
 {
     Online,
     InPerson,

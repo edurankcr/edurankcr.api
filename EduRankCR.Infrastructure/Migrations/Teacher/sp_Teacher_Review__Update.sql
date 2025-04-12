@@ -18,7 +18,7 @@ BEGIN
     BEGIN TRY
         BEGIN TRANSACTION;
 
-        UPDATE Teacher_Reviews
+        UPDATE Teachers_Reviews
         SET
             InstituteId         = COALESCE(@InstituteId, InstituteId),
             FreeCourse          = COALESCE(@FreeCourse, FreeCourse),

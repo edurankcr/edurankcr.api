@@ -24,7 +24,7 @@ BEGIN
     IF @CreatedAt IS NULL SET @CreatedAt = GETDATE();
     IF @UpdatedAt IS NULL SET @UpdatedAt = GETDATE();
 
-    INSERT INTO InstitutesReviews (
+    INSERT INTO Institutes_Reviews (
         ReviewId, UserId, InstituteId, Reputation, Opportunities, Happiness, Location, Facilities, Social, Clubs,
         Internet, Security, Food, ExperienceText, Status, CreatedAt, UpdatedAt
     )

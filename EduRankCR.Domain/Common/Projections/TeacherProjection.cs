@@ -4,5 +4,6 @@ public record TeacherProjection(
     Guid TeacherId,
     string Name,
     string LastName,
-    Guid InstituteId,
-    string InstituteName);
+    string FullName,
+    DateTime CreatedAt,
+    DateTime UpdatedAt);

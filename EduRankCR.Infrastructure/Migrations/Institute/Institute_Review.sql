@@ -1,4 +1,4 @@
-﻿CREATE TABLE InstitutesReviews (
+﻿CREATE TABLE Institutes_Reviews (
     ReviewId            UNIQUEIDENTIFIER PRIMARY KEY DEFAULT NEWID(),
     UserId              UNIQUEIDENTIFIER NOT NULL,
     InstituteId         UNIQUEIDENTIFIER NULL,  -- Allowed to be left without institute in case of closure
@@ -25,25 +25,25 @@
 );
 
 -- Index on Foreign Keys to speed up JOINs
-CREATE INDEX IX_InstitutesReviews_UserId ON InstitutesReviews(UserId);
-CREATE INDEX IX_InstitutesReviews_InstituteId ON InstitutesReviews(InstituteId);
+CREATE INDEX IX_InstitutesReviews_UserId ON Institutes_Reviews(UserId);
+CREATE INDEX IX_InstitutesReviews_InstituteId ON Institutes_Reviews(InstituteId);
 
 -- Index for filtering by Status (e.g., approved/pending/deleted reviews)
-CREATE INDEX IX_InstitutesReviews_Status ON InstitutesReviews(Status);
+CREATE INDEX IX_InstitutesReviews_Status ON Institutes_Reviews(Status);
 
 -- Composite Index for queries filtering by InstituteId and Status
-CREATE INDEX IX_InstitutesReviews_Institute_Status ON InstitutesReviews(InstituteId, Status);
+CREATE INDEX IX_InstitutesReviews_Institute_Status ON Institutes_Reviews(InstituteId, Status);
 
 -- Index for sorting by CreatedAt (e.g., latest reviews first)
-CREATE INDEX IX_InstitutesReviews_CreatedAt ON InstitutesReviews(CreatedAt DESC);
+CREATE INDEX IX_InstitutesReviews_CreatedAt ON Institutes_Reviews(CreatedAt DESC);
 
 -- Composite Index for filtering and sorting by InstituteId and CreatedAt
-CREATE INDEX IX_InstitutesReviews_Institute_CreatedAt ON InstitutesReviews(InstituteId, CreatedAt DESC);
+CREATE INDEX IX_InstitutesReviews_Institute_CreatedAt ON Institutes_Reviews(InstituteId, CreatedAt DESC);
 
 -- Composite Index for retrieving overall ratings efficiently
 CREATE INDEX IX_InstitutesReviews_Reputation_Opportunities_Happiness
-    ON InstitutesReviews(Reputation, Opportunities, Happiness);
+    ON Institutes_Reviews(Reputation, Opportunities, Happiness);
 
 -- Covering Index for performance on key review retrieval queries
 CREATE INDEX IX_InstitutesReviews_Institute_Rating_Experience
-    ON InstitutesReviews(InstituteId, Reputation) INCLUDE (ExperienceText, Status, CreatedAt);
+    ON Institutes_Reviews(InstituteId, Reputation) INCLUDE (ExperienceText, Status, CreatedAt);
