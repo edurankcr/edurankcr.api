@@ -12,9 +12,9 @@ public class LastReviewsQueryHandler : IRequestHandler<LastReviewsQuery, ErrorOr
 {
     private readonly IReviewsRepository _reviewsRepository;
 
-    public LastReviewsQueryHandler(IReviewsRepository searchRepository)
+    public LastReviewsQueryHandler(IReviewsRepository reviewsRepository)
     {
-        _reviewsRepository = searchRepository;
+        _reviewsRepository = reviewsRepository;
     }
 
     public async Task<ErrorOr<LastReviewsResult>> Handle(LastReviewsQuery query, CancellationToken cancellationToken)
