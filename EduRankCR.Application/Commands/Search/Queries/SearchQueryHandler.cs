@@ -24,8 +24,7 @@ public class SearchQueryHandler : IRequestHandler<SearchQuery, ErrorOr<SearchRes
             query.Type,
             query.InstituteId,
             query.TypeFilter,
-            query.Province,
-            query.District);
+            query.Province);
         return new SearchResult(teachers, institutes);
     }
 }
