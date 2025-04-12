@@ -43,6 +43,7 @@ public static class DependencyInjection
         services.AddScoped<IInstituteRepository, InstituteRepository>();
         services.AddScoped<ITeacherRepository, TeacherRepository>();
         services.AddScoped<ISearchRepository, SearchRepository>();
+        services.AddScoped<IReviewsRepository, ReviewsRepository>();
 
         return services;
     }
