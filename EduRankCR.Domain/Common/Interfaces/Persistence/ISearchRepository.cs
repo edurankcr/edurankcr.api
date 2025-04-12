@@ -10,6 +10,5 @@ public interface ISearchRepository
         string? type,
         string? instituteId,
         int? typeFilter,
-        int? province,
-        int? district);
+        int? province);
 }
