@@ -19,8 +19,7 @@ public class SearchRepository : ISearchRepository
         string? type,
         string? instituteId,
         int? typeFilter,
-        int? province,
-        int? district)
+        int? province)
     {
         using IDbConnection connection = _connectionFactory.CreateConnection();
 
@@ -30,7 +29,6 @@ public class SearchRepository : ISearchRepository
         parameters.Add("@InstituteId", instituteId);
         parameters.Add("@TypeFilter", typeFilter);
         parameters.Add("@Province", province);
-        parameters.Add("@District", district);
 
         await using var multi = await connection.QueryMultipleAsync("sp_Search__All", parameters, commandType: CommandType.StoredProcedure);
 
