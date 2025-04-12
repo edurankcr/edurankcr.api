@@ -8,6 +8,6 @@ BEGIN
     SELECT ReviewId, UserId, TeacherId, InstituteId, FreeCourse, CourseCode, CourseMode,
            ProfessorRating, DifficultyRating, WouldTakeAgain, MandatoryAttendance,
            GradeReceived, ExperienceText, Status, CreatedAt, UpdatedAt
-    FROM Teacher_Reviews
+    FROM Teachers_Reviews
     WHERE UserId = @UserId AND TeacherId = @TeacherId;
 END;
