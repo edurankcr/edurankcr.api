@@ -8,6 +8,7 @@ namespace EduRankCR.Domain.Common.Interfaces.Persistence;
 public interface IInstituteRepository
 {
     Task<Institute?> Find(InstituteId instituteId);
+    Task<Institute?> FindLastByUserId(UserId userId);
     Task Create(Institute institute);
     Task<InstituteReview?> FindReviewByInstitute(UserId userId, InstituteId instituteId);
     Task CreateReview(InstituteReview instituteReview, InstituteId instituteId, UserId userId);
