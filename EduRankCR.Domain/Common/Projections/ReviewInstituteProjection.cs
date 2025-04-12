@@ -3,6 +3,7 @@
 public record ReviewInstituteProjection(
     Guid InstituteId,
     string InstituteName,
+    byte InstituteType,
     Guid ReviewId,
     decimal Reputation,
     decimal Opportunities,
