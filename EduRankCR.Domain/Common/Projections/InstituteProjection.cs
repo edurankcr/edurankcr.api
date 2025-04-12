@@ -5,4 +5,6 @@ public record InstituteProjection(
     string Name,
     byte Type,
     byte Province,
-    string? Url);
+    string? Url,
+    DateTime CreatedAt,
+    DateTime UpdatedAt);
