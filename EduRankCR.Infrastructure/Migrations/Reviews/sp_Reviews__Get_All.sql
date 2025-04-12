@@ -3,7 +3,7 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    SELECT TOP 10
+    SELECT TOP 6
         t.TeacherId,
         t.Name AS TeacherName,
         t.LastName AS TeacherLastName,
@@ -30,9 +30,10 @@ BEGIN
              INNER JOIN [Users] u ON tr.UserId = u.UserId
     ORDER BY tr.CreatedAt DESC;
 
-    SELECT TOP 10
+    SELECT TOP 6
         i.InstituteId,
         i.Name AS InstituteName,
+        i.Type AS InstituteType,
 
         ir.ReviewId,
         ir.Reputation,
