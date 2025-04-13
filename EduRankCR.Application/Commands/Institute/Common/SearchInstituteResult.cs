@@ -1,3 +1,7 @@
-﻿namespace EduRankCR.Application.Commands.Institute.Common;
+﻿using EduRankCR.Domain.InstituteAggregate.Entities;
 
-public record SearchInstituteResult(Domain.InstituteAggregate.Entities.Institute Institute);
+namespace EduRankCR.Application.Commands.Institute.Common;
+
+public record SearchInstituteResult(
+    Domain.InstituteAggregate.Entities.Institute Institute,
+    InstituteSummary Summary);

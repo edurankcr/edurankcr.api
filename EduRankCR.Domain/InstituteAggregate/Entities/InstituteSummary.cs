@@ -1,15 +1,12 @@
-﻿using EduRankCR.Domain.Common.Enums;
-using EduRankCR.Domain.Common.Models;
-using EduRankCR.Domain.Common.ValueObjects;
+﻿using EduRankCR.Domain.Common.Models;
 using EduRankCR.Domain.InstituteAggregate.ValueObjects;
-using EduRankCR.Domain.UserAggregate.ValueObjects;
 
 namespace EduRankCR.Domain.InstituteAggregate.Entities;
 
-public sealed class InstituteReview : Entity<ReviewId>
+public sealed class InstituteSummary : Entity<InstituteId>
 {
-    public UserId UserId { get; }
-    public InstituteId InstituteId { get; }
+    public int TotalReviews { get; }
+    public decimal TotalAverageScore { get; }
     public decimal Reputation { get; }
     public decimal Opportunities { get; }
     public decimal Happiness { get; }
@@ -20,15 +17,12 @@ public sealed class InstituteReview : Entity<ReviewId>
     public decimal Internet { get; }
     public decimal Security { get; }
     public decimal Food { get; }
-    public string ExperienceText { get; }
-    public Status Status { get; }
-    public DateTime CreatedAt { get; }
     public DateTime UpdatedAt { get; }
 
-    private InstituteReview(
-        ReviewId reviewId,
-        UserId userId,
+    private InstituteSummary(
         InstituteId instituteId,
+        int totalReviews,
+        decimal totalAverageScore,
         decimal reputation,
         decimal opportunities,
         decimal happiness,
@@ -39,14 +33,11 @@ public sealed class InstituteReview : Entity<ReviewId>
         decimal internet,
         decimal security,
         decimal food,
-        string experienceText,
-        Status status,
-        DateTime createdAt,
         DateTime updatedAt)
-        : base(reviewId)
+        : base(instituteId)
     {
-        UserId = userId;
-        InstituteId = instituteId;
+        TotalReviews = totalReviews;
+        TotalAverageScore = totalAverageScore;
         Reputation = reputation;
         Opportunities = opportunities;
         Happiness = happiness;
@@ -57,15 +48,13 @@ public sealed class InstituteReview : Entity<ReviewId>
         Internet = internet;
         Security = security;
         Food = food;
-        ExperienceText = experienceText;
-        Status = status;
-        CreatedAt = createdAt;
         UpdatedAt = updatedAt;
     }
 
-    public static InstituteReview Create(
-        UserId userId,
+    public static InstituteSummary Create(
         InstituteId instituteId,
+        int totalReviews,
+        decimal totalAverageScore,
         decimal reputation,
         decimal opportunities,
         decimal happiness,
@@ -75,14 +64,12 @@ public sealed class InstituteReview : Entity<ReviewId>
         decimal clubs,
         decimal internet,
         decimal security,
-        decimal food,
-        string experienceText,
-        Status status)
+        decimal food)
     {
-        return new InstituteReview(
-            ReviewId.CreateUnique(),
-            userId,
+        return new InstituteSummary(
             instituteId,
+            totalReviews,
+            totalAverageScore,
             reputation,
             opportunities,
             happiness,
@@ -93,16 +80,13 @@ public sealed class InstituteReview : Entity<ReviewId>
             internet,
             security,
             food,
-            experienceText,
-            status,
-            DateTime.UtcNow,
             DateTime.UtcNow);
     }
 
-    public static InstituteReview CreateFromPersistence(
-        Guid reviewId,
-        Guid userId,
+    public static InstituteSummary CreateFromPersistence(
         Guid instituteId,
+        int totalReviews,
+        decimal totalAverageScore,
         decimal reputation,
         decimal opportunities,
         decimal happiness,
@@ -113,15 +97,12 @@ public sealed class InstituteReview : Entity<ReviewId>
         decimal internet,
         decimal security,
         decimal food,
-        string experienceText,
-        byte status,
-        DateTime createdAt,
         DateTime updatedAt)
     {
-        return new InstituteReview(
-            new ReviewId(reviewId),
-            new UserId(userId),
+        return new InstituteSummary(
             new InstituteId(instituteId),
+            totalReviews,
+            totalAverageScore,
             reputation,
             opportunities,
             happiness,
@@ -132,9 +113,6 @@ public sealed class InstituteReview : Entity<ReviewId>
             internet,
             security,
             food,
-            experienceText,
-            (Status)status,
-            createdAt,
             updatedAt);
     }
 }

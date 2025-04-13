@@ -1,6 +1,6 @@
 ﻿using EduRankCR.Domain.Common.Models;
 
-namespace EduRankCR.Domain.Common.Enums;
+namespace EduRankCR.Domain.Common.ValueObjects;
 
 public sealed class ReviewId : ValueObject
 {

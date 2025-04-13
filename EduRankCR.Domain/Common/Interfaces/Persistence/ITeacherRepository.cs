@@ -1,4 +1,5 @@
 using EduRankCR.Domain.Common.Enums;
+using EduRankCR.Domain.Common.ValueObjects;
 using EduRankCR.Domain.InstituteAggregate.ValueObjects;
 using EduRankCR.Domain.TeacherAggregate.Entities;
 using EduRankCR.Domain.TeacherAggregate.ValueObjects;

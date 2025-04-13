@@ -22,13 +22,20 @@ public class SearchInstituteQueryHandler : IRequestHandler<SearchInstituteQuery,
         SearchInstituteQuery query,
         CancellationToken cancellationToken)
     {
-        Domain.InstituteAggregate.Entities.Institute? institute = await _instituteRepository.Find(InstituteId.ConvertFromString(query.InstituteId));
+        var (institute, summary) = await _instituteRepository.Details(InstituteId.ConvertFromString(query.InstituteId));
 
         if (institute?.Id is null)
         {
             return Errors.Institute.NotFound;
         }
 
-        return new SearchInstituteResult(institute);
+        if (summary?.Id is null)
+        {
+            return Errors.Institute.SummaryNotFound;
+        }
+
+        return new SearchInstituteResult(
+            institute,
+            summary);
     }
 }
