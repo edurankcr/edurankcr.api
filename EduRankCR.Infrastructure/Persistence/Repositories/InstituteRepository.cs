@@ -3,6 +3,7 @@ using Dapper;
 
 using EduRankCR.Domain.Common.Enums;
 using EduRankCR.Domain.Common.Interfaces.Persistence;
+using EduRankCR.Domain.Common.ValueObjects;
 using EduRankCR.Domain.InstituteAggregate.Entities;
 using EduRankCR.Domain.InstituteAggregate.ValueObjects;
 using EduRankCR.Domain.UserAggregate.ValueObjects;
@@ -44,6 +45,53 @@ public class InstituteRepository : IInstituteRepository
             instituteDto.Province,
             instituteDto.Url,
             instituteDto.Status);
+    }
+
+    public async Task<(Institute? Institute, InstituteSummary? Summary)> Details(InstituteId instituteId)
+    {
+        using IDbConnection connection = _connectionFactory.CreateConnection();
+
+        var parameters = new DynamicParameters();
+        parameters.Add("@InstituteId", instituteId.Value);
+
+        var fetch = await connection.QueryMultipleAsync(
+            "sp_Institute__Details",
+            parameters,
+            commandType: CommandType.StoredProcedure);
+
+        var instituteDto = await fetch.ReadFirstOrDefaultAsync<dynamic>();
+        var summaryDto = await fetch.ReadFirstOrDefaultAsync<dynamic>();
+
+        Institute? institute = instituteDto is null
+            ? null
+            : Institute.CreateFromPersistence(
+                instituteDto.InstituteId,
+                instituteDto.UserId,
+                instituteDto.Name,
+                instituteDto.Type,
+                instituteDto.Province,
+                instituteDto.Url,
+                instituteDto.Status);
+
+        InstituteSummary? summary = summaryDto is null
+            ? null
+            : InstituteSummary.CreateFromPersistence(
+                summaryDto.InstituteId,
+                summaryDto.TotalReviews,
+                summaryDto.TotalAverageScore,
+                summaryDto.Reputation,
+                summaryDto.Opportunities,
+                summaryDto.Happiness,
+                summaryDto.Location,
+                summaryDto.Facilities,
+                summaryDto.Social,
+                summaryDto.Clubs,
+                summaryDto.Internet,
+                summaryDto.Security,
+                summaryDto.Food,
+                summaryDto.UpdatedAt);
+
+        return (institute, summary);
     }
 
     public async Task<Institute?> FindLastByUserId(UserId userId)
