@@ -1,5 +1,6 @@
 ﻿using EduRankCR.Domain.Common.Enums;
 using EduRankCR.Domain.Common.Models;
+using EduRankCR.Domain.Common.ValueObjects;
 using EduRankCR.Domain.InstituteAggregate.ValueObjects;
 using EduRankCR.Domain.UserAggregate.ValueObjects;
 
