@@ -10,6 +10,19 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    INSERT INTO Institutes (InstituteId, UserId, Name, Type, Province, Url, Status, CreatedAt, UpdatedAt)
-    VALUES (@InstituteId, @UserId, @Name, @Type, @Province, @Url, @Status, GETDATE(), GETDATE());
+    BEGIN TRY
+        BEGIN TRANSACTION;
+
+        INSERT INTO Institutes (InstituteId, UserId, Name, Type, Province, Url, Status, CreatedAt, UpdatedAt)
+        VALUES (@InstituteId, @UserId, @Name, @Type, @Province, @Url, @Status, GETDATE(), GETDATE());
+
+        INSERT INTO Institutes_Reviews_Summaries (InstituteId, TotalReviews, TotalAverageScore, Reputation, Opportunities, Happiness, Location, Facilities, Social, Clubs, Internet, Security, Food, UpdatedAt)
+        VALUES (@InstituteId, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, GETDATE());
+
+        COMMIT TRANSACTION;
+    END TRY
+    BEGIN CATCH
+        ROLLBACK TRANSACTION;
+        THROW;
+    END CATCH;
 END;
