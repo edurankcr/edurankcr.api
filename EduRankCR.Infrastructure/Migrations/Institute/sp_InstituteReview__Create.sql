@@ -24,12 +24,47 @@ BEGIN
     IF @CreatedAt IS NULL SET @CreatedAt = GETDATE();
     IF @UpdatedAt IS NULL SET @UpdatedAt = GETDATE();
 
-    INSERT INTO Institutes_Reviews (
-        ReviewId, UserId, InstituteId, Reputation, Opportunities, Happiness, Location, Facilities, Social, Clubs,
-        Internet, Security, Food, ExperienceText, Status, CreatedAt, UpdatedAt
-    )
-    VALUES (
-               NEWID(), @UserId, @InstituteId, @Reputation, @Opportunities, @Happiness, @Location, @Facilities,
-                @Social, @Clubs, @Internet, @Security, @Food, @ExperienceText, @Status, @CreatedAt, @UpdatedAt
-           );
+    DECLARE @NewReviewId UNIQUEIDENTIFIER = NEWID();
+
+    BEGIN TRY
+        BEGIN TRANSACTION;
+
+        INSERT INTO Institutes_Reviews (
+            ReviewId, UserId, InstituteId, Reputation, Opportunities, Happiness, Location, Facilities, Social, Clubs,
+            Internet, Security, Food, ExperienceText, Status, CreatedAt, UpdatedAt
+        )
+        VALUES (
+                   @NewReviewId, @UserId, @InstituteId, @Reputation, @Opportunities, @Happiness, @Location, @Facilities,
+                   @Social, @Clubs, @Internet, @Security, @Food, @ExperienceText, @Status, @CreatedAt, @UpdatedAt
+               );
+
+        UPDATE IRS
+        SET
+            TotalReviews     = TotalReviews + 1,
+            Reputation       = ((Reputation * TotalReviews) + @Reputation) / (TotalReviews + 1),
+            Opportunities    = ((Opportunities * TotalReviews) + @Opportunities) / (TotalReviews + 1),
+            Happiness        = ((Happiness * TotalReviews) + @Happiness) / (TotalReviews + 1),
+            Location         = ((Location * TotalReviews) + @Location) / (TotalReviews + 1),
+            Facilities       = ((Facilities * TotalReviews) + @Facilities) / (TotalReviews + 1),
+            Social           = ((Social * TotalReviews) + @Social) / (TotalReviews + 1),
+            Clubs            = ((Clubs * TotalReviews) + @Clubs) / (TotalReviews + 1),
+            Internet         = ((Internet * TotalReviews) + @Internet) / (TotalReviews + 1),
+            Security         = ((Security * TotalReviews) + @Security) / (TotalReviews + 1),
+            Food             = ((Food * TotalReviews) + @Food) / (TotalReviews + 1),
+            TotalAverageScore = (
+                (
+                    (Reputation + Opportunities + Happiness + Location + Facilities +
+                     Social + Clubs + Internet + Security + Food) / 10.0
+                    )
+                ),
+            UpdatedAt        = GETDATE()
+        FROM Institutes_Reviews_Summaries IRS
+        WHERE IRS.InstituteId = @InstituteId;
+
+        COMMIT TRANSACTION;
+    END TRY
+    BEGIN CATCH
+        ROLLBACK TRANSACTION;
+        THROW;
+    END CATCH;
 END;
