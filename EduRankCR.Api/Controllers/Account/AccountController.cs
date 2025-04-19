@@ -9,6 +9,8 @@ using EduRankCR.Application.Account.Commands.UploadAvatar;
 using EduRankCR.Application.Account.Commands.VerifyEmailChange;
 using EduRankCR.Application.Account.Queries.GetAccount;
 using EduRankCR.Contracts.Account;
+using EduRankCR.Contracts.Account.Requests;
+using EduRankCR.Contracts.Account.Responses;
 
 using Mapster;
 

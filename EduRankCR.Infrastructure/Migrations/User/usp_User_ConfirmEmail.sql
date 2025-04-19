@@ -2,6 +2,8 @@
     @UserId UNIQUEIDENTIFIER
 AS
 BEGIN
+    SET NOCOUNT ON;
+
     UPDATE Users
     SET EmailConfirmed = 1,
         UpdatedAt = GETDATE()

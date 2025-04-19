@@ -3,6 +3,8 @@
     @NewPassword NVARCHAR(255)
 AS
 BEGIN
+    SET NOCOUNT ON;
+
     UPDATE Users
     SET Password = @NewPassword,
         UpdatedAt = GETDATE()

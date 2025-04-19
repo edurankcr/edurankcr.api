@@ -1,6 +1,8 @@
 ﻿using EduRankCR.Api.Controllers.Common;
-using EduRankCR.Application.Institutions.Queries.GetInstitutionById;
-using EduRankCR.Contracts.Institutions;
+using EduRankCR.Application.Institutions.Queries.GetAggregateRatings;
+using EduRankCR.Application.Institutions.Queries.GetById;
+using EduRankCR.Application.Institutions.Queries.GetRatings;
+using EduRankCR.Contracts.Institutions.Responses;
 
 using MapsterMapper;
 
@@ -23,14 +25,39 @@ public class InstitutionsController : BaseApiController
         _mapper = mapper;
     }
 
-    [HttpGet("{id:guid}")]
+    [HttpGet("{institutionId:guid}")]
     [AllowAnonymous]
-    public async Task<IActionResult> Get(Guid id)
+    public async Task<IActionResult> GetById(Guid institutionId)
     {
-        var result = await _mediator.Send(new GetInstitutionByIdQuery(id));
+        var query = new GetInstitutionByIdQuery(institutionId);
+        var result = await _mediator.Send(query);
 
         return result.Match(
-            institution => Ok(_mapper.Map<InstitutionBasicInfoResponse>(institution)),
+            value => Ok(_mapper.Map<InstitutionResponse>(value)),
+            Problem);
+    }
+
+    [HttpGet("{institutionId:guid}/ratings")]
+    [AllowAnonymous]
+    public async Task<IActionResult> GetRatingsByInstitutionId(Guid institutionId)
+    {
+        var query = new GetRatingsByInstitutionIdQuery(institutionId);
+        var result = await _mediator.Send(query);
+
+        return result.Match(
+            value => Ok(_mapper.Map<List<InstitutionRatingResponse>>(value)),
+            Problem);
+    }
+
+    [HttpGet("{institutionId:guid}/ratings/aggregate")]
+    [AllowAnonymous]
+    public async Task<IActionResult> GetAggregateRatingsByInstitutionId(Guid institutionId)
+    {
+        var query = new GetAggregateRatingsByInstitutionIdQuery(institutionId);
+        var result = await _mediator.Send(query);
+
+        return result.Match(
+            value => Ok(_mapper.Map<InstitutionRatingAggregateResponse>(value)),
             Problem);
     }
 }

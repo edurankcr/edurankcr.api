@@ -1,8 +1,8 @@
-﻿using EduRankCR.Application.Institutions.Common;
+﻿using EduRankCR.Domain.Institutions.Projections;
 
 namespace EduRankCR.Application.Common.Interfaces;
 
 public interface IInstitutionRepository
 {
-    Task<InstitutionBasicInfoResult?> GetById(Guid id);
+    Task<InstitutionProjection?> GetById(Guid institutionId);
 }

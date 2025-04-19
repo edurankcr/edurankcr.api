@@ -5,6 +5,8 @@
     @ExpiresAt DATETIME2
 AS
 BEGIN
+    SET NOCOUNT ON;
+
     INSERT INTO Users_Tokens (UserId, Token, Type, ExpiresAt)
     VALUES (@UserId, @Token, @Type, @ExpiresAt);
 END

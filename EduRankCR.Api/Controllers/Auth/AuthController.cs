@@ -6,6 +6,9 @@ using EduRankCR.Application.Auth.Commands.RequestPasswordReset;
 using EduRankCR.Application.Auth.Commands.ResetPassword;
 using EduRankCR.Application.Auth.Commands.SendVerificationEmail;
 using EduRankCR.Contracts.Auth;
+using EduRankCR.Contracts.Auth.Requests;
+using EduRankCR.Contracts.Auth.Responses;
+
 using Mapster;
 
 using MapsterMapper;
@@ -75,7 +78,7 @@ public class AuthController : BaseApiController
     }
 
     [HttpPost("password/reset-request")]
-    public async Task<IActionResult> RequestPasswordReset([FromBody] RequestPasswordResetRequest request)
+    public async Task<IActionResult> RequestPasswordReset([FromBody] RequestPasswordReset request)
     {
         var command = request.Adapt<RequestPasswordResetCommand>();
         var result = await _mediator.Send(command);

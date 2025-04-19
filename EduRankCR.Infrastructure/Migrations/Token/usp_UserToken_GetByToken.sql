@@ -3,6 +3,8 @@
     @Now DATETIME2
 AS
 BEGIN
+    SET NOCOUNT ON;
+
     SELECT TOP 1 UserId
     FROM Users_Tokens
     WHERE Token = @Token

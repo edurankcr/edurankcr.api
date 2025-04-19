@@ -2,6 +2,8 @@
     @Email NVARCHAR(255)
 AS
 BEGIN
+    SET NOCOUNT ON;
+
     SELECT
         UserId,
         Name,

@@ -2,6 +2,9 @@
 using EduRankCR.Application.Auth.Commands.Register;
 using EduRankCR.Application.Auth.Common;
 using EduRankCR.Contracts.Auth;
+using EduRankCR.Contracts.Auth.Requests;
+using EduRankCR.Contracts.Auth.Responses;
+
 using Mapster;
 
 namespace EduRankCR.Api.Common.Mapping;

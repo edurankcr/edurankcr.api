@@ -76,5 +76,8 @@ public static class Errors
         public static readonly Error AlreadyExists = Error.Conflict(
             code: "Institution.AlreadyExists",
             description: "The institution already exists.");
+        public static readonly Error NullRatingAggregate = Error.NotFound(
+            code: "Institution.NullRatingAggregate",
+            description: "The institution rating aggregate was not found.");
     }
 }

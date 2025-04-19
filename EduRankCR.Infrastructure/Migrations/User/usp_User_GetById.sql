@@ -2,6 +2,8 @@
     @UserId UNIQUEIDENTIFIER
 AS
 BEGIN
+    SET NOCOUNT ON;
+
     SELECT
         UserId,
         Name,

@@ -3,7 +3,7 @@
 using Dapper;
 
 using EduRankCR.Application.Common.Interfaces;
-using EduRankCR.Application.Institutions.Common;
+using EduRankCR.Domain.Institutions.Projections;
 
 namespace EduRankCR.Infrastructure.Repositories;
 
@@ -16,15 +16,15 @@ public class InstitutionRepository : IInstitutionRepository
         _dbContext = dbContext;
     }
 
-    public async Task<InstitutionBasicInfoResult?> GetById(Guid id)
+    public async Task<InstitutionProjection?> GetById(Guid institutionId)
     {
         using var connection = _dbContext.CreateConnection();
 
-        const string sp = "usp_GetInstitutionById";
+        const string procedure = "usp_Institution_GetById";
 
-        return await connection.QuerySingleOrDefaultAsync<InstitutionBasicInfoResult>(
-            sp,
-            new { InstitutionId = id },
+        return await connection.QueryFirstOrDefaultAsync<InstitutionProjection>(
+            procedure,
+            new { InstitutionId = institutionId },
             commandType: CommandType.StoredProcedure);
     }
 }

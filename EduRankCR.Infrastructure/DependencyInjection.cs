@@ -36,6 +36,8 @@ public static class DependencyInjection
         services.AddSingleton<ITokenRepository, TokenRepository>();
         services.AddSingleton<IUserRepository, UserRepository>();
         services.AddSingleton<IInstitutionRepository, InstitutionRepository>();
+        services.AddSingleton<IInstitutionRatingRepository, InstitutionRatingRepository>();
+        services.AddSingleton<IInstitutionRatingAggregateRepository, InstitutionRatingAggregateRepository>();
         services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
         services.AddSingleton<IPasswordHasher, PasswordHasher>();
     }

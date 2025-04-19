@@ -5,7 +5,7 @@ using MediatR;
 
 namespace EduRankCR.Application.Auth.Commands.ResetPassword;
 
-public class ResetPasswordCommandHandler : IRequestHandler<ResetPasswordCommand, ErrorOr<Unit>>
+internal sealed class ResetPasswordCommandHandler : IRequestHandler<ResetPasswordCommand, ErrorOr<Unit>>
 {
     private readonly IUserRepository _userRepository;
     private readonly ITokenRepository _tokenRepository;

@@ -204,7 +204,7 @@ public class UserRepository : IUserRepository
     {
         using var connection = _dbContext.CreateConnection();
 
-        const string sp = "usp_UpdateUserAvatarUrl";
+        const string sp = "usp_User_UpdateAvatarUrl";
 
         var parameters = new
         {

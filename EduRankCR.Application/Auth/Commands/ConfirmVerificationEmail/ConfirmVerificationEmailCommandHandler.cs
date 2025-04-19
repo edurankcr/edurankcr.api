@@ -7,7 +7,7 @@ using MediatR;
 
 namespace EduRankCR.Application.Auth.Commands.ConfirmVerificationEmail;
 
-public class ConfirmVerificationEmailCommandHandler : IRequestHandler<ConfirmVerificationEmailCommand, ErrorOr<Unit>>
+internal sealed class ConfirmVerificationEmailCommandHandler : IRequestHandler<ConfirmVerificationEmailCommand, ErrorOr<Unit>>
 {
     private readonly IUserRepository _userRepository;
     private readonly ITokenRepository _tokenRepository;
