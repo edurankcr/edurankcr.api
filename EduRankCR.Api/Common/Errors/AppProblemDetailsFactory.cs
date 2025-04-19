@@ -90,7 +90,7 @@ public class AppProblemDetailsFactory : ProblemDetailsFactory
 
         problemDetails.Extensions["traceId"] = traceId;
 
-        if (httpContext.Items[HttpContextItemsKeys.Errors] is List<Error> { Count: > 0 } errors)
+        if (httpContext.Items[HttpContextItemKeys.Errors] is List<Error> { Count: > 0 } errors)
         {
             if (errors.Count == 1)
             {

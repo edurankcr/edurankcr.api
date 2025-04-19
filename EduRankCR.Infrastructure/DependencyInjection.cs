@@ -1,13 +1,11 @@
 ﻿using System.Text;
 
-using EduRankCR.Domain.Common.Interfaces.Auth;
-using EduRankCR.Domain.Common.Interfaces.Persistence;
-using EduRankCR.Domain.Common.Interfaces.Services;
-using EduRankCR.Infrastructure.Auth;
+using EduRankCR.Application.Common.Interfaces;
+using EduRankCR.Infrastructure.Authentication;
 using EduRankCR.Infrastructure.Configuration;
 using EduRankCR.Infrastructure.Persistence;
-using EduRankCR.Infrastructure.Persistence.Repositories;
-using EduRankCR.Infrastructure.Service;
+using EduRankCR.Infrastructure.Repositories;
+using EduRankCR.Infrastructure.Services;
 
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
@@ -36,15 +34,10 @@ public static class DependencyInjection
     private static IServiceCollection AddPersistence(
         this IServiceCollection services)
     {
-        services.AddSingleton<IDomainEventDispatcher, DomainEventDispatcher>();
+        services.AddSingleton<ITokenRepository, TokenRepository>();
+        services.AddSingleton<IUserRepository, UserRepository>();
         services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
-        services.AddScoped<ITokenRepository, TokenRepository>();
-        services.AddScoped<IUserRepository, UserRepository>();
-        services.AddScoped<IInstituteRepository, InstituteRepository>();
-        services.AddScoped<ITeacherRepository, TeacherRepository>();
-        services.AddScoped<ISearchRepository, SearchRepository>();
-        services.AddScoped<IReviewsRepository, ReviewsRepository>();
-
+        services.AddSingleton<IPasswordHasher, PasswordHasher>();
         return services;
     }
 
@@ -54,10 +47,8 @@ public static class DependencyInjection
     {
         var storageSettings = new StorageSettings();
         configuration.Bind(StorageSettings.SectionName, storageSettings);
-
         services.AddSingleton(Options.Create(storageSettings));
         services.AddSingleton<IStorageService, StorageService>();
-
         return services;
     }
 
@@ -116,7 +107,6 @@ public static class DependencyInjection
 
         services.AddSingleton(Options.Create(jwtSettings));
         services.AddSingleton<IJwtTokenGenerator, JwtTokenGenerator>();
-        services.AddSingleton<IPasswordHasher, BCryptPasswordHasher>();
 
         services.AddAuthentication(defaultScheme: JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>

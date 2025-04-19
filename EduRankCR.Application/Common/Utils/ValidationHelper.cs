@@ -6,7 +6,7 @@ namespace EduRankCR.Application.Common.Utils;
 
 public static class ValidationHelper
 {
-    private const long AllowedAvatarSize = 5 * 1024 * 1024; // 5MB
+    private const long AllowedAvatarSize = 5 * 1024 * 1024;
     private static readonly string[] AllowedEmailDomains = { "gmail.com", "yahoo.com", "hotmail.com", "icloud.com", "outlook.com" };
     private static readonly string[] AllowedAvatarExtensions = { ".jpg", ".jpeg", ".png", ".webp", ".gif" };
 

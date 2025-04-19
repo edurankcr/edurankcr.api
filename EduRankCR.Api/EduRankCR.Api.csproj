@@ -14,8 +14,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\EduRankCR.Contracts\EduRankCR.Contracts.csproj" />
     <ProjectReference Include="..\EduRankCR.Application\EduRankCR.Application.csproj" />
+    <ProjectReference Include="..\EduRankCR.Contracts\EduRankCR.Contracts.csproj" />
     <ProjectReference Include="..\EduRankCR.Infrastructure\EduRankCR.Infrastructure.csproj" />
   </ItemGroup>
 

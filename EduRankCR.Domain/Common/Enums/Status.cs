@@ -1,10 +1,8 @@
 ﻿namespace EduRankCR.Domain.Common.Enums;
 
-public enum Status
+public enum Status : byte
 {
-    Pending,
-    Active,
-    Flagged,
-    Censored,
-    Deleted,
+    Inactive = 0,
+    Active = 1,
+    Suspended = 2,
 }
