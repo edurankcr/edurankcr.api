@@ -25,13 +25,11 @@ internal sealed class RegisterUserCommandHandler : IRequestHandler<RegisterUserC
 
         if (exists is not null)
         {
-            switch (exists)
+            return exists switch
             {
-                case "Email":
-                    return Errors.User.DuplicateEmail;
-                default:
-                    return Errors.User.DuplicateUserName;
-            }
+                "Email" => Errors.User.DuplicateEmail,
+                _ => Errors.User.DuplicateUserName,
+            };
         }
 
         var passwordHash = _passwordHasher.Hash(request.Password);

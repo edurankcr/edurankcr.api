@@ -31,14 +31,13 @@ public static class DependencyInjection
         return services;
     }
 
-    private static IServiceCollection AddPersistence(
-        this IServiceCollection services)
+    private static void AddPersistence(this IServiceCollection services)
     {
         services.AddSingleton<ITokenRepository, TokenRepository>();
         services.AddSingleton<IUserRepository, UserRepository>();
+        services.AddSingleton<IInstitutionRepository, InstitutionRepository>();
         services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
         services.AddSingleton<IPasswordHasher, PasswordHasher>();
-        return services;
     }
 
     private static IServiceCollection AddStorageSettings(

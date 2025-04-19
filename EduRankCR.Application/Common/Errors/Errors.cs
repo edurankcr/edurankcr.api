@@ -2,7 +2,7 @@
 
 namespace EduRankCR.Application.Common.Errors;
 
-public static partial class Errors
+public static class Errors
 {
     public static class Auth
     {
@@ -66,5 +66,15 @@ public static partial class Errors
         public static readonly Error UploadFailed = Error.Failure(
             code: "Storage.UploadFailed",
             description: "The file upload failed.");
+    }
+
+    public static class Institution
+    {
+        public static readonly Error NotFound = Error.NotFound(
+            code: "Institution.NotFound",
+            description: "The institution was not found.");
+        public static readonly Error AlreadyExists = Error.Conflict(
+            code: "Institution.AlreadyExists",
+            description: "The institution already exists.");
     }
 }

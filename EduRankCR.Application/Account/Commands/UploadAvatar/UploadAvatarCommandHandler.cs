@@ -6,8 +6,6 @@ using ErrorOr;
 
 using MediatR;
 
-using Microsoft.AspNetCore.Http;
-
 namespace EduRankCR.Application.Account.Commands.UploadAvatar;
 
 internal sealed class UploadAvatarCommandHandler : IRequestHandler<UploadAvatarCommand, ErrorOr<UploadAvatarResult>>
