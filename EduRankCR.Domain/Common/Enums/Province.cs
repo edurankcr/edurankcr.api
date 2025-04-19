@@ -1,6 +1,6 @@
 ﻿namespace EduRankCR.Domain.Common.Enums;
 
-public enum Province
+public enum Province : byte
 {
     SanJose = 1,
     Alajuela = 2,

@@ -21,6 +21,13 @@
         CHECK (BirthDate <= DATEADD(YEAR, -18, GETDATE()) AND BirthDate >= DATEADD(YEAR, -100, GETDATE()))
 );
 
--- Indexes
-CREATE INDEX IDX_User_UserName ON Users (UserName);
-CREATE INDEX IDX_User_Email ON Users (Email);
+CREATE INDEX IX_Users_EmailConfirmed ON Users (EmailConfirmed);
+CREATE INDEX IX_Users_Name ON Users (Name);
+CREATE INDEX IX_Users_LastName ON Users (LastName);
+CREATE INDEX IX_Users_Role ON Users (Role);
+CREATE INDEX IX_Users_Status ON Users (Status);
+CREATE INDEX IX_Users_CreatedAt ON Users (CreatedAt DESC);
+CREATE INDEX IX_Users_PasswordChangedAt ON Users (PasswordChangedAt);
+CREATE INDEX IX_Users_NewEmail ON Users (NewEmail);
+CREATE INDEX IX_Users_UserName ON Users (UserName);
+CREATE INDEX IX_Users_Role_Status ON Users (Role, Status);

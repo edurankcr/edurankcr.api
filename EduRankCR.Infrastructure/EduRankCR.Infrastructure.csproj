@@ -18,15 +18,10 @@
     <None Update="Templates\*.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Templates\reset_password_email.html">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Templates\change_email.html">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\EduRankCR.Application\EduRankCR.Application.csproj" />
     <ProjectReference Include="..\EduRankCR.Domain\EduRankCR.Domain.csproj" />
   </ItemGroup>
 
