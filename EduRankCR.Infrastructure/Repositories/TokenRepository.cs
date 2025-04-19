@@ -24,7 +24,7 @@ public class TokenRepository : ITokenRepository
         var token = Guid.NewGuid().ToString();
         var expiration = DateTime.UtcNow.AddHours(1);
 
-        const string procedure = "uprocedure_UserToken_Create";
+        const string procedure = "usp_UserToken_Create";
 
         var parameters = new DynamicParameters();
         parameters.Add("@UserId", user.UserId);
@@ -44,7 +44,7 @@ public class TokenRepository : ITokenRepository
     {
         using var connection = _dbContext.CreateConnection();
 
-        const string procedure = "uprocedure_UserToken_GetValid";
+        const string procedure = "usp_UserToken_GetValid";
 
         var parameters = new DynamicParameters();
         parameters.Add("@UserId", userId);
@@ -64,7 +64,7 @@ public class TokenRepository : ITokenRepository
         var token = Guid.NewGuid().ToString();
         var expiration = DateTime.UtcNow.AddHours(1);
 
-        const string procedure = "uprocedure_UserToken_Create";
+        const string procedure = "usp_UserToken_Create";
 
         var parameters = new DynamicParameters();
         parameters.Add("@UserId", user.UserId);
@@ -84,7 +84,7 @@ public class TokenRepository : ITokenRepository
     {
         using var connection = _dbContext.CreateConnection();
 
-        const string procedure = "uprocedure_UserToken_GetValid";
+        const string procedure = "usp_UserToken_GetValid";
 
         var parameters = new DynamicParameters();
         parameters.Add("@UserId", userId);
@@ -101,7 +101,7 @@ public class TokenRepository : ITokenRepository
     {
         using var connection = _dbContext.CreateConnection();
 
-        const string procedure = "uprocedure_UserToken_GetByToken";
+        const string procedure = "usp_UserToken_GetByToken";
 
         var parameters = new DynamicParameters();
         parameters.Add("@Token", token);
@@ -117,7 +117,7 @@ public class TokenRepository : ITokenRepository
     {
         using var connection = _dbContext.CreateConnection();
 
-        const string procedure = "uprocedure_UserToken_DeleteAllByUserId";
+        const string procedure = "usp_UserToken_DeleteAllByUserId";
 
         var parameters = new DynamicParameters();
         parameters.Add("@UserId", userId);
@@ -133,7 +133,7 @@ public class TokenRepository : ITokenRepository
     {
         using var connection = _dbContext.CreateConnection();
 
-        const string procedure = "uprocedure_UserToken_MarkAsUsed";
+        const string procedure = "usp_UserToken_MarkAsUsed";
 
         await connection.ExecuteAsync(
             procedure,

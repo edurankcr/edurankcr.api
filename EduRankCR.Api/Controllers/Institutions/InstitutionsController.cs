@@ -1,8 +1,14 @@
-﻿using EduRankCR.Api.Controllers.Common;
+﻿using EduRankCR.Api.Common.Http;
+using EduRankCR.Api.Controllers.Common;
+using EduRankCR.Application.Institutions.Commands.Create;
 using EduRankCR.Application.Institutions.Queries.GetAggregateRatings;
 using EduRankCR.Application.Institutions.Queries.GetById;
 using EduRankCR.Application.Institutions.Queries.GetRatings;
+using EduRankCR.Application.Institutions.Queries.GetRelatedByProvince;
+using EduRankCR.Contracts.Institutions.Requests;
 using EduRankCR.Contracts.Institutions.Responses;
+
+using Mapster;
 
 using MapsterMapper;
 
@@ -58,6 +64,32 @@ public class InstitutionsController : BaseApiController
 
         return result.Match(
             value => Ok(_mapper.Map<InstitutionRatingAggregateResponse>(value)),
+            Problem);
+    }
+
+    [HttpGet("{institutionId:guid}/related")]
+    [AllowAnonymous]
+    [ProducesResponseType(typeof(List<InstitutionRelatedResponse>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetRelatedInstitutions(Guid institutionId)
+    {
+        var query = new GetRelatedInstitutionsByProvinceQuery(institutionId);
+        var result = await _mediator.Send(query);
+
+        return result.Match(
+            value => Ok(_mapper.Map<List<InstitutionRelatedResponse>>(value)),
+            Problem);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> CreateInstitution([FromBody] CreateInstitutionRequest request)
+    {
+        var userId = HttpContext.GetUserId();
+
+        var command = request.Adapt<CreateInstitutionCommand>() with { UserId = userId };
+        var result = await _mediator.Send(command);
+
+        return result.Match(
+            value => Ok(_mapper.Map<CreateInstitutionResponse>(value)),
             Problem);
     }
 }

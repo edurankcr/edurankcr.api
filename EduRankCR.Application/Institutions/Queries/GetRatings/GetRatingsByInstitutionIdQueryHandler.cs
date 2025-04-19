@@ -1,4 +1,5 @@
-﻿using EduRankCR.Application.Common.Interfaces;
+﻿using EduRankCR.Application.Common.Errors;
+using EduRankCR.Application.Common.Interfaces;
 using EduRankCR.Application.Institutions.Common;
 
 using ErrorOr;
@@ -9,16 +10,32 @@ namespace EduRankCR.Application.Institutions.Queries.GetRatings;
 
 internal sealed class GetRatingsByInstitutionIdQueryHandler : IRequestHandler<GetRatingsByInstitutionIdQuery, ErrorOr<List<InstitutionRatingResult>>>
 {
+    private readonly IInstitutionRepository _institutionRepository;
     private readonly IInstitutionRatingRepository _repository;
 
-    public GetRatingsByInstitutionIdQueryHandler(IInstitutionRatingRepository repository)
+    public GetRatingsByInstitutionIdQueryHandler(
+        IInstitutionRepository institutionRepository,
+        IInstitutionRatingRepository repository)
     {
+        _institutionRepository = institutionRepository;
         _repository = repository;
     }
 
     public async Task<ErrorOr<List<InstitutionRatingResult>>> Handle(GetRatingsByInstitutionIdQuery request, CancellationToken cancellationToken)
     {
+        var institution = await _institutionRepository.GetById(request.InstitutionId);
+
+        if (institution is null)
+        {
+            return Errors.Institution.NotFound;
+        }
+
         var ratings = await _repository.GetByInstitutionId(request.InstitutionId);
+
+        if (ratings is null)
+        {
+            return new List<InstitutionRatingResult>();
+        }
 
         return ratings.Select(r => new InstitutionRatingResult(
             new InstitutionRatingInstitutionResult(

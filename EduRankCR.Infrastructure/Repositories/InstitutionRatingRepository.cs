@@ -15,7 +15,7 @@ public class InstitutionRatingRepository : IInstitutionRatingRepository
         _dbContext = dbContext;
     }
 
-    public async Task<IEnumerable<InstitutionRatingProjection>> GetByInstitutionId(Guid institutionId)
+    public async Task<IEnumerable<InstitutionRatingProjection>?> GetByInstitutionId(Guid institutionId)
     {
         using var connection = _dbContext.CreateConnection();
 
