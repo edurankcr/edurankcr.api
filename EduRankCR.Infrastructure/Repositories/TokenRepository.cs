@@ -24,7 +24,7 @@ public class TokenRepository : ITokenRepository
         var token = Guid.NewGuid().ToString();
         var expiration = DateTime.UtcNow.AddHours(1);
 
-        const string sp = "usp_UserToken_Create";
+        const string procedure = "uprocedure_UserToken_Create";
 
         var parameters = new DynamicParameters();
         parameters.Add("@UserId", user.UserId);
@@ -33,7 +33,7 @@ public class TokenRepository : ITokenRepository
         parameters.Add("@ExpiresAt", expiration);
 
         await connection.ExecuteAsync(
-            sp,
+            procedure,
             parameters,
             commandType: CommandType.StoredProcedure);
 
@@ -44,7 +44,7 @@ public class TokenRepository : ITokenRepository
     {
         using var connection = _dbContext.CreateConnection();
 
-        const string sp = "usp_UserToken_GetValid";
+        const string procedure = "uprocedure_UserToken_GetValid";
 
         var parameters = new DynamicParameters();
         parameters.Add("@UserId", userId);
@@ -52,7 +52,7 @@ public class TokenRepository : ITokenRepository
         parameters.Add("@Now", DateTime.UtcNow);
 
         return await connection.QueryFirstOrDefaultAsync<string>(
-            sp,
+            procedure,
             parameters,
             commandType: CommandType.StoredProcedure);
     }
@@ -64,7 +64,7 @@ public class TokenRepository : ITokenRepository
         var token = Guid.NewGuid().ToString();
         var expiration = DateTime.UtcNow.AddHours(1);
 
-        const string sp = "usp_UserToken_Create";
+        const string procedure = "uprocedure_UserToken_Create";
 
         var parameters = new DynamicParameters();
         parameters.Add("@UserId", user.UserId);
@@ -73,7 +73,7 @@ public class TokenRepository : ITokenRepository
         parameters.Add("@ExpiresAt", expiration);
 
         await connection.ExecuteAsync(
-            sp,
+            procedure,
             parameters,
             commandType: CommandType.StoredProcedure);
 
@@ -84,7 +84,7 @@ public class TokenRepository : ITokenRepository
     {
         using var connection = _dbContext.CreateConnection();
 
-        const string sp = "usp_UserToken_GetValid";
+        const string procedure = "uprocedure_UserToken_GetValid";
 
         var parameters = new DynamicParameters();
         parameters.Add("@UserId", userId);
@@ -92,7 +92,7 @@ public class TokenRepository : ITokenRepository
         parameters.Add("@Now", DateTime.UtcNow);
 
         return await connection.QueryFirstOrDefaultAsync<string>(
-            sp,
+            procedure,
             parameters,
             commandType: CommandType.StoredProcedure);
     }
@@ -101,14 +101,14 @@ public class TokenRepository : ITokenRepository
     {
         using var connection = _dbContext.CreateConnection();
 
-        const string sp = "usp_UserToken_GetByToken";
+        const string procedure = "uprocedure_UserToken_GetByToken";
 
         var parameters = new DynamicParameters();
         parameters.Add("@Token", token);
         parameters.Add("@Now", DateTime.UtcNow);
 
         return await connection.QueryFirstOrDefaultAsync<Guid?>(
-            sp,
+            procedure,
             parameters,
             commandType: CommandType.StoredProcedure);
     }
@@ -117,14 +117,14 @@ public class TokenRepository : ITokenRepository
     {
         using var connection = _dbContext.CreateConnection();
 
-        const string sp = "usp_UserToken_DeleteAllByUserId";
+        const string procedure = "uprocedure_UserToken_DeleteAllByUserId";
 
         var parameters = new DynamicParameters();
         parameters.Add("@UserId", userId);
         parameters.Add("@Type", tokenType);
 
         await connection.ExecuteAsync(
-            sp,
+            procedure,
             parameters,
             commandType: CommandType.StoredProcedure);
     }
@@ -133,10 +133,10 @@ public class TokenRepository : ITokenRepository
     {
         using var connection = _dbContext.CreateConnection();
 
-        const string sp = "usp_UserToken_MarkAsUsed";
+        const string procedure = "uprocedure_UserToken_MarkAsUsed";
 
         await connection.ExecuteAsync(
-            sp,
+            procedure,
             new { Token = token },
             commandType: CommandType.StoredProcedure);
     }

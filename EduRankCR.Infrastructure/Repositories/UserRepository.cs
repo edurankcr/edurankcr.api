@@ -21,7 +21,7 @@ public class UserRepository : IUserRepository
     {
         using var connection = _dbContext.CreateConnection();
 
-        const string sp = "usp_User_IdentifierExists";
+        const string procedure = "uprocedure_User_IdentifierExists";
 
         var parameters = new DynamicParameters();
         parameters.Add("@Email", email);
@@ -29,7 +29,7 @@ public class UserRepository : IUserRepository
         parameters.Add("@ExistingIdentifier", dbType: DbType.String, direction: ParameterDirection.Output, size: 10);
 
         await connection.ExecuteAsync(
-            sp,
+            procedure,
             parameters,
             commandType: CommandType.StoredProcedure);
 
@@ -40,10 +40,10 @@ public class UserRepository : IUserRepository
     {
         using var connection = _dbContext.CreateConnection();
 
-        const string sp = "usp_User_GetByIdentifier";
+        const string procedure = "uprocedure_User_GetByIdentifier";
 
         return await connection.QueryFirstOrDefaultAsync<UserLoginProjection>(
-            sp,
+            procedure,
             new { Identifier = identifier },
             commandType: CommandType.StoredProcedure);
     }
@@ -52,10 +52,10 @@ public class UserRepository : IUserRepository
     {
         using var connection = _dbContext.CreateConnection();
 
-        const string sp = "usp_User_GetByEmail";
+        const string procedure = "uprocedure_User_GetByEmail";
 
         return await connection.QueryFirstOrDefaultAsync<User>(
-            sp,
+            procedure,
             new { Email = email },
             commandType: CommandType.StoredProcedure);
     }
@@ -64,10 +64,10 @@ public class UserRepository : IUserRepository
     {
         using var connection = _dbContext.CreateConnection();
 
-        const string sp = "usp_User_GetById";
+        const string procedure = "uprocedure_User_GetById";
 
         return await connection.QueryFirstOrDefaultAsync<User>(
-            sp,
+            procedure,
             new { UserId = userId },
             commandType: CommandType.StoredProcedure);
     }
@@ -76,10 +76,10 @@ public class UserRepository : IUserRepository
     {
         using var connection = _dbContext.CreateConnection();
 
-        const string sp = "usp_User_GetProfileById";
+        const string procedure = "uprocedure_User_GetProfileById";
 
         return await connection.QueryFirstOrDefaultAsync<UserProjection>(
-            sp,
+            procedure,
             new { UserId = userId },
             commandType: CommandType.StoredProcedure);
     }
@@ -88,7 +88,7 @@ public class UserRepository : IUserRepository
     {
         using var connection = _dbContext.CreateConnection();
 
-        const string sp = "usp_User_Create";
+        const string procedure = "uprocedure_User_Create";
 
         var parameters = new
         {
@@ -101,7 +101,7 @@ public class UserRepository : IUserRepository
         };
 
         await connection.ExecuteAsync(
-            sp,
+            procedure,
             parameters,
             commandType: CommandType.StoredProcedure);
     }
@@ -110,10 +110,10 @@ public class UserRepository : IUserRepository
     {
         using var connection = _dbContext.CreateConnection();
 
-        const string sp = "usp_User_ConfirmEmail";
+        const string procedure = "uprocedure_User_ConfirmEmail";
 
         await connection.ExecuteAsync(
-            sp,
+            procedure,
             new { UserId = userId },
             commandType: CommandType.StoredProcedure);
     }
@@ -122,7 +122,7 @@ public class UserRepository : IUserRepository
     {
         using var connection = _dbContext.CreateConnection();
 
-        const string sp = "usp_User_UpdateEmail";
+        const string procedure = "uprocedure_User_UpdateEmail";
 
         var parameters = new
         {
@@ -131,7 +131,7 @@ public class UserRepository : IUserRepository
         };
 
         await connection.ExecuteAsync(
-            sp,
+            procedure,
             parameters,
             commandType: CommandType.StoredProcedure);
     }
@@ -140,7 +140,7 @@ public class UserRepository : IUserRepository
     {
         using var connection = _dbContext.CreateConnection();
 
-        const string sp = "usp_User_UpdateNewEmail";
+        const string procedure = "uprocedure_User_UpdateNewEmail";
 
         var parameters = new
         {
@@ -149,7 +149,7 @@ public class UserRepository : IUserRepository
         };
 
         await connection.ExecuteAsync(
-            sp,
+            procedure,
             parameters,
             commandType: CommandType.StoredProcedure);
     }
@@ -158,7 +158,7 @@ public class UserRepository : IUserRepository
     {
         using var connection = _dbContext.CreateConnection();
 
-        const string sp = "usp_User_UpdatePassword";
+        const string procedure = "uprocedure_User_UpdatePassword";
 
         var parameters = new
         {
@@ -167,7 +167,7 @@ public class UserRepository : IUserRepository
         };
 
         await connection.ExecuteAsync(
-            sp,
+            procedure,
             parameters,
             commandType: CommandType.StoredProcedure);
     }
@@ -182,7 +182,7 @@ public class UserRepository : IUserRepository
     {
         using var connection = _dbContext.CreateConnection();
 
-        const string sp = "usp_User_UpdateProfile";
+        const string procedure = "uprocedure_User_UpdateProfile";
 
         var parameters = new
         {
@@ -195,7 +195,7 @@ public class UserRepository : IUserRepository
         };
 
         await connection.ExecuteAsync(
-            sp,
+            procedure,
             parameters,
             commandType: CommandType.StoredProcedure);
     }
@@ -204,7 +204,7 @@ public class UserRepository : IUserRepository
     {
         using var connection = _dbContext.CreateConnection();
 
-        const string sp = "usp_User_UpdateAvatarUrl";
+        const string procedure = "uprocedure_User_UpdateAvatarUrl";
 
         var parameters = new
         {
@@ -213,7 +213,7 @@ public class UserRepository : IUserRepository
         };
 
         await connection.ExecuteAsync(
-            sp,
+            procedure,
             parameters,
             commandType: CommandType.StoredProcedure);
     }
@@ -222,10 +222,10 @@ public class UserRepository : IUserRepository
     {
         using var connection = _dbContext.CreateConnection();
 
-        const string sp = "usp_User_IsUserNameTaken";
+        const string procedure = "uprocedure_User_IsUserNameTaken";
 
         return await connection.ExecuteScalarAsync<bool>(
-            sp,
+            procedure,
             new { UserName = userName },
             commandType: CommandType.StoredProcedure);
     }
@@ -234,10 +234,10 @@ public class UserRepository : IUserRepository
     {
         using var connection = _dbContext.CreateConnection();
 
-        const string sp = "usp_User_IsEmailTaken";
+        const string procedure = "uprocedure_User_IsEmailTaken";
 
         return await connection.ExecuteScalarAsync<bool>(
-            sp,
+            procedure,
             new { Email = email },
             commandType: CommandType.StoredProcedure);
     }
