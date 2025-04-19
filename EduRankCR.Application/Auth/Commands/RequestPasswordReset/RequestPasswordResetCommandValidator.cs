@@ -8,15 +8,15 @@ public class RequestPasswordResetCommandValidator : AbstractValidator<RequestPas
 {
     public RequestPasswordResetCommandValidator()
     {
-        RuleFor(x => x.Email)
+        RuleFor(x => x.Identifier)
             .NotEmpty()
-            .MaximumLength(256)
-            .Must(BeValidEmail)
-            .WithMessage("Email must be from a common provider (e.g., Gmail, Yahoo, Hotmail, iCloud).");
+            .MaximumLength(255)
+            .Must(BeValidEmailOrUsername)
+            .WithMessage("Identifier must be a valid username or an email from common providers (e.g., Gmail, Yahoo, Hotmail, iCloud).");
     }
 
-    private bool BeValidEmail(string email)
+    private bool BeValidEmailOrUsername(string identifier)
     {
-        return ValidationHelper.IsValidEmail(email);
+        return ValidationHelper.IsValidEmail(identifier) || ValidationHelper.IsValidUsername(identifier);
     }
 }
