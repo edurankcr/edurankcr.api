@@ -10,7 +10,7 @@ public class ChangeEmailCommandValidator : AbstractValidator<ChangeEmailCommand>
     {
         RuleFor(x => x.NewEmail)
             .NotEmpty()
-            .MaximumLength(256)
+            .MaximumLength(255)
             .Must(BeValidEmail)
             .WithMessage("Email must be from a common provider (e.g., Gmail, Yahoo, Hotmail, iCloud).");
     }

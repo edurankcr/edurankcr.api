@@ -7,7 +7,7 @@ public interface ITokenRepository
 {
     Task<string> GenerateEmailVerificationToken(User user);
     Task<string?> GetValidEmailVerificationToken(Guid userId);
-    Task<string> GeneratePasswordResetToken(User user);
+    Task<string> GeneratePasswordResetToken(Guid userId);
     Task<string?> GetValidPasswordResetToken(Guid userId);
     Task<Guid?> GetUserIdByVerificationToken(string token);
     Task DeleteAllByUserId(Guid userId, TokenType tokenType);

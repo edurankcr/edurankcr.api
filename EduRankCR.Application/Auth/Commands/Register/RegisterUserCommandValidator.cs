@@ -25,7 +25,7 @@ public class RegisterUserCommandValidator : AbstractValidator<RegisterUserComman
 
         RuleFor(x => x.Email)
             .NotEmpty()
-            .MaximumLength(256)
+            .MaximumLength(255)
             .Must(BeValidEmail)
             .WithMessage("Email must be from a common provider (e.g., Gmail, Yahoo, Hotmail, iCloud).");
 

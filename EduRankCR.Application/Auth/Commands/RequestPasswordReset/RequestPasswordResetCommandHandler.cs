@@ -24,7 +24,7 @@ public class RequestPasswordResetCommandHandler : IRequestHandler<RequestPasswor
 
     public async Task<ErrorOr<Unit>> Handle(RequestPasswordResetCommand request, CancellationToken cancellationToken)
     {
-        var user = await _userRepository.GetByEmail(request.Email);
+        var user = await _userRepository.GetByIdentifier(request.Identifier);
 
         if (user is null)
         {
@@ -43,7 +43,7 @@ public class RequestPasswordResetCommandHandler : IRequestHandler<RequestPasswor
             return Errors.Token.AlreadyExists;
         }
 
-        var token = await _tokenRepository.GeneratePasswordResetToken(user);
+        var token = await _tokenRepository.GeneratePasswordResetToken(user.UserId);
 
         var placeholders = new Dictionary<string, string>
         {

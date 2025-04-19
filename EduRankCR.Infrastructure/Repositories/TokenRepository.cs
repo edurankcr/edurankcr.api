@@ -57,7 +57,7 @@ public class TokenRepository : ITokenRepository
             commandType: CommandType.StoredProcedure);
     }
 
-    public async Task<string> GeneratePasswordResetToken(User user)
+    public async Task<string> GeneratePasswordResetToken(Guid userId)
     {
         using var connection = _dbContext.CreateConnection();
 
@@ -67,7 +67,7 @@ public class TokenRepository : ITokenRepository
         const string procedure = "usp_UserToken_Create";
 
         var parameters = new DynamicParameters();
-        parameters.Add("@UserId", user.UserId);
+        parameters.Add("@UserId", userId);
         parameters.Add("@Token", token);
         parameters.Add("@Type", TokenType.PasswordReset);
         parameters.Add("@ExpiresAt", expiration);
