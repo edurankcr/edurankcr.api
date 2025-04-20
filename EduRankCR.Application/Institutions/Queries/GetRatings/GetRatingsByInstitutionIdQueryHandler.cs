@@ -37,7 +37,7 @@ internal sealed class GetRatingsByInstitutionIdQueryHandler : IRequestHandler<Ge
             return new List<InstitutionRatingResult>();
         }
 
-        return ratings.Select(r => new InstitutionRatingResult(
+        var mapped = ratings.Select(r => new InstitutionRatingResult(
             new InstitutionRatingInstitutionResult(
                 r.InstitutionRatingId,
                 r.InstitutionId,
@@ -62,5 +62,7 @@ internal sealed class GetRatingsByInstitutionIdQueryHandler : IRequestHandler<Ge
                 r.UserLastName,
                 r.UserUserName,
                 r.UserAvatarUrl))).ToList();
+
+        return mapped;
     }
 }

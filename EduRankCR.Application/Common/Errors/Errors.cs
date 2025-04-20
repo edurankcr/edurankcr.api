@@ -83,4 +83,14 @@ public static class Errors
             code: "Institution.NullRatingAggregate",
             description: "The institution rating aggregate was not found.");
     }
+
+    public static class Teacher
+    {
+        public static readonly Error NotFound = Error.NotFound(
+            code: "Teacher.NotFound",
+            description: "The teacher was not found.");
+        public static readonly Error AlreadyInReview = Error.Conflict(
+            code: "Teacher.AlreadyInReview",
+            description: "The teacher is already in review.");
+    }
 }
