@@ -23,8 +23,20 @@ public sealed class GetLastActivityQueryHandler : IRequestHandler<GetLastActivit
 
         var institutionReviews = institutions.Select(r => new InstitutionActivityItem(
             r.InstitutionRatingId,
+            r.InstitutionId,
+            r.Location,
+            r.Happiness,
+            r.Safety,
+            r.Reputation,
+            r.Opportunities,
+            r.Internet,
+            r.Food,
+            r.Social,
+            r.Facilities,
+            r.Clubs,
             r.Testimony,
             r.CreatedAt,
+            r.UpdatedAt,
             new UserMinimalResult(
                 r.UserUserId,
                 r.UserName,
@@ -34,8 +46,17 @@ public sealed class GetLastActivityQueryHandler : IRequestHandler<GetLastActivit
 
         var teacherReviews = teachers.Select(r => new TeacherActivityItem(
             r.TeacherRatingId,
+            r.TeacherId,
+            r.Clarity,
+            r.Knowledge,
+            r.Respect,
+            r.Fairness,
+            r.Punctuality,
+            r.Motivation,
+            r.WouldTakeAgain,
             r.Testimony,
             r.CreatedAt,
+            r.UpdatedAt,
             new UserMinimalResult(
                 r.UserUserId,
                 r.UserName,
