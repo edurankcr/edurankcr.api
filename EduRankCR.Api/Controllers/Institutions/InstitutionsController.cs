@@ -5,6 +5,7 @@ using EduRankCR.Application.Institutions.Queries.GetAggregateRatings;
 using EduRankCR.Application.Institutions.Queries.GetById;
 using EduRankCR.Application.Institutions.Queries.GetRatings;
 using EduRankCR.Application.Institutions.Queries.GetRelatedByProvince;
+using EduRankCR.Application.Institutions.Queries.GetSummary;
 using EduRankCR.Contracts.Institutions.Requests;
 using EduRankCR.Contracts.Institutions.Responses;
 
@@ -69,7 +70,6 @@ public class InstitutionsController : BaseApiController
 
     [HttpGet("{institutionId:guid}/related")]
     [AllowAnonymous]
-    [ProducesResponseType(typeof(List<InstitutionRelatedResponse>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetRelatedInstitutions(Guid institutionId)
     {
         var query = new GetRelatedInstitutionsByProvinceQuery(institutionId);
@@ -77,6 +77,18 @@ public class InstitutionsController : BaseApiController
 
         return result.Match(
             value => Ok(_mapper.Map<List<InstitutionRelatedResponse>>(value)),
+            Problem);
+    }
+
+    [HttpGet("{institutionId:guid}/summary")]
+    [AllowAnonymous]
+    public async Task<IActionResult> GetInstitutionSummary(Guid institutionId)
+    {
+        var query = new GetInstitutionSummaryQuery(institutionId);
+        var result = await _mediator.Send(query);
+
+        return result.Match(
+            value => Ok(_mapper.Map<InstitutionSummaryResponse>(value)),
             Problem);
     }
 
