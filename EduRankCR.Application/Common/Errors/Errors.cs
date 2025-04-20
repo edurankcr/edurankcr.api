@@ -84,6 +84,13 @@ public static class Errors
             description: "The institution rating aggregate was not found.");
     }
 
+    public static class InstitutionRating
+    {
+        public static readonly Error AlreadyExists = Error.Conflict(
+            code: "InstitutionRating.AlreadyExists",
+            description: "The user has already rated this institution.");
+    }
+
     public static class Teacher
     {
         public static readonly Error NotFound = Error.NotFound(
