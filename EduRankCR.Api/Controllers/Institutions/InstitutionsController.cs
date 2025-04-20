@@ -1,6 +1,7 @@
 ﻿using EduRankCR.Api.Common.Http;
 using EduRankCR.Api.Controllers.Common;
 using EduRankCR.Application.Institutions.Commands.Create;
+using EduRankCR.Application.Institutions.Commands.CreateRating;
 using EduRankCR.Application.Institutions.Queries.GetAggregateRatings;
 using EduRankCR.Application.Institutions.Queries.GetById;
 using EduRankCR.Application.Institutions.Queries.GetRatings;
@@ -102,6 +103,26 @@ public class InstitutionsController : BaseApiController
 
         return result.Match(
             value => Ok(_mapper.Map<CreateInstitutionResponse>(value)),
+            Problem);
+    }
+
+    [HttpPost("{institutionId:guid}/ratings")]
+    public async Task<IActionResult> CreateRating(
+        [FromRoute] Guid institutionId,
+        [FromBody] CreateInstitutionRatingRequest request)
+    {
+        var userId = HttpContext.GetUserId();
+
+        var command = request.Adapt<CreateInstitutionRatingCommand>() with
+        {
+            InstitutionId = institutionId,
+            UserId = userId,
+        };
+
+        var result = await _mediator.Send(command);
+
+        return result.Match(
+            _ => NoContent(),
             Problem);
     }
 }
