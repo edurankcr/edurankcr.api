@@ -27,17 +27,4 @@ public class InstitutionRatingRepository : IInstitutionRatingRepository
             new { InstitutionId = institutionId },
             commandType: CommandType.StoredProcedure);
     }
-
-    public async Task<List<LatestInstitutionRatingProjection>> GetLatestRatings()
-    {
-        using var connection = _dbContext.CreateConnection();
-
-        const string sp = "usp_InstitutionRating_GetLatest";
-
-        var result = await connection.QueryAsync<LatestInstitutionRatingProjection>(
-            sp,
-            commandType: CommandType.StoredProcedure);
-
-        return result.ToList();
-    }
 }

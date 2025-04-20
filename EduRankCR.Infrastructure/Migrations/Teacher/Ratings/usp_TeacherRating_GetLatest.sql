@@ -1,22 +1,19 @@
-﻿CREATE OR ALTER PROCEDURE usp_InstitutionRating_GetLatest
+﻿CREATE OR ALTER PROCEDURE usp_TeacherRating_GetLatest
 AS
 BEGIN
     SET NOCOUNT ON;
 
     SELECT TOP 6
-        r.InstitutionRatingId,
-        r.InstitutionId,
+        r.TeacherRatingId,
+        r.TeacherId,
         r.UserId,
-        r.Location,
-        r.Happiness,
-        r.Safety,
-        r.Reputation,
-        r.Opportunities,
-        r.Internet,
-        r.Food,
-        r.Social,
-        r.Facilities,
-        r.Clubs,
+        r.Clarity,
+        r.Knowledge,
+        r.Respect,
+        r.Fairness,
+        r.Punctuality,
+        r.Motivation,
+        r.WouldTakeAgain,
         r.Testimony,
         r.CreatedAt,
         r.UpdatedAt,
@@ -27,7 +24,7 @@ BEGIN
         u.LastName AS UserLastName,
         u.UserName AS UserUserName,
         u.AvatarUrl AS UserAvatarUrl
-    FROM Institutions_Ratings r
+    FROM Teachers_Ratings r
              LEFT JOIN Users u ON u.UserId = r.UserId
     WHERE r.Status = 1
     ORDER BY r.CreatedAt DESC;

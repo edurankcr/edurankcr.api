@@ -1,8 +1,10 @@
-﻿namespace EduRankCR.Contracts.Institutions.Responses;
+﻿using EduRankCR.Contracts.Common;
+
+namespace EduRankCR.Contracts.Institutions.Responses;
 
 public sealed record InstitutionRatingResponse(
-    InstitutionRatingInstitutionResponse Institute,
-    InstitutionRatingUserResponse User);
+    InstitutionRatingInstitutionResponse Review,
+    UserMinimalResponse User);
 
 public sealed record InstitutionRatingInstitutionResponse(
     Guid InstitutionRatingId,
@@ -22,10 +24,3 @@ public sealed record InstitutionRatingInstitutionResponse(
     DateTime CreatedAt,
     DateTime? UpdatedAt,
     byte Status);
-
-public sealed record InstitutionRatingUserResponse(
-    Guid UserId,
-    string Name,
-    string LastName,
-    string UserName,
-    string? AvatarUrl);

@@ -5,5 +5,4 @@ namespace EduRankCR.Application.Common.Interfaces;
 public interface IInstitutionRatingRepository
 {
     Task<IEnumerable<InstitutionRatingProjection>?> GetByInstitutionId(Guid institutionId);
-    Task<List<LatestInstitutionRatingProjection>> GetLatestRatings();
 }

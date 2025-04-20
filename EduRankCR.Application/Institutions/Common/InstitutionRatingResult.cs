@@ -1,8 +1,10 @@
-﻿namespace EduRankCR.Application.Institutions.Common;
+﻿using EduRankCR.Application.Common;
+
+namespace EduRankCR.Application.Institutions.Common;
 
 public sealed record InstitutionRatingResult(
-    InstitutionRatingInstitutionResult Institute,
-    InstitutionRatingUserResult User);
+    InstitutionRatingInstitutionResult Review,
+    UserMinimalResult User);
 
 public sealed record InstitutionRatingInstitutionResult(
     Guid InstitutionRatingId,
@@ -22,10 +24,3 @@ public sealed record InstitutionRatingInstitutionResult(
     DateTime CreatedAt,
     DateTime? UpdatedAt,
     byte Status);
-
-public sealed record InstitutionRatingUserResult(
-    Guid UserId,
-    string Name,
-    string LastName,
-    string UserName,
-    string? AvatarUrl);

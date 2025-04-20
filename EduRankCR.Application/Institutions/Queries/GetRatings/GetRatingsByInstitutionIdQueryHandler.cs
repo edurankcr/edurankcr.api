@@ -1,4 +1,5 @@
-﻿using EduRankCR.Application.Common.Errors;
+﻿using EduRankCR.Application.Common;
+using EduRankCR.Application.Common.Errors;
 using EduRankCR.Application.Common.Interfaces;
 using EduRankCR.Application.Institutions.Common;
 
@@ -56,7 +57,7 @@ internal sealed class GetRatingsByInstitutionIdQueryHandler : IRequestHandler<Ge
                 r.CreatedAt,
                 r.UpdatedAt,
                 (byte)r.Status),
-            new InstitutionRatingUserResult(
+            new UserMinimalResult(
                 r.UserUserId,
                 r.UserName,
                 r.UserLastName,
