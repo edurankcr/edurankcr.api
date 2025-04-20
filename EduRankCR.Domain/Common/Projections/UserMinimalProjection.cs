@@ -1,6 +1,6 @@
-﻿namespace EduRankCR.Domain.Institutions.Projections;
+﻿namespace EduRankCR.Domain.Common.Projections;
 
-public class UserRatingProjection
+public class UserMinimalProjection
 {
     public Guid UserUserId { get; init; }
     public string UserName { get; init; } = null!;

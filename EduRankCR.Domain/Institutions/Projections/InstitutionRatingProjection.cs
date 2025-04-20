@@ -1,8 +1,9 @@
 ﻿using EduRankCR.Domain.Common.Enums;
+using EduRankCR.Domain.Common.Projections;
 
 namespace EduRankCR.Domain.Institutions.Projections;
 
-public sealed class InstitutionRatingProjection : UserRatingProjection
+public sealed class InstitutionRatingProjection : UserMinimalProjection
 {
     public Guid InstitutionRatingId { get; set; }
     public Guid InstitutionId { get; set; }
