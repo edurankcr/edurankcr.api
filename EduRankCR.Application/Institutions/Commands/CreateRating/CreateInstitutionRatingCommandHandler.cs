@@ -13,13 +13,16 @@ internal sealed class CreateInstitutionRatingCommandHandler
 {
     private readonly IInstitutionRatingRepository _institutionRatingRepository;
     private readonly IInstitutionRepository _institutionRepository;
+    private readonly IInstitutionRatingAggregateRepository _institutionRatingAggregateRepository;
 
     public CreateInstitutionRatingCommandHandler(
         IInstitutionRatingRepository institutionRatingRepository,
-        IInstitutionRepository institutionRepository)
+        IInstitutionRepository institutionRepository,
+        IInstitutionRatingAggregateRepository institutionRatingAggregateRepository)
     {
         _institutionRatingRepository = institutionRatingRepository;
         _institutionRepository = institutionRepository;
+        _institutionRatingAggregateRepository = institutionRatingAggregateRepository;
     }
 
     public async Task<ErrorOr<Unit>> Handle(
@@ -58,6 +61,8 @@ internal sealed class CreateInstitutionRatingCommandHandler
             status: Status.InReview);
 
         await _institutionRatingRepository.CreateRating(rating);
+
+        await _institutionRatingAggregateRepository.UpsertAggregate(request.InstitutionId);
 
         return Unit.Value;
     }

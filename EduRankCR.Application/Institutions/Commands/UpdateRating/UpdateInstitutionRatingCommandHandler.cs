@@ -10,10 +10,14 @@ internal sealed class UpdateInstitutionRatingCommandHandler
     : IRequestHandler<UpdateInstitutionRatingCommand, ErrorOr<Unit>>
 {
     private readonly IInstitutionRatingRepository _repository;
+    private readonly IInstitutionRatingAggregateRepository _institutionRatingAggregateRepository;
 
-    public UpdateInstitutionRatingCommandHandler(IInstitutionRatingRepository repository)
+    public UpdateInstitutionRatingCommandHandler(
+        IInstitutionRatingRepository repository,
+        IInstitutionRatingAggregateRepository institutionRatingAggregateRepository)
     {
         _repository = repository;
+        _institutionRatingAggregateRepository = institutionRatingAggregateRepository;
     }
 
     public async Task<ErrorOr<Unit>> Handle(UpdateInstitutionRatingCommand request, CancellationToken cancellationToken)
@@ -39,6 +43,8 @@ internal sealed class UpdateInstitutionRatingCommandHandler
             request.Facilities,
             request.Clubs,
             request.Testimony);
+
+        await _institutionRatingAggregateRepository.UpsertAggregate(request.InstitutionId);
 
         return Unit.Value;
     }
