@@ -28,4 +28,16 @@ public class InstitutionRatingAggregateRepository : IInstitutionRatingAggregateR
             new { InstitutionId = institutionId },
             commandType: CommandType.StoredProcedure);
     }
+
+    public async Task UpsertAggregate(Guid institutionId)
+    {
+        using var connection = _dbContext.CreateConnection();
+
+        const string procedure = "usp_InstitutionRatingAggregate_Upsert";
+
+        await connection.ExecuteAsync(
+            procedure,
+            new { InstitutionId = institutionId },
+            commandType: CommandType.StoredProcedure);
+    }
 }
