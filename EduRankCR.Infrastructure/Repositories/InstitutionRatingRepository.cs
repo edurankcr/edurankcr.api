@@ -86,4 +86,44 @@ public class InstitutionRatingRepository : IInstitutionRatingRepository
 
         return result == 1;
     }
+
+    public async Task Update(
+        Guid institutionRatingId,
+        Guid userId,
+        int? location,
+        int? happiness,
+        int? safety,
+        int? reputation,
+        int? opportunities,
+        int? internet,
+        int? food,
+        int? social,
+        int? facilities,
+        int? clubs,
+        string? testimony)
+    {
+        using var connection = _dbContext.CreateConnection();
+
+        const string procedure = "usp_InstitutionRating_Update";
+
+        var parameters = new DynamicParameters();
+        parameters.Add("@InstitutionRatingId", institutionRatingId);
+        parameters.Add("@UserId", userId);
+        parameters.Add("@Location", location);
+        parameters.Add("@Happiness", happiness);
+        parameters.Add("@Safety", safety);
+        parameters.Add("@Reputation", reputation);
+        parameters.Add("@Opportunities", opportunities);
+        parameters.Add("@Internet", internet);
+        parameters.Add("@Food", food);
+        parameters.Add("@Social", social);
+        parameters.Add("@Facilities", facilities);
+        parameters.Add("@Clubs", clubs);
+        parameters.Add("@Testimony", testimony);
+
+        await connection.ExecuteAsync(
+            procedure,
+            parameters,
+            commandType: CommandType.StoredProcedure);
+    }
 }
