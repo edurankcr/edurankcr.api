@@ -28,6 +28,18 @@ public class InstitutionRatingRepository : IInstitutionRatingRepository
             commandType: CommandType.StoredProcedure);
     }
 
+    public async Task<InstitutionRatingProjection?> GetByInstitutionAndUser(Guid institutionId, Guid userId)
+    {
+        using var connection = _dbContext.CreateConnection();
+
+        const string procedure = "usp_InstitutionRating_GetByInstitutionIdAndUserId";
+
+        return await connection.QueryFirstOrDefaultAsync<InstitutionRatingProjection>(
+            procedure,
+            new { InstitutionId = institutionId, UserId = userId },
+            commandType: CommandType.StoredProcedure);
+    }
+
     public async Task CreateRating(InstitutionRating rating)
     {
         using var connection = _dbContext.CreateConnection();

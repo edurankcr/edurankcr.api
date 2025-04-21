@@ -7,6 +7,7 @@ using EduRankCR.Application.Institutions.Queries.GetById;
 using EduRankCR.Application.Institutions.Queries.GetRatings;
 using EduRankCR.Application.Institutions.Queries.GetRelatedByProvince;
 using EduRankCR.Application.Institutions.Queries.GetSummary;
+using EduRankCR.Application.Institutions.Queries.GetSummaryUserRating;
 using EduRankCR.Contracts.Institutions.Requests;
 using EduRankCR.Contracts.Institutions.Responses;
 
@@ -123,6 +124,19 @@ public class InstitutionsController : BaseApiController
 
         return result.Match(
             _ => NoContent(),
+            Problem);
+    }
+
+    [HttpGet("{institutionId:guid}/ratings/me")]
+    public async Task<IActionResult> GetSummaryUserRating(Guid institutionId)
+    {
+        var userId = HttpContext.GetUserId();
+
+        var query = new GetSummaryUserRatingQuery(institutionId, userId);
+        var result = await _mediator.Send(query);
+
+        return result.Match(
+            value => Ok(_mapper.Map<InstitutionUserRatingResponse>(value)),
             Problem);
     }
 }
