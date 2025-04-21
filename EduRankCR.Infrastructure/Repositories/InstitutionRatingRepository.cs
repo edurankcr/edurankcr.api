@@ -28,6 +28,18 @@ public class InstitutionRatingRepository : IInstitutionRatingRepository
             commandType: CommandType.StoredProcedure);
     }
 
+    public async Task<InstitutionRatingProjection?> GetByInstitutionAndUser(Guid institutionId, Guid userId)
+    {
+        using var connection = _dbContext.CreateConnection();
+
+        const string procedure = "usp_InstitutionRating_GetByInstitutionIdAndUserId";
+
+        return await connection.QueryFirstOrDefaultAsync<InstitutionRatingProjection>(
+            procedure,
+            new { InstitutionId = institutionId, UserId = userId },
+            commandType: CommandType.StoredProcedure);
+    }
+
     public async Task CreateRating(InstitutionRating rating)
     {
         using var connection = _dbContext.CreateConnection();
@@ -73,5 +85,45 @@ public class InstitutionRatingRepository : IInstitutionRatingRepository
             commandType: CommandType.StoredProcedure);
 
         return result == 1;
+    }
+
+    public async Task Update(
+        Guid institutionRatingId,
+        Guid userId,
+        int? location,
+        int? happiness,
+        int? safety,
+        int? reputation,
+        int? opportunities,
+        int? internet,
+        int? food,
+        int? social,
+        int? facilities,
+        int? clubs,
+        string? testimony)
+    {
+        using var connection = _dbContext.CreateConnection();
+
+        const string procedure = "usp_InstitutionRating_Update";
+
+        var parameters = new DynamicParameters();
+        parameters.Add("@InstitutionRatingId", institutionRatingId);
+        parameters.Add("@UserId", userId);
+        parameters.Add("@Location", location);
+        parameters.Add("@Happiness", happiness);
+        parameters.Add("@Safety", safety);
+        parameters.Add("@Reputation", reputation);
+        parameters.Add("@Opportunities", opportunities);
+        parameters.Add("@Internet", internet);
+        parameters.Add("@Food", food);
+        parameters.Add("@Social", social);
+        parameters.Add("@Facilities", facilities);
+        parameters.Add("@Clubs", clubs);
+        parameters.Add("@Testimony", testimony);
+
+        await connection.ExecuteAsync(
+            procedure,
+            parameters,
+            commandType: CommandType.StoredProcedure);
     }
 }
